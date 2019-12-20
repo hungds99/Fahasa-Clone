@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,6 +65,14 @@ public class AdminAuthorController {
 		authorService.save(author);
 //		System.out.println(System.getProperty("user.dir")+ "/src/main/resources/static/images");
 		return "redirect:/Admin/Author/List";
+	}
+	
+	@PostMapping("/Author/DeleteSelected")
+	@ResponseBody
+	public String getDeleteSelected(@RequestBody List<Integer> authorIdsSelected) {
+		System.out.println(authorIdsSelected.toString());
+		authorService.deleteAllById(authorIdsSelected);
+		return "success";
 	}
 	
 	

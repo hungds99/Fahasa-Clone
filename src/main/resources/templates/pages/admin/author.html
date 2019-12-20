@@ -3,10 +3,10 @@
 	layout:decorate="~{admin-layout}">
 
 	<th:block layout:fragment="content">
-	
+
 		<!-- Quản lý danh mục -->
 		<div class="author-content">
-			
+
 			<div class="panel-group">
 				<div class="panel panel-search">
 					<div class="panel-body">
@@ -35,10 +35,15 @@
 								<a href="/Admin/Category/Create"
 									th:href="@{/Admin/Author/Create}">Thêm mới</a>
 							</button>
+							<button type="button" class="btn btn-danger btn-sm"
+								id="btn-delete-selected" data-toggle="modal"
+								data-target="#acceptDeleteModal">Xoá (Đã chọn)</button>
 						</div>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
+									<th scope="col"><input type="checkbox" id="select-all">
+									</th>
 									<th scope="col">Tên tác giả</th>
 									<th scope="col">Hình ảnh</th>
 									<th scope="col">Thông tin</th>
@@ -53,7 +58,8 @@
 							<ul class="pagination" id="pagination">
 								<li class="page-item" data-page-idx=-1><a class="page-link">Previous</a>
 								</li>
-								<li class="page-item active" data-page-idx=1><a class="page-link">1</a></li>
+								<li class="page-item active" data-page-idx=1><a
+									class="page-link">1</a></li>
 								<li class="page-item" data-page-idx=2><a class="page-link">2</a></li>
 								<li class="page-item" data-page-idx=3><a class="page-link">3</a></li>
 								<li class="page-item" data-page-idx=+1><a class="page-link">Next</a></li>
@@ -68,95 +74,178 @@
 
 		</div>
 		<!-- End -->
-		
+
 		<!-- Modal -->
-		
-			<!-- * Delete *  -->
-			<div class="modal fade" id="acceptDelete" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="acceptDeleteLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-body">
-			        <h5>Bạn đã chắc chắn xóa Tác Giả ?</h5>
-			        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
-			        <button type="button" class="btn btn-danger btn-sm">Xóa</button>
-			      </div>
-			    </div>
-			  </div>
+
+		<!-- * Delete *  -->
+		<div class="modal fade" id="acceptDeleteModal" data-backdrop="static"
+			tabindex="-1" role="dialog" aria-labelledby="acceptDeleteLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h5>Bạn đã chắc chắn xóa Tác Giả ?</h5>
+						<button type="submit" class="btn btn-danger btn-sm"
+							id="accept-delete" data-dismiss="modal">Xóa</button>
+						<button type="button" class="btn btn-secondary btn-sm offset-2"
+							data-dismiss="modal">Đóng</button>
+					</div>
+				</div>
 			</div>
-		
+		</div>
+
 		<!-- End Modal -->
-		
+
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script>
-			window.onload  = loadAuthorList();
-			
-			let btn_search = document.getElementById('btn-search');
-			btn_search.addEventListener('click', loadAuthorList);
-			
-			function loadAuthorList() {
 				
-				let authorNameSearch = document.getElementById('authorNameSearch');
-				let labelPage = document.getElementsByClassName("page-item active")[0];
-				let currentPage = labelPage.getAttribute('data-page-idx');
+				window.onload = loadAuthorList();
 				
-				const params = new URLSearchParams();
-		        params.append("keyword", authorNameSearch.value);
-		        params.append('page', currentPage);
+				/* Search And Render Data */
+				let btn_search = document.getElementById('btn-search');
+				btn_search.addEventListener('click', loadAuthorList);
 				
-				axios.post('/Admin/Author/List',params)
-				  .then(function (response) {
-					  renderAuthors(response.data);
-				  })
-				  .catch(function (error) {
-				    console.log(error);
-				  });
+				function loadAuthorList() {
+					
+					let authorNameSearch = document.getElementById('authorNameSearch');
+					let labelPage = document.getElementsByClassName("page-item active")[0];
+					let currentPage = labelPage.getAttribute('data-page-idx');
+					
+					const params = new URLSearchParams();
+			        params.append("keyword", authorNameSearch.value);
+			        params.append('page', currentPage);
+					
+					axios.post('/Admin/Author/List',params)
+					  .then(function (response) {
+						  renderAuthors(response.data);
+					  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				};
 				
-			}
-			
-			function renderAuthors(authors) {
-				let tbody = document.getElementById('tbody');
-				let contents = '';
-				authors.forEach(author => {
-					contents += `
-						<tr>
-						<td>${author.authorName}</td>
-						<td>
-							<img width=160 height=100 src="/images/${author.authorImage}" />
-						</td>
-						<td>${author.authorInfo}</td>
-						<td>
-							<a href="/Admin/Author/Edit/${author.id}">
-								<i class="fa fa-edit">  </i>
-							</a>
-							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#acceptDelete">
-								<i class="fa fa-trash-alt"> </i>
-							</button>
-						</td>
-					</tr>
-					`
-				});
-				tbody.innerHTML = contents;
-			}
-			
-			
-			// PAGINATION
-			
-			let paginationUl = document.getElementById('pagination');
-			
-			paginationUl.addEventListener('click', function(event) {
-				let elactive = paginationUl.getElementsByClassName("page-item active")[0];
-				let el = event.target.parentElement;
-				if(el.matches('.page-item')) {
-					elactive.classList.remove("active");
-					console.log(el.getAttribute("data-page-idx"));
-					el.classList.add("active");
-					loadAuthorList();
+				function renderAuthors(authors) {
+					let tbody = document.getElementById('tbody');
+					let contents = '';
+					authors.forEach(author => {
+						contents += `
+							<tr>
+							<td>
+								<input type="checkbox" value=${author.id} class="checkBoxGroups" >
+							</td>
+							<td>${author.authorName}</td>
+							<td>
+								<img width=160 height=100 src="/images/${author.authorImage}" />
+							</td>
+							<td>${author.authorInfo}</td>
+							<td>
+								<a href="/Admin/Author/Edit/${author.id}">
+									<i class="fa fa-edit">  </i>
+								</a>
+							</td>
+						</tr>
+						`
+					});
+					tbody.innerHTML = contents;
+					actSelectAll();
 				}
-			});
+				
+				
+				// PAGINATION
+				
+				let paginationUl = document.getElementById('pagination');
+				
+				paginationUl.addEventListener('click', function(event) {
+					let elactive = paginationUl.getElementsByClassName("page-item active")[0];
+					let el = event.target.parentElement;
+					if(el.matches('.page-item')) {
+						elactive.classList.remove("active");
+						console.log(el.getAttribute("data-page-idx"));
+						el.classList.add("active");
+						loadAuthorList();
+					}
+				});
+				
+				// SELECT ALL
+				
+				function actSelectAll() {
+					let select_all = document.getElementById("select-all");
+					
+					select_all.addEventListener('click', function () {
+						let checked = this.getAttribute('checked');
+						let checkBoxs = document.querySelectorAll('.checkBoxGroups');
+						
+						if(checked === null) {
+							checkBoxs.forEach((checkBox) => {
+								if(checkBox.checked !== true) {
+									checkBox.checked = true;
+								}
+							});
+							this.setAttribute('checked', '');
+						} else {
+							checkBoxs.forEach((checkBox) => {
+								if(checkBox.checked === true) {
+									checkBox.checked = false;
+								}
+							});
+							this.removeAttribute('checked');
+						}
+						
+						
+					});
+					
+				}
+				
+				// DELETE SELECTED
+				
+				let authorIds = [];
+				
+				let btn_delete_selected = document.getElementById('btn-delete-selected');
+				
+				btn_delete_selected.addEventListener('click', actDeleteSelect );
+				
+				function actDeleteSelect() {
+					let checkBoxs = document.querySelectorAll('.checkBoxGroups');
+				
+					
+					checkBoxs.forEach((checkBox) => {
+						if(checkBox.checked === true) {
+							console.log(checkBox.value);
+							authorIds.push(checkBox.value);
+						}
+					})
+					
+					console.log(authorIds);
+				}
+				
+				// ACCEPT DELETE
+				
+				let accept_delete = document.getElementById('accept-delete');
+				
+				accept_delete.addEventListener('click', acceptDelete);
+				
+				function acceptDelete() {
+					
+					axios.post('/Admin/Author/DeleteSelected', authorIds)
+					  .then(function (response) {
+						  loadAuthorList();
+					  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				}
+				
+				
+			
+			
+			
+			
 			
 			
 		</script>
-		
+
 	</th:block>
 
 </th:block>

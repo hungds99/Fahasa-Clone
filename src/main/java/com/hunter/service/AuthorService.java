@@ -14,4 +14,6 @@ public interface AuthorService {
 	
 	public void save(Author author);
 	
+	public void deleteAllById(List<Integer> authorIds);
+	
 }

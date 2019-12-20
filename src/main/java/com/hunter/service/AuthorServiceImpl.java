@@ -1,5 +1,6 @@
 package com.hunter.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -34,6 +35,19 @@ public class AuthorServiceImpl implements AuthorService {
 	@Override
 	public void save(Author author) {
 		authorRepository.save(author);
+	}
+
+	@Override
+	@Transactional
+	public void deleteAllById(List<Integer> authorIds) {
+		List<Author> authors = new ArrayList<Author>();
+		
+		for (Integer authorId : authorIds) {
+			Author author = new Author();
+			author.setId(authorId);
+			authors.add(author);
+		}
+		authorRepository.deleteAll(authors);
 	}
 	
 }
