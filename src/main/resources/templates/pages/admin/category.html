@@ -1,0 +1,140 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản lý danh mục -->
+		<div class="category-content">
+			<div class="panel-group">
+				<div class="panel panel-search">
+					<div class="panel-body">
+						<div class="search-row">
+							<i class="fa fa-search"></i> <span>Tìm Kiếm</span>
+						</div>
+						<div class="search-body">
+							<div class="form-group row">
+								<label for="categoryNameSearch" class="col-sm-2 col-form-label">
+									Tên danh mục </label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="categoryNameSearch">
+								</div>
+							</div>
+							<div class="offset-2">
+								<button type="button" class="btn btn-primary btn-sm"
+									id="btn-search">Tìm kiếm</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-table">
+					<div class="panel-body">
+						<div class="text-right mb-2">
+							<button type="button" class="btn btn-success btn-sm">
+								<a href="/Admin/Category/Create"
+									th:href="@{/Admin/Category/Create}">Thêm mới</a>
+							</button>
+						</div>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col">Tên danh mục</th>
+									<th scope="col">Tiêu đề</th>
+									<th scope="col">Breadcrumb</th>
+									<th scope="col">Mô tả</th>
+									<th scope="col">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<!-- Insert Data -->
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination" id="pagination">
+								<li class="page-item"  data-page-idx=-1><a class="page-link">Previous</a>
+								</li>
+								<li class="page-item active" data-page-idx=1><a class="page-link">1</a></li>
+								<li class="page-item" data-page-idx=2><a class="page-link">2</a></li>
+								<li class="page-item" data-page-idx=3><a class="page-link">3</a></li>
+								<li class="page-item" data-page-idx=+1><a class="page-link">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- End -->
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+			window.onload  = loadCategoryList();
+			
+			let btn_search = document.getElementById('btn-search');
+			btn_search.addEventListener('click', loadCategoryList);
+			
+			function loadCategoryList() {
+				
+				let categoryNameSearch = document.getElementById('categoryNameSearch');
+				let labelPage = document.getElementsByClassName("page-item active")[0];
+				let currentPage = labelPage.getAttribute('data-page-idx');
+				
+				const params = new URLSearchParams();
+		        params.append("keyword", categoryNameSearch.value);
+		        params.append('page', currentPage);
+				
+				axios.post('/Admin/Category/List',params)
+				  .then(function (response) {
+				    renderCategories(response.data);
+				  })
+				  .catch(function (error) {
+				    console.log(error);
+				  });
+				
+			}
+			
+			function renderCategories(categories) {
+				let tbody = document.getElementById('tbody');
+				let contents = '';
+				categories.forEach(category => {
+					contents += `
+						<tr>
+						<td>${category.categoryName}</td>
+						<td>${category.title}</td>
+						<td>${category.categoryBreadcrumb}</td>
+						<td>${category.descriptions}</td>
+						<td>
+							<a href="/Admin/Category/Edit/${category.id}">
+								<i class="fa fa-edit">  </i>
+							</a>
+							<a href="/Admin/Category/Delete/${category.id}">
+								<i class="fa fa-trash-alt"> </i>
+							</a>
+						</td>
+					</tr>
+					`
+				});
+				tbody.innerHTML = contents;
+			}
+			
+			// PAGINATION
+			
+			let paginationUl = document.getElementById('pagination');
+			
+			paginationUl.addEventListener('click', function(event) {
+				let elactive = paginationUl.getElementsByClassName("page-item active")[0];
+				let el = event.target.parentElement;
+				if(el.matches('.page-item')) {
+					elactive.classList.remove("active");
+					console.log(el.getAttribute("data-page-idx"));
+					el.classList.add("active");
+					loadCategoryList();
+				}
+			});
+			
+			
+		</script>
+
+	</th:block>
+
+</th:block>

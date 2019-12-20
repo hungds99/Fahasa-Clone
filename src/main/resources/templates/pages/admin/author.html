@@ -1,0 +1,162 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+	
+		<!-- Quản lý danh mục -->
+		<div class="author-content">
+			
+			<div class="panel-group">
+				<div class="panel panel-search">
+					<div class="panel-body">
+						<div class="search-row">
+							<i class="fa fa-search"></i> <span>Tìm Kiếm</span>
+						</div>
+						<div class="search-body">
+							<div class="form-group row">
+								<label for="authorNameSearch" class="col-sm-2 col-form-label">
+									Tên tác giả </label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="authorNameSearch">
+								</div>
+							</div>
+							<div class="offset-2">
+								<button type="button" class="btn btn-primary btn-sm"
+									id="btn-search">Tìm kiếm</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-table">
+					<div class="panel-body">
+						<div class="text-right mb-2">
+							<button type="button" class="btn btn-success btn-sm">
+								<a href="/Admin/Category/Create"
+									th:href="@{/Admin/Author/Create}">Thêm mới</a>
+							</button>
+						</div>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col">Tên tác giả</th>
+									<th scope="col">Hình ảnh</th>
+									<th scope="col">Thông tin</th>
+									<th scope="col">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<!-- Insert Data -->
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination" id="pagination">
+								<li class="page-item" data-page-idx=-1><a class="page-link">Previous</a>
+								</li>
+								<li class="page-item active" data-page-idx=1><a class="page-link">1</a></li>
+								<li class="page-item" data-page-idx=2><a class="page-link">2</a></li>
+								<li class="page-item" data-page-idx=3><a class="page-link">3</a></li>
+								<li class="page-item" data-page-idx=+1><a class="page-link">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!-- End -->
+		
+		<!-- Modal -->
+		
+			<!-- * Delete *  -->
+			<div class="modal fade" id="acceptDelete" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="acceptDeleteLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <h5>Bạn đã chắc chắn xóa Tác Giả ?</h5>
+			        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
+			        <button type="button" class="btn btn-danger btn-sm">Xóa</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		
+		<!-- End Modal -->
+		
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+			window.onload  = loadAuthorList();
+			
+			let btn_search = document.getElementById('btn-search');
+			btn_search.addEventListener('click', loadAuthorList);
+			
+			function loadAuthorList() {
+				
+				let authorNameSearch = document.getElementById('authorNameSearch');
+				let labelPage = document.getElementsByClassName("page-item active")[0];
+				let currentPage = labelPage.getAttribute('data-page-idx');
+				
+				const params = new URLSearchParams();
+		        params.append("keyword", authorNameSearch.value);
+		        params.append('page', currentPage);
+				
+				axios.post('/Admin/Author/List',params)
+				  .then(function (response) {
+					  renderAuthors(response.data);
+				  })
+				  .catch(function (error) {
+				    console.log(error);
+				  });
+				
+			}
+			
+			function renderAuthors(authors) {
+				let tbody = document.getElementById('tbody');
+				let contents = '';
+				authors.forEach(author => {
+					contents += `
+						<tr>
+						<td>${author.authorName}</td>
+						<td>
+							<img width=160 height=100 src="/images/${author.authorImage}" />
+						</td>
+						<td>${author.authorInfo}</td>
+						<td>
+							<a href="/Admin/Author/Edit/${author.id}">
+								<i class="fa fa-edit">  </i>
+							</a>
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#acceptDelete">
+								<i class="fa fa-trash-alt"> </i>
+							</button>
+						</td>
+					</tr>
+					`
+				});
+				tbody.innerHTML = contents;
+			}
+			
+			
+			// PAGINATION
+			
+			let paginationUl = document.getElementById('pagination');
+			
+			paginationUl.addEventListener('click', function(event) {
+				let elactive = paginationUl.getElementsByClassName("page-item active")[0];
+				let el = event.target.parentElement;
+				if(el.matches('.page-item')) {
+					elactive.classList.remove("active");
+					console.log(el.getAttribute("data-page-idx"));
+					el.classList.add("active");
+					loadAuthorList();
+				}
+			});
+			
+			
+		</script>
+		
+	</th:block>
+
+</th:block>

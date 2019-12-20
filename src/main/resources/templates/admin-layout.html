@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block layout:insert="~{fragments/admin/headTag}" />
+
+<body>
+
+	<!-- * ADMIN MANAGER * -->
+	<div class="wrapper">
+		<div class="row">
+			<!-- * SideBar Left * -->
+			<th:block layout:insert="~{fragments/admin/sidebar}" />
+
+			<!-- * Content Right * -->
+			<div class="col col-10 pl-0 tab-right">
+				<div class="content-right">
+					<!-- Header -->
+					<th:block layout:insert="~{fragments/admin/header}" />
+
+					<div class="main-container">
+						<div class="container">
+
+							<!-- Breadcrumb -->
+							<th:block layout:insert="~{fragments/admin/breadcrumb}" />
+							<!-- End -->
+
+							<th:block layout:fragment="content" />
+
+						</div>
+					</div>
+
+					<th:block layout:insert="~{fragments/admin/footer}" />
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<th:block layout:insert="~{fragments/admin/scriptTag}" />
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+<nav aria-label="breadcrumb" xmlns:th="http://www.thymeleaf.org">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="#" th:href="@{/Admin/Dashboard}">Điều
+				khiển</a></li>
+		<!-- <li class="breadcrumb-item"><a href="">Library</a></li> -->
+		<li class="breadcrumb-item active" aria-current="page"
+			th:text="${breadcrumb}">current ()</li>
+	</ol>
+</nav>

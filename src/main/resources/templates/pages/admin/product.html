@@ -1,0 +1,234 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản Lý Sản Phẩm -->
+		<div class="products-content">
+
+			<div class="block p-3">
+				<h5 class="mb-2">Bộ lọc :</h5>
+				<div class="row">
+					<div class="form-group col-3">
+						<select class="form-control" id="category">
+							<option value=0>- Danh mục sản phẩm -</option>
+							
+							<th:block th:each="category : ${categories}">
+								<option value="${category.id}" th:text="${category.categoryName}"></option>
+							</th:block>
+							
+					
+						</select>
+					</div>
+					<div class="form-group col-2">
+						<select class="form-control" id="price">
+							<option value=0>- Giá -</option>
+							<option value=1>Tăng dần</option>
+							<option value=2>Giảm dần</option>
+						</select>
+					</div>
+					<div class="form-group col-2">
+						<select class="form-control" id="amount">
+							<option value=0>- Số lượng -</option>
+							<option value=1>Tăng dần</option>
+							<option value=2>Giảm dần</option>
+						</select>
+					</div>
+					<div class="form-group col-2">
+						<select class="form-control" id="status">
+							<option value=0>- Trạng thái -</option>
+							<option value=1>Còn hàng</option>
+							<option value=2>Hết hàng</option>
+							<option value=3>Chưa bán</option>
+						</select>
+					</div>
+					<div class="form-check form-check-inline col-1">
+						<input class="form-check-input" type="checkbox" id="highlight"
+							value=1> <label class="form-check-label" for="highlight">Nổi
+							bật</label>
+					</div>
+					<div class="form-check form-check-inline col-1">
+						<input class="form-check-input" type="checkbox" id="isshowed"
+							value=1> <label class="form-check-label" for="isshowed">Hiển
+							thị</label>
+					</div>
+					<div class="form-group col-3 row">
+						<label class="form-label col-3" for="fromDate">Từ</label> <input
+							type="date" class="form-control col-9" id="fromDate">
+					</div>
+					<div class="form-group col-3 row">
+						<label class="form-label col-3" for="toDate">Đến</label> <input
+							type="date" class="form-control col-9" id="toDate">
+					</div>
+					<div class="form-group col-3">
+						<select class="form-control" id="records">
+							<option value=0>- Số bản ghi hiển thị -</option>
+							<option value=25>25</option>
+							<option value=50>50</option>
+							<option value=75>75</option>
+							<option value=100>100</option>
+						</select>
+					</div>
+
+					<div class="form-group col-11 form-search">
+						<input class="form-control" type="text"
+							placeholder="Nhập tên tìm kiếm.." id="keyword"> <span>
+							<i class="fas fa-search" aria-hidden="true"></i>
+						</span>
+					</div>
+				</div>
+
+				<div class="text-center">
+					<button type="button" class="btn btn-warning btn-sm"
+						id="btn-search">Tìm kiếm</button>
+				</div>
+			</div>
+
+			<div class="block mt-4">
+				<div class="col-12">
+					<div class="mt-2 mb-2 float-right">
+						<button type="button" class="btn btn-success btn-sm">
+							<i class="fas fa-plus"></i> 
+							<span class="1"> 
+								<a href="#" th:href="@{/Admin/Product/Create}">Thêm mới</a>
+							</span>
+						</button>
+
+						<button type="button" class="btn btn-primary btn-sm ms-center">
+							<i class="fas fa-redo-alt"></i> <span>Làm mới</span>
+						</button>
+					</div>
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Mã</th>
+							<th scope="col">Danh mục</th>
+							<th scope="col">Tên sản phẩm</th>
+							<th scope="col">Hình ảnh</th>
+							<th scope="col">Nổi bật</th>
+							<th scope="col">Hiển thị</th>
+							<th scope="col">Nội dung</th>
+							<th scope="col">Thao tác</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						<!-- Product List Insert -->
+					</tbody>
+				</table>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" data-page-idx=-1>Previous</a>
+						</li>
+						<li class="page-item active"><a class="page-link" data-page-idx=1>1</a></li>
+						<li class="page-item"><a class="page-link" data-page-idx=2>2</a></li>
+						<li class="page-item"><a class="page-link" data-page-idx=3>3</a></li>
+						<li class="page-item"><a class="page-link" data-page-idx=+1>Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!-- End -->
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript">
+			window.onload = loadProductList();
+			
+			let btn_search = document.getElementById('btn-search');
+			btn_search.addEventListener('click', loadProductList);
+			
+			function loadProductList() {
+				let category = document.getElementById('category');
+				let price = document.getElementById('price');
+				let amount = document.getElementById('amount');
+				let status = document.getElementById('status');
+				let highlight = document.getElementById('highlight');
+				let isshowed = document.getElementById('isshowed');
+				let fromDate = document.getElementById('fromDate');
+				let toDate = document.getElementById('toDate');
+				let records = document.getElementById('records');
+				let keyword = document.getElementById('keyword');
+				let labelPage = document.getElementsByClassName("page-item active")[0];
+				let currentPage = labelPage.childNodes[0].getAttribute('data-page-idx');
+				
+				let searchForm = {
+					category: category.value,
+					price: price.value,
+					amount: amount.value,
+					status: status.value,
+					highlight: highlight.value,
+					isshowed: isshowed.value,
+					fromDate: fromDate.value,
+					toDate: toDate.value,
+					records: records.value,
+					keyword: keyword.value,
+					currentPage: currentPage
+				};
+				
+				console.table(searchForm);
+				
+				axios.post('/Admin/Product/List', searchForm)
+				  .then(function (response) {
+					  console.log(response.data);
+				      renderProducts(response.data);
+				  })
+				  .catch(function (error) {
+				    console.log(error);
+				  });
+			}
+			
+			function renderProducts(products) {
+				let tbody = document.getElementById('tbody');
+				let contents = '';
+				console.log(products[0].highlight);
+				console.log(products[0].isshowed);
+				products.forEach(product => {
+					contents += `
+						<tr>
+						<th scope="row">${product.productCode}</th>
+						<td>${product.categoryName}</td>
+						<td>${product.productName}</td>
+						<td>
+							<img width=100 height=100 src="/images/${product.imageUrl}" alt="${product.imageAlt}">
+						</td>
+						<td class="text-center">
+							${product.highlight === true ? '<i class="far fa-check-circle text-success"></i>' : '<i class="fas fa-times text-danger"></i>'}
+						</td>
+						<td class="text-center">
+							${product.isshowed === true ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>'}
+						</td>
+						<td>
+							<ul>
+								<li>
+									<button type="button" class="btn btn-success btn-sm">
+										Click để xem chi tiết 
+										<span> 
+											<i class="fas fa-mouse-pointer"></i>
+										</span>
+									</button>
+								</li>
+								<li>Giá: ${product.price} vnd</li>
+								<li>Khuyến mãi: ${product.finalPrice} vnd | discount: ${product.discountValue}</li>
+								<li>Ngày thêm : ${product.createDate}</li>
+								<li>Số lượng : ${product.amount}</li>
+								<li>Trạng thái : ${product.productStatus}</li>
+							</ul>
+						</td>
+						<td>
+							<i class="fas fa-edit"></i> 
+							<i class="fas fa-trash-alt"></i>
+						</td>
+					</tr>
+					`;
+				})
+				
+				tbody.innerHTML = contents;
+				
+			}
+			
+		</script>
+
+	</th:block>
+
+</th:block>

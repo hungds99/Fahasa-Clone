@@ -1,0 +1,105 @@
+
+<div class="col col-2 pr-0 shadow" xmlns:th="http://www.thymeleaf.org">
+	<div class="sidebar">
+		<div class="admin">
+
+			<div class="info">
+				<div class="avatar">
+					<i class="fas fa-user-shield fa-2x"></i>
+				</div>
+				<h5>Admin Name</h5>
+			</div>
+
+			<div class="control-panel m-center">
+				<i class="fas fa-table"></i> <span class="ml-2"> <a href="#"
+					th:href="@{/Admin/Dashboard}">Bảng điều khiển</a>
+				</span>
+			</div>
+
+			<div class="sales-manager">
+				<div class="main m-center">
+					<i class="fab fa-battle-net ml-1"></i> <span class="ml-2"> <a
+						href="#" th:href="@{productsmanager}">Mục Lục</a>
+					</span>
+				</div>
+
+				<div class="other">
+					<div class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2"> <a
+							href="#" th:href="@{/Admin/Category/List}">Danh mục</a>
+						</span>
+					</div>
+
+					<div id="s_tab_products" class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2"> <a
+							href="#" th:href="@{/Admin/Product/List}">Sản phẩm</a>
+						</span>
+					</div>
+
+					<div class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2">Khuyến
+							mãi - Giảm giá</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="ware-manager">
+				<div class="main m-center">
+					<i class="fab fa-battle-net ml-1"></i> <span class="ml-2">Quản
+						Lý Kho Hàng</span>
+				</div>
+
+				<div class="other">
+					<div class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2">
+						<a href="#" th:href="@{/Admin/Author/List}">Tác Giả</a>
+						</span>
+					</div>
+
+					<div class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2">Nhà
+							Xuất Bản</span>
+					</div>
+
+					<div class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2">Nhà
+							Cung Cấp</span>
+					</div>
+
+					<div class="m-center">
+						<i class="fas fa-list ml-1"></i> <span class="ml-2">Nhà Sản
+							Xuất</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="customer-manager">
+				<div class="main m-center">
+					<i class="fab fa-battle-net ml-1"></i> <span class="ml-2">Quản
+						Lý Khách Hàng</span>
+				</div>
+
+				<div class="other"></div>
+			</div>
+
+			<div class="order-manager">
+				<div class="main m-center">
+					<i class="fab fa-battle-net ml-1"></i> <span class="ml-2">Quản
+						Lý Đơn Hàng</span>
+				</div>
+
+				<div class="other"></div>
+			</div>
+
+			<div class="revenue-manager">
+				<div class="main m-center">
+					<i class="fab fa-battle-net ml-1"></i> <span class="ml-2">Quản
+						Lý Doanh Thu</span>
+				</div>
+
+				<div class="other"></div>
+			</div>
+
+		</div>
+	</div>
+</div>

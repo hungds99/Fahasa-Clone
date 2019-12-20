@@ -1,0 +1,327 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Thêm mới sản phẩm -->
+		<div class="add-product-content content p-3 mb-5">
+			<div class="row p-3">
+
+				<div class="accordion" id="accordionExample" style="width: 100%">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h2 class="mb-0">
+								<button class="btn btn-link" type="button"
+									data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="true" aria-controls="collapseOne">
+									Thông tin sản phẩm</button>
+							</h2>
+						</div>
+
+						<div id="collapseOne" class="collapse show"
+							aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body">
+
+								<form th:action="@{/Admin/Product/Save}" th:object="${product}"
+									method="post">
+									<input type="hidden" th:field="*{id}">
+									<div class="form-row">
+										<div class="form-group col-6">
+											<label for="p_code">Mã sản phẩm</label> <input type="text"
+												class="form-control" id="p_code" th:field="*{productCode}">
+										</div>
+
+										<div class="form-group col-6">
+											<label for="category">Danh mục sản phẩm</label> <select
+												class="form-control" name="category">
+												<th:block th:each="category : ${categories}">
+													<option th:value="${category.id}"
+														th:text="${category.categoryName}">
+													</option>
+													
+													<!-- 
+														th:selected="${product.categoryId} == ${category.id}" -->
+												</th:block>
+											</select>
+										</div>
+
+										<div class="form-group col-6">
+											<label for="p_name">Tên sản phẩm</label> <input type="text"
+												class="form-control" id="p_name" th:field="*{productName}">
+										</div>
+
+
+										<div class="form-group col-6">
+											<label for="p_price">Giá tiền</label> <input type="text"
+												class="form-control" id="p_price" th:field="*{productPrice}">
+										</div>
+
+										<div class="form-group col-6">
+											<label for="p_amount">Số lượng</label> <input type="text"
+												class="form-control" id="p_amount"
+												th:field="*{productAmount}">
+										</div>
+
+										<div class="form-group col-6">
+											<label for="applyPromotion">Áp dụng khuyến mãi</label> <select
+												id="applyPromotion" class="form-control" name="discount">
+												<option value="">- Không có khuyến mãi -</option>
+												<th:block th:each="discount : ${discounts}">
+													<option th:value="${discount.id}"
+														th:text="${discount.discountName}">
+													</option>
+											</select>
+										</div>
+
+										<div class="form-group col-6">
+											<label for="productStatus">Trạng thái</label> <select
+												id="productStatus" class="form-control"
+												th:field="*{productStatus}">
+												<option th:value=1>Còn Hàng</option>
+												<option th:value=2>Hết Hàng</option>
+												<option th:value=3>Sắp Mở Bán</option>
+											</select>
+										</div>
+
+										<div class="offset-1 col-2 mt-4">
+											<label for="highlight" style="display: flex;">Nổi bật</label>
+											<input type="checkbox" id="highlight" th:field="*{highlight}">
+
+										</div>
+
+										<div class="col-2 mt-4">
+											<label for="isshowed" style="display: flex;">Hiển thị</label>
+											<input type="checkbox" id="isshowed" th:field="*{isshowed}">
+										</div>
+
+										<div class="form-group col-12">
+											<label for="p_content">Giới Thiệu Nội Dung Sản Phẩm</label>
+											<textarea class="form-control" id="p_content" rows="6"
+												th:field="*{productContent}"></textarea>
+										</div>
+
+										<div class="form-group col-12 text-center">
+											<button type="submit" class="btn btn-success btn-sm">Lưu</button>
+										</div>
+
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header" id="headingTwo">
+							<h2 class="mb-0">
+								<button class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapseTwo"
+									aria-expanded="false" aria-controls="collapseTwo">
+									Thuộc tính</button>
+							</h2>
+						</div>
+						<div id="collapseTwo" class="collapse"
+							aria-labelledby="headingTwo" data-parent="#accordionExample">
+							<div class="card-body">
+
+								<th:block th:if="${productattribute == 0}">
+									<div>
+										<h1>Lưu sản phẩm trước</h1>
+									</div>
+								</th:block>
+
+								<th:block th:if="${productattribute != 0}">
+									<form th:action="@{/Admin/ProductAttributeMapping/Save}"
+										th:object="${productattribute}" method="post">
+										<input type="hidden" class="form-control" name="productId"
+											th:value="${product.id}">
+										<div class="form-row">
+
+											<div class="form-group col-6">
+												<label for="p_code">Mã sản phẩm</label> <input type="text"
+													class="form-control" name="attrCode"
+													th:value="${product.productCode}" disabled="disabled">
+											</div>
+
+											<div class="form-group col-6">
+												<label for="author">Tác giả</label> <select
+													class="form-control" id="author" name="authorId">
+													<th:block th:each="author : ${authors}">
+														<option th:value="${author.id}"
+															th:text="${author.authorName}"
+															th:selected="${productattribute.authorId} == ${author.id}"></option>
+													</th:block>
+
+												</select>
+											</div>
+
+											<div class="form-group col-6">
+												<label for="supplier">Tên Nhà Cung Cấp</label> <select
+													class="form-control" id="supplier" name="supplierId">
+													<th:block th:each="supplier : ${suppliers}">
+														<option th:value="${supplier.id}"
+															th:text="${supplier.supplierName}"
+															th:selected="${productattribute.supplierId} == ${supplier.id}"></option>
+													</th:block>
+												</select>
+											</div>
+
+											<div class="form-group col-6">
+												<label for="publisher">Nhà xuất bản</label> <select
+													class="form-control" id="publisher" name="publisherId">
+													<th:block th:each="publisher : ${publishers}">
+														<option th:value="${publisher.id}"
+															th:text="${publisher.publisherName}"
+															th:selected="${productattribute.publisherId} == ${publisher.id}"></option>
+													</th:block>
+
+												</select>
+											</div>
+
+											<div class="form-group col-6">
+												<label for="publisher_year">Năm xuất bản</label> <select
+													class="form-control" id="publisher_year" name="publishYear">
+													<th:block th:each="i : ${#numbers.sequence(1900, 2019)}">
+														<option th:value="${i}" th:text="${i}" th:selected="${i} == ${productattribute.publishYear}"></option>
+													</th:block>
+												</select>
+											</div>
+
+											<div class="form-group col-6">
+												<label for="attr_language">Ngôn ngữ</label> <select
+													class="form-control" id="attr_language" name="attrLanguage">
+													<option value="EN"
+														th:selected="${productattribute.attrLanguage} == 'EN'">Tiếng
+														Anh</option>
+													<option value="EN-VN"
+														th:selected="${productattribute.attrLanguage} == 'EN-VN'">Song
+														Ngữ Anh - Việt</option>
+													<option value="VN"
+														th:selected="${productattribute.attrLanguage} == 'VN'">Tiếng
+														Việt</option>
+												</select>
+											</div>
+
+											<div class="form-group col-6">
+												<label for="attr_size">Kích thước</label> <input type="text"
+													class="form-control" id="attr_size" name="attrSize"
+													th:field="*{attrSize}">
+											</div>
+
+											<div class="form-group col-6">
+												<label for="attr_layout">Hình thức</label> <input
+													type="text" class="form-control" id="attr_layout"
+													name="attrLayout" th:field="*{attrLayout}">
+											</div>
+
+
+											<div class="form-group col-12 text-center">
+												<button type="submit" class="btn btn-success btn-sm">Lưu</button>
+											</div>
+
+										</div>
+									</form>
+								</th:block>
+
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header" id="headingThree">
+							<h2 class="mb-0">
+								<button class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapseThree"
+									aria-expanded="false" aria-controls="collapseThree">
+									Hình ảnh</button>
+							</h2>
+						</div>
+						<div id="collapseThree" class="collapse"
+							aria-labelledby="headingThree" data-parent="#accordionExample">
+							<div class="card-body">
+
+								<th:block th:if="${images == 0}">
+									<div>
+										<h1>Lưu sản phẩm trước</h1>
+									</div>
+								</th:block>
+
+								<th:block th:if="${images != 0}">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th scope="col">ImageId</th>
+												<th scope="col">Hình Ảnh</th>
+												<th scope="col">Tiêu đề</th>
+												<th scope="col">Thứ tự hiển thị</th>
+												<th scope="col">Thao tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											<th:block th:each="i : ${images}">
+												<tr>
+													<th scope="row" th:text="${i.id}"></th>
+													<td><img th:src="@{/images/} + ${i.imageUrl}"
+														width="100" height="100" /></td>
+													<td th:text="${i.imageAlt}"></td>
+													<td th:text="${i.displayOrder}"></td>
+													<td><a
+														th:href="@{/Admin/ProductImageMapping/Delete(imageId=${i.id}, productId=${product.id})}">
+															<i class="fa fa-trash-alt"> </i>
+													</a></td>
+												</tr>
+											</th:block>
+
+										</tbody>
+									</table>
+
+									<div class="bg-light">
+										<form th:action="@{/Admin/ProductImageMapping/Save}"
+											th:object="${image}" method="Post"
+											enctype="multipart/form-data">
+											<input type="hidden" class="form-control" name="product"
+												th:value="${product.id}">
+											<div class="form-row p-2">
+												<div class="form-group col-6">
+													<label for="p_imageAlt">Tiêu đề</label> <input type="text"
+														class="form-control" id="p_imageAlt" name="imageAlt">
+												</div>
+
+												<div class="form-group col-6">
+													<label for="displayOrder">Thứ tự hiển thị</label> <select
+														class="form-control" id="displayOrder" name="displayOrder">
+														<option>1</option>
+														<option>2</option>
+														<option>3</option>
+													</select>
+												</div>
+
+												<div class="form-group col-6">
+													<label for="p_imageUrl">Hình sản phẩm</label> <input
+														type="file" class="form-control-file" id="p_imageUrl"
+														name="file">
+												</div>
+
+												<div class="form-group col-12 text-center">
+													<button type="submit" class="btn btn-success btn-sm">Lưu</button>
+												</div>
+
+											</div>
+										</form>
+									</div>
+
+								</th:block>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+		<!-- End -->
+
+	</th:block>
+
+</th:block>
