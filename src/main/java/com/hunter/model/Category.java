@@ -1,5 +1,6 @@
 package com.hunter.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -14,7 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -527575757094157409L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

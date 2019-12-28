@@ -95,11 +95,28 @@ i {
 /* Main Container */
 .main-container {
 	background-color: #eef5f9;
+	/* height: 100vh; */
 }
 
 .block {
 	background-color: #ffffff;
-	box-shadow: 0px 0px 6px #888888;
+	text-align: center;
+	padding: 5px;
+	/* margin-right: 2px; */
+	box-shadow: 0px 0px 3px #888888;
+}
+
+.block p {
+	margin: 0;
+	padding: 0;
+}
+
+.block-content {
+	text-align: left;
+}
+
+.block-content p {
+	padding: 2px;
 }
 
 .content {
@@ -146,7 +163,7 @@ i {
 }
 
 .panel-edit .panel-body {
-	height: 100vh;
+	/* height: 100vh; */
 }
 
 .panel-body {

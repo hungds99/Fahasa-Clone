@@ -19,10 +19,22 @@ public class Image {
 	private String imageUrl;
 	private String imageAlt;
 	private int displayOrder;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "promotion_id")
+	private Promotion promotion;
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
 
 	public int getId() {
 		return id;
@@ -69,7 +81,5 @@ public class Image {
 		return "Image [id=" + id + ", imageUrl=" + imageUrl + ", imageAlt=" + imageAlt + ", displayOrder="
 				+ displayOrder + ", product=" + product + "]";
 	}
-	
-	
-	
+
 }

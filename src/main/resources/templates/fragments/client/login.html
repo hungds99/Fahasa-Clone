@@ -1,0 +1,54 @@
+
+<th:block xmlns:th="http://www.thymeleaf.org">
+	<div class="youama-ajaxlogin-cover"></div>
+	<div class="youama-login-window">
+		<div class="youama-window-outside">
+			<span class="close">×</span>
+			<div class="youama-window-inside">
+				<div class="youama-window-title">
+					<h3>Đăng nhập</h3>
+				</div>
+				<div class="youama-window-box first">
+					<div class="youama-window-content">
+						<div class="input-fly youama-showhideme">
+							<label for="youama-email">Địa chỉ Email <span>*</span></label> <input
+								type="email" class="fhs-l-email" placeholder="Địa chỉ Email"
+								id="youama-email" name="youama-email" value="">
+							<div
+								class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin">
+							</div>
+						</div>
+						<div class="input-fly youama-showhideme">
+							<label for="youama-password">Mật khẩu <span>*</span></label> <input
+								type="password" placeholder="Mật khẩu" id="youama-password"
+								name="youama-password" value="">
+							<div
+								class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="youama-window-box last fhs-no-mt">
+					<div
+						class="youama-window-content box-contents box-contents-button youama-showhideme">
+						<span class="youama-forgot-password youama-fhs-fp"> <a
+							href="https://www.fahasa.com/customer/account/forgotpassword/">Quên
+								mật khẩu?</a>
+						</span>
+						<button type="button"
+							class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button fl">
+							<span> <span> Đăng nhập </span>
+							</span>
+						</button>
+						<div class="fr"></div>
+						<div class="fr youama-ac">
+							<a href="https://www.fahasa.com/customer/account/create">Tạo
+								tài khoản ?</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>

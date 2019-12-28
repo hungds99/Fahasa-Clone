@@ -1,5 +1,6 @@
 package com.hunter.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,7 +18,12 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4249393962848657120L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +57,10 @@ public class Product {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "discount_id")
 	private Discount discount;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "promotion_id")
+	private Promotion promotion;
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private Set<Comment> comments;
@@ -107,6 +117,14 @@ public class Product {
 
 	public void setProductStatus(int productStatus) {
 		this.productStatus = productStatus;
+	}
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
 	}
 
 	public Date getCreatedDate() {

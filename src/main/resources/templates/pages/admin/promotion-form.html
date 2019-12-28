@@ -1,0 +1,88 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản lý khuyến mãi (FORM) -->
+		<div class="promotion-content">
+			<div class="panel-group">
+				<div class="panel panel-edit">
+					<div class="panel-body">
+						<div class="panel-title">
+							<h6>Thông tin khuyến mãi</h6>
+						</div>
+						<form action="" th:action="@{/Admin/Promotion/Save}" th:object="${promotion}" method="post" enctype="multipart/form-data">
+							<input type="text" class="form-control" th:field="*{id}" style="display: none;">
+							
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Tên khuyến mãi </label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" th:field="*{promotionName}">
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Giá trị khuyến mãi</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" th:field="*{promotionValue}">
+								</div>
+							</div>
+							
+							 <div class="form-group row">
+							    <label class="col-sm-2 col-form-label">Loại quy đổi</label>
+							     <div class="col-sm-10">
+							    <select class="form-control" th:field="*{promotionType}">
+								      <option value="PER">Phần trăm (%)</option>
+								      <option value="VND">Tiền (VND)</option>
+							    </select>
+							    </div>
+							  </div>
+							
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Thời gian bắt đầu</label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" th:field="*{beginDate}">
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Thời gian kết thúc</label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" th:field="*{endDate}">
+								</div>
+							</div>
+							
+							<div class="form-group row">
+							    <label class="col-sm-2 col-form-label">Thể lệ khuyến mãi</label>
+							    <div class="col-sm-10">
+							    	<textarea class="form-control" rows="3" th:field="*{promotionRule}"></textarea>
+							    </div>
+							 </div>
+							 
+							 <!-- <div class="form-group row">
+							    <label class="col-sm-2 col-form-label">Hình khuyến mãi</label>
+							    <div class="col-sm-10">
+							    	<input type="file" class="form-control-file mb-2" name="file">
+							    	<input type="file" class="form-control-file mb-2" name="file">
+							    	<input type="file" class="form-control-file mb-2" name="file">
+							    	<input type="file" class="form-control-file mb-2" name="file">
+							    </div>
+							  </div> -->
+							
+							<div class="panel-footer text-center">
+								<button type="submit" class="btn btn-success btn-sm">Lưu</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- End -->
+
+
+	</th:block>
+
+</th:block>

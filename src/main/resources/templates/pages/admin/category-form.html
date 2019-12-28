@@ -45,7 +45,7 @@
 									Danh mục cha
 								</label>
 								<div class="col-sm-10">
-									<select class="form-control" id="parentCategory"th:field=*{parentId}>
+									<select class="form-control" id="parentCategory" th:field=*{parentId}>
 										<option th:value="${category.id}" th:text="${category.categoryName}">[ None ]</option>
 										<th:block th:each="c : ${categories}">
 											<option th:value="${c.id}" th:text="${c.categoryName}"></option>

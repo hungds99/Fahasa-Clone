@@ -65,11 +65,11 @@
 
 										<div class="form-group col-6">
 											<label for="applyPromotion">Áp dụng khuyến mãi</label> <select
-												id="applyPromotion" class="form-control" name="discount">
+												id="applyPromotion" class="form-control" name="promotions">
 												<option value="">- Không có khuyến mãi -</option>
-												<th:block th:each="discount : ${discounts}">
-													<option th:value="${discount.id}"
-														th:text="${discount.discountName}">
+												<th:block th:each="promotion : ${promotions}">
+													<option th:value="${promotion.id}"
+														th:text="${promotion.promotionName}">
 													</option>
 											</select>
 										</div>

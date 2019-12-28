@@ -6,84 +6,132 @@
 
 		<!-- Khuyến mãi - Giảm giá -->
 		<div>
-			<div class="promotion">
-				<h6>Khuyến mãi</h6>
-				<div class="row">
-					<div class="col-12">
+			<div class="promotion p-3">
+				<div class="row" id="promotion-content">
+				
+					<div class="col-6">
+						<h5>Khuyến mãi</h5>
+					</div>
+				
+					<div class="col-6">
 						<div class="float-right mr-2">
-							<button type="button" class="btn btn-success btn-sm"
-								id="btn_show_add">
-								<i class="fas fa-plus"></i> <span>Thêm mới</span>
-							</button>
+							<a href="#" th:href="@{/Admin/Promotion/Create}" class="btn btn-success btn-sm fas fa-plus"> Thêm mới</a>
 						</div>
-
 					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
-					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
-					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
-					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
-					</div>
+					
+					<!-- Promotion List -->
+					
 				</div>
 			</div>
-			<div class="discount">
-				<h5>Mã giảm giá</h5>
+			<div class="discount p-3">
 				<div class="row">
-					<div class="col-12">
+					
+					<div class="col-6">
+						<h5>Mã giảm giá</h5>
+					</div>
+				
+					<div class="col-6">
 						<div class="float-right mr-2">
-							<button type="button" class="btn btn-success btn-sm"
-								id="btn_show_add">
-								<i class="fas fa-plus"></i> <span>Thêm mới</span>
-							</button>
+							<a href="#" th:href="@{/Admin/Promotion/Create}" class="btn btn-success btn-sm fas fa-plus"> Thêm mới</a>
 						</div>
-
 					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
+					
+					<div class="col-3 p-1">
+						<div class="block">
+							<h6>Mã giảm giá</h6>
+							<ul>
+								<li>Mã giảm giá: LDK91</li>
+								<li>Giảm giá: 20%</li>
+								<li>Thời gian bắt đầu: 10/10/2020</li>
+								<li>Thời gian kết thúc: 10/10/2020</li>
+								<li>Số lần sử dụng: 20</li>
+							</ul>
+							<div class="block-content">
+								<h6>Thể lệ: </h6>
+								<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
+									thường xem</p>
+							</div>
+						</div>
 					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
+					
+					<div class="col-3 p-1">
+						<div class="block">
+							<h6>Mã giảm giá</h6>
+							<p>LDK91</p>
+							<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
+								thường xem</p>
+						</div>
 					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
+					
+					<div class="col-3 p-1">
+						<div class="block">
+							<h6>Mã giảm giá</h6>
+							<p>LDK91</p>
+							<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
+								thường xem</p>
+						</div>
 					</div>
-					<div class="block col-3">
-						<h6>Mã giảm giá</h6>
-						<p>LDK91</p>
-						<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
-							thường xem</p>
+					
+					<div class="col-3 p-1">
+						<div class="block">
+							<h6>Mã giảm giá</h6>
+							<p>LDK91</p>
+							<p>Chương trình khuyến mãi giảm giá các sản phẩm người mua
+								thường xem</p>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 		<!-- End -->
+		
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript">
+		window.onload = loadPromotionList();
+		
+		function loadPromotionList() {
+			
+			axios.post('/Admin/Promotion/List')
+			  .then(function (response) {
+				  let promotions = response.data;
+				  promotions.forEach((promotion) => renderPromotion(promotion));
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+			
+		}
+		
+		function renderPromotion(promotion) {
+			let promotion_content = document.getElementById('promotion-content');
+			let content = '';
+			
+			content = `
+				<div class="col-3 p-1">
+					<div class="block">
+						<h6>${promotion.promotionName}</h6>
+						<ul>
+							<li>Giảm giá: ${promotion.promotionValue} (${promotion.promotionType})</li>
+							<li>Thời gian bắt đầu: ${promotion.beginDate}</li>
+							<li>Thời gian kết thúc: ${promotion.endDate}</li>
+						</ul>
+						<div class="block-content">
+							<h6>Thể lệ: </h6>		
+							<p>${promotion.promotionRule}</p>
+						</div>
+						<div class="block-footer">
+							<a href="/Admin/Promotion/Edit/${promotion.id}">Xem chi tiết</a>
+						</div>
+					</div>
+				</div>
+			`;
+			
+			promotion_content.innerHTML += content;
+		}
+		
+		
+		</script>
 
 	</th:block>
 

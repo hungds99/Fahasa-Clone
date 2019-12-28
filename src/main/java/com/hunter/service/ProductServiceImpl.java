@@ -3,15 +3,18 @@ package com.hunter.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hunter.dao.ProductDAO;
+import com.hunter.dto.CategoryDTO;
 import com.hunter.dto.ProductDTO;
+import com.hunter.dto.ProductResponse;
+import com.hunter.dto.ProductSuggestDTO;
 import com.hunter.dto.SearchDTO;
+import com.hunter.model.Category;
 import com.hunter.model.Product;
 import com.hunter.repository.CategoryRepository;
 import com.hunter.repository.ProductRepository;
@@ -22,13 +25,13 @@ import com.hunter.utils.DateUtil;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	EntityManagerFactory entityManagerFactory;
-
-	@Autowired
 	ProductRepository productRepository;
 	
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	ProductDAO productDAO;
 	
 	@Override
 	public Product findProductById(int id) {
@@ -38,23 +41,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public List<ProductDTO> getProductBySearch(SearchDTO searchDTO) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		List<ProductDTO> products = new ArrayList<ProductDTO>();
-		StringBuilder strBuilder = new StringBuilder();
-		
-		strBuilder.append("SELECT p.id, p.product_code, c.category_name, p.product_name, ");
-		strBuilder.append("i.image_url, i.image_alt, p.highlight, p.isshowed, ");
-		strBuilder.append("p.product_price, d.discount_value, p.created_date, p.product_amount, p.product_status ");
-		strBuilder.append("FROM product p ");
-		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
-		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
-		strBuilder.append("LEFT JOIN discount d ON p.discount_id = d.id");
-
-		@SuppressWarnings("unchecked")
-		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString())
-											.getResultList();
-		
+		List<Object []> results = productDAO.getProductBySearch(searchDTO);
 		if (results != null && !results.isEmpty()) {
 			for (Object[] object : results) {
 				ProductDTO product = new ProductDTO();
@@ -69,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 				product.setIsshowed(Boolean.getBoolean(object[7].toString()));
 				product.setPrice(Double.parseDouble(object[8].toString()));
 				product.setFinalPrice(Double.parseDouble(object[8].toString())*Integer.parseInt(object[9].toString()));
-				product.setDiscountValue(Integer.parseInt(object[9].toString()));
+				product.setPromotionValue(Integer.parseInt(object[9].toString()));
 				product.setCreateDate(DateUtil.getFormatDate((object[10] == null) ? null : object[10].toString(), DateUtil.FORMAT_SLASH_DD_MM_YYYY));
 				product.setAmount(Integer.parseInt(object[11].toString()));
 				switch (Integer.parseInt(object[12].toString())) {
@@ -87,7 +75,6 @@ public class ProductServiceImpl implements ProductService {
 				products.add(product);
 			}
 		}
-		entityManager.getTransaction().commit();
 		return products;
 	}
 
@@ -117,6 +104,28 @@ public class ProductServiceImpl implements ProductService {
 		Product p = productRepository.save(product);
 		return p;
 		
+	}
+
+	@Override
+	@Transactional
+	public ProductResponse getProductByCategoryId(int categoryId) {
+		
+		List<ProductSuggestDTO> productSuggestDTOs = new ArrayList<ProductSuggestDTO>();
+		List<CategoryDTO> categoryDTOs = new ArrayList<CategoryDTO>();
+		
+		List<Object []> results = productDAO.getProductByCategoryId(categoryId);
+		
+		if (results != null && !results.isEmpty()) {
+			for (Object[] object : results) {
+				ProductSuggestDTO productSuggestDTO = new ProductSuggestDTO();
+				
+				
+				
+				productSuggestDTOs.add(productSuggestDTO);
+			}
+		}
+		
+		return null;
 	}
 
 }

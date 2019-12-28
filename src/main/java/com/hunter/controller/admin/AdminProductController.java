@@ -26,6 +26,7 @@ import com.hunter.service.DiscountService;
 import com.hunter.service.ImageService;
 import com.hunter.service.ProductAttributeService;
 import com.hunter.service.ProductService;
+import com.hunter.service.PromotionService;
 import com.hunter.service.PublisherService;
 import com.hunter.service.SupplierService;
 import com.hunter.utils.ViewName;
@@ -60,6 +61,9 @@ public class AdminProductController {
 
 	@Autowired
 	private DiscountService discountService;
+	
+	@Autowired
+	private PromotionService promotionService;
 
 	@GetMapping("/Product/List")
 	public String getProductList(Model model) {
@@ -80,13 +84,13 @@ public class AdminProductController {
 		model.addAttribute("breadcrumb", "Thêm sản phẩm");
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("product", new Product());
-		model.addAttribute("discounts", discountService.findAll());
+		model.addAttribute("promotions", promotionService.findAllPromotion());
 		model.addAttribute("productattribute", 0);
 		model.addAttribute("images", 0);
 		return ViewName.ADMIN_PRODUCT_FORM_PAGE;
 	}
 
-	@GetMapping("/Product/Create/productId={id}")
+	@GetMapping("/Product/ProductCreateOrUpdate/productId={id}")
 	public String getCreateAfterSave(Model model, @PathVariable("id") int productId) {
 		model.addAttribute("breadcrumb", "Sửa sản phẩm");
 		model.addAttribute("categories", categoryService.findAll());
@@ -105,7 +109,7 @@ public class AdminProductController {
 	@PostMapping("/Product/Save")
 	public String getSaveProduct(Product product) {
 		Product p = productService.saveAndUpdate(product);
-		return "redirect:/Admin/Product/Create/productId=" + p.getId();
+		return "redirect:/Admin/Product/ProductCreateOrUpdate/productId=" + p.getId();
 	}
 
 	@PostMapping("/ProductImageMapping/Save")
@@ -113,19 +117,19 @@ public class AdminProductController {
 		storageService.store(file);
 		image.setImageUrl(file.getOriginalFilename());
 		imageService.save(image);
-		return "redirect:/Admin/Product/Create/productId=" + image.getProduct().getId();
+		return "redirect:/Admin/Product/ProductCreateOrUpdate/productId=" + image.getProduct().getId();
 	}
 	
 	@GetMapping("/ProductImageMapping/Delete")
 	public String getDeleteImage(@RequestParam("imageId") int imageId, @RequestParam("productId") int productId) {
 		imageService.delete(imageId);
-		return "redirect:/Admin/Product/Create/productId=" + productId;
+		return "redirect:/Admin/Product/ProductCreateOrUpdate/productId=" + productId;
 	}
 
 	@PostMapping("/ProductAttributeMapping/Save")
 	public String getSaveProductAttribute(ProductAttribute productAttribute) {
 		productAttributeService.saveAndUpdate(productAttribute);
-		return "redirect:/Admin/Product/Create/productId=" + productAttribute.getProductId();
+		return "redirect:/Admin/Product/ProductCreateOrUpdate/productId=" + productAttribute.getProductId();
 	}
 	
 
@@ -133,9 +137,9 @@ public class AdminProductController {
 	public String getEditProduct(@PathVariable("id") int id, Model model) {
 		model.addAttribute("breadcrumb", "Sửa sản phẩm");
 		model.addAttribute("categories", categoryService.findAll());
-		model.addAttribute("product", productService.getProductBySearch(null));
-		model.addAttribute("productattribute", productService.getProductBySearch(null));
-		model.addAttribute("images", productService.getProductBySearch(null));
+		model.addAttribute("product", productService.findProductById(id));
+		model.addAttribute("productattribute", productAttributeService.findByProductId(id));
+		model.addAttribute("images", imageService.findByProductId(id));
 		return ViewName.ADMIN_PRODUCT_FORM_PAGE;
 	}
 

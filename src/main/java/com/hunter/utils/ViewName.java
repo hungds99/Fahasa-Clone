@@ -17,5 +17,11 @@ public class ViewName {
 	public static final String ADMIN_AUTHOR_PAGE = "pages/admin/author";
 	public static final String ADMIN_AUTHOR_FORM_PAGE = "pages/admin/author-form";
 	
-
+	public static final String ADMIN_PROMOTION_PAGE = "pages/admin/promotion";
+	public static final String ADMIN_PROMOTION_FORM_PAGE = "pages/admin/promotion-form";
+	
+	// CLIENT VIEW NAME
+	
+	public static final String CLIENT_HOME_PAGE = "pages/client/home";
+	
 }

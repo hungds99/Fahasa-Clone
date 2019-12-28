@@ -208,16 +208,16 @@
 										</span>
 									</button>
 								</li>
-								<li>Giá: ${product.price} vnd</li>
-								<li>Khuyến mãi: ${product.finalPrice} vnd | discount: ${product.discountValue}</li>
+								<li>Giá gốc: ${product.price} vnd</li>
+								<li>Giá bán: ${product.finalPrice} vnd | Khuyến mãi: ${product.promotionValue}</li>
 								<li>Ngày thêm : ${product.createDate}</li>
 								<li>Số lượng : ${product.amount}</li>
 								<li>Trạng thái : ${product.productStatus}</li>
 							</ul>
 						</td>
 						<td>
-							<i class="fas fa-edit"></i> 
-							<i class="fas fa-trash-alt"></i>
+							<a href="/Admin/Product/Edit/${product.productId}" class="fas fa-edit"></a> 
+							<a class="fas fa-trash-alt"></a>
 						</td>
 					</tr>
 					`;
