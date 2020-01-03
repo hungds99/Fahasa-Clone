@@ -10,4 +10,6 @@ public interface ProductDAO {
 	
 	List<Object[]> getProductByCategoryId(int categoryId);
 	
+	List<Object []> getProductByProductId(int productId);
+	
 }

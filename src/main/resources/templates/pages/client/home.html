@@ -2,4 +2,66 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{client-layout}">
 
+	<th:block layout:fragment="content">
+
+		<!-- =============================== [HEADER] =================================-->
+		<section class="header" id="header">
+
+			<!-- * Header 1 * -->
+			<th:block layout:insert="~{fragments/client/header}" />
+
+			<!-- * Header-Breadcrumbs * -->
+			<th:block layout:insert="~{fragments/client/header-breadcrumb}" />
+
+		</section>
+		<!-- =============================== [END] ====================================-->
+
+		<!-- =============================== [MAIN-CONTAINER] =========================-->
+		<div class="main-container" id="main-container">
+			<div class="container-1">
+				<div class="container-inner">
+
+					<!-- * LOGIN * -->
+					<th:block layout:insert="~{fragments/client/login}" />
+
+
+					<div class="std">
+						<!-- * Banner-image-block * -->
+						<th:block layout:insert="~{fragments/client/banner-image}" />
+
+						<!-- * Cms-Icon-Menu * -->
+						<th:block layout:insert="~{fragments/client/cms-icon}" />
+
+						<!-- * Product Suggestion * -->
+						<th:block layout:insert="~{fragments/client/product-suggestion}" />
+
+						<!-- * Flash Sale * -->
+						<th:block layout:insert="~{fragments/client/flash-sale}" />
+
+						<!-- * Literary Product * -->
+						<th:block layout:insert="~{fragments/client/product-literary}" />
+
+						<!-- * Features Product * -->
+						<th:block layout:insert="~{fragments/client/feature}" />
+
+						<!-- * DIARY SERIES * -->
+						<th:block layout:insert="~{fragments/client/series}" />
+
+						<!-- * AUTHOR - TYPICAL WORKS * -->
+						<th:block layout:insert="~{fragments/client/typical}" />
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- =============================== [END] ==================================== -->
+
+		<!-- =============================== [FOOTER] =================================-->
+		<!-- * FOOTER * -->
+		<th:block layout:insert="~{fragments/client/footer}" />
+		<!-- =============================== [END] ====================================-->
+
+
+	</th:block>
+
 </th:block>

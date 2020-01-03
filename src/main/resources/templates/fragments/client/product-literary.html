@@ -1,0 +1,93 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+
+<div class="feature">
+	<div class="feature-header">
+		<div class="feature-title ml-2">
+			<h5>Văn học</h5>
+		</div>
+		<div class="feature-categories">
+			<ul class="nav-links">
+				<li>Sắp phát hành</li>
+				<li>Sách HOT - Giảm Sốc</li>
+				<li>Nổi bật</li>
+			</ul>
+		</div>
+	</div>
+	<div class="feature-products">
+		<div class="row" id="block-data">
+			<!-- Block - Data -->
+		</div>
+	</div>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+	
+	/* 
+	*
+	* Tab Data
+	*
+	*/
+	
+	let TAB_GET_URL = "/api/tabslider/index/getdata";
+	let current_block = "block_van_hoc";
+	
+	axios.get(TAB_GET_URL, {
+	    params: {
+	    	category_id: 1
+	    }
+	  })
+	  .then(function (response) {
+	    console.log(response.data);
+	    let products = response.data;
+	    products.forEach(product => renderProductHtml(product));
+	    
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  }); 
+	
+	// Render each data
+	function renderProductHtml(product) {
+		let block_data = document.getElementById('block-data');
+		let content = '';
+		
+		content = `
+			<div class="col-md-2">
+				<div class="product-box">
+					<div class="label-pro-sale">
+						<span class="p-sale-label">${product.promotionValue}%</span>
+					</div>
+					<div class="box-content">
+						<div class="product-image">
+							<a href="#"> <img src="images/${product.imageUrl}" alt="${product.imageAlt}"
+								height="220">
+							</a>
+						</div>
+						<div class="product-name">
+							<a href="${product.productId}" title="${product.productName}">${product.productName}</a>
+						</div>
+						<div class="product-label-price">
+							<p class="special-price">
+								<span class="price">${product.productPrice}</span>
+							</p>
+							<p class="old-price">
+								<span class="price">${product.productFinalprice}</span>
+							</p>
+						</div>
+						<div class="product-rate">
+							<div>******</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		`;
+		
+		block_data.innerHTML += content;
+	}
+	
+	
+	
+</script>
+
+</th:block>

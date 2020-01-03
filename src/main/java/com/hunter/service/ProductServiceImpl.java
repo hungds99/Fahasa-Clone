@@ -9,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hunter.dao.ProductDAO;
-import com.hunter.dto.CategoryDTO;
 import com.hunter.dto.ProductDTO;
-import com.hunter.dto.ProductResponse;
-import com.hunter.dto.ProductSuggestDTO;
+import com.hunter.dto.ProductViewDTO;
 import com.hunter.dto.SearchDTO;
-import com.hunter.model.Category;
 import com.hunter.model.Product;
 import com.hunter.repository.CategoryRepository;
 import com.hunter.repository.ProductRepository;
@@ -108,24 +105,46 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public ProductResponse getProductByCategoryId(int categoryId) {
-		
-		List<ProductSuggestDTO> productSuggestDTOs = new ArrayList<ProductSuggestDTO>();
-		List<CategoryDTO> categoryDTOs = new ArrayList<CategoryDTO>();
+	public List<ProductViewDTO> getProductByCategoryId(int categoryId) {
 		
 		List<Object []> results = productDAO.getProductByCategoryId(categoryId);
 		
+		List<ProductViewDTO> productViewDTOs = this.convertToProductView(results);
+		
+		return productViewDTOs;
+	}
+
+	@Override
+	@Transactional
+	public List<ProductViewDTO> getProductByProductId(int productId) {
+		List<Object []> results = productDAO.getProductByProductId(productId);
+		
+		List<ProductViewDTO> productViewDTOs = this.convertToProductView(results);
+		
+		return productViewDTOs;
+	}
+	
+	// Convert Object Select Query to Model
+	public List<ProductViewDTO> convertToProductView(List<Object []> results) {
+		List<ProductViewDTO> productViewDTOs = new ArrayList<ProductViewDTO>();
+		
 		if (results != null && !results.isEmpty()) {
-			for (Object[] object : results) {
-				ProductSuggestDTO productSuggestDTO = new ProductSuggestDTO();
+			
+			for (Object[] obj : results) {
+				ProductViewDTO product = new ProductViewDTO();
 				
+				product.setProductId(Integer.parseInt(obj[0].toString()));
+				product.setProductName(obj[1].toString());
+				product.setProductPrice(Double.parseDouble(obj[2].toString()));
+				product.setPromotionValue(Integer.parseInt(obj[3].toString()));
+				product.setImageUrl(obj[4].toString());
+				product.setImageAlt(obj[5].toString());
+				product.setProductFinalprice((Double.parseDouble(obj[2].toString()) * Integer.parseInt(obj[3].toString()))/100);
 				
-				
-				productSuggestDTOs.add(productSuggestDTO);
+				productViewDTOs.add(product);
 			}
 		}
-		
-		return null;
+		return productViewDTOs;
 	}
 
 }

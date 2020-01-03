@@ -1,0 +1,181 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{client-layout}">
+
+
+	<th:block layout:fragment="content">
+
+		<link rel="stylesheet" th:href="@{css/product-detail.css}">
+
+		<!-- =============================== [HEADER] =================================-->
+		<section class="header" id="header">
+
+			<!-- * Header 1 * -->
+			<th:block layout:insert="~{fragments/client/header}" />
+
+			<!-- * Header-Breadcrumbs * -->
+			<!-- <th:block layout:insert="~{fragments/client/header-breadcrumb}" /> -->
+
+		</section>
+		<!-- =============================== [END] ====================================-->
+
+		<!-- =============================== [MAIN-CONTAINER] =========================-->
+		<div class="main-container" id="main-container">
+			<div class="container-1">
+				<div class="container-inner">
+					<div class="category-products">
+
+						<!-- * Breadcrumb * -->
+						<div class="breadcrumb">
+							<ul style="display: flex;">
+								<li class="home"><a href="https://www.fahasa.com/"
+									title="Tới trang chủ">Trang chủ</a> <span>/ </span></li>
+								<li class="category4"><strong>Sách tiếng Việt</strong></li>
+							</ul>
+						</div>
+
+						<!-- * Product Detail Container * -->
+						<div class="product-view">
+							<div class="row">
+								<div class="product-essential col-9 row">
+									<div class="col-5">
+										<img src="images/9e6a45a1-1ed9-45c2-9834-0e1b19463a21.jpg"
+											alt="">
+										<div class="more-views">
+											<div class="row">
+												<div class="lightgallery"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-7">
+										<h1>${product.productName}</h1>
+										<div class="view-rate row"></div>
+										<div class="price-block row">
+											<div class="price-block-left col-9">
+												<div class="price-box">
+													<p class="price">${product.productPrice}</p>
+													<p class="old-price">${product.productFinalprice}</p>
+												</div>
+											</div>
+											<div class="price-block-right col-3">
+												<span class="discount-percent">-${product.promotionValue}%</span>
+											</div>
+										</div>
+										<div class="add-to-box row">
+											<label for="qty">Số lượng:</label> <input type="text"
+												name="qty" id="qty" maxlength="12" value="1" title="SL"
+												class="input-text qty">
+											<button type="button" title="Chọn mua"
+												class="button btn-cart-view">
+												<span><span><i class="fa fa-shopping-cart"></i>Chọn
+														mua</span></span>
+											</button>
+										</div>
+										<div class="additional-list row">
+											<div class="col-4">
+												<ul class="add-to-links">
+													<li><a
+														href="https://www.fahasa.com/wishlist/index/add/product/223409/form_key/mz64hdWVO7xtayVi/"
+														class="link-wishlist" data-original-title="Yêu thích"
+														rel="tooltip"><i class="fa fa-heart"></i>Yêu thích</a></li>
+
+												</ul>
+											</div>
+											<div class="col-7">
+												<a href="#review-form"><i class="fa fa-edit"></i>Thêm
+													nhận xét của bạn</a>
+											</div>
+										</div>
+										<div class="short-description">
+
+											<span
+												style="font-weight: bold; color: black; font-size: 13px; font-family: Roboto, Helvetica, Arial, sans-serif">20
+												Hành Trang Cho Chuyến Xe Tuổi 20s. Cuốn sách 20 hành trang
+												cho chuyến</span> xe tuổi 20s của tác giả Nguyễn Mai Đức chắc chắn
+											không giống những cuốn sách self –help khác. Với lối viết
+											chân phương nhưng nhẹ nhàng và gần gũi, tác giả bình tĩnh dẫn
+											dắt bạn đọc qua 20 chương "tuyệt đỉnh bí kíp" được gói gọn
+											trong đúng bốn chữ: "học", "làm", "sống" và "đi". Tuổi trẻ là
+											lúc ta sung ... <a
+												href="https://www.fahasa.com/20-hanh-trang-cho-chuyen-xe-tuoi-20s.html#product_tabs_description_contents"
+												class="xem-chi-tiet">Xem thêm</a>
+
+										</div>
+									</div>
+								</div>
+								<div class="product-essential-left col-3">
+									<div class="block-note-product">
+										<div class="product-attribute">
+											<label>Tên Nhà Cung Cấp:</label> <a class="xem-chi-tiet"
+												href="alpha-books">Alpha Books</a>
+										</div>
+										<div class="product-attribute">
+											<label>Hình thức:</label> Bìa Mềm
+										</div>
+										<div class="product-attribute">
+											<label>Tình trạng:</label> Còn hàng
+										</div>
+										<!--show static block: block-note-product-->
+										<div class="product-attribute col-sms-6">
+											<div class="item">
+												<em class="fa"
+													style="font-family: 'OpenSansRegular', Arial, Helvetica, sans-serif; font-weight: bold;">F</em>
+												<span><a href="http://www.fahasa.com/thanh-vien">Đặc
+														Quyền Thành Viên</a></span>
+											</div>
+											<div class="item">
+												<em class="fa fa-home"></em> <span><a
+													href="http://www.fahasa.com/chinh-sach-khach-si">Chính
+														Sách Khách Sỉ</a></span>
+											</div>
+											<div class="item">
+												<em class="fa fa-truck"></em> <span><a
+													href="http://www.fahasa.com/phuong-thuc-van-chuyen">Thời
+														Gian Giao Hàng</a></span>
+											</div>
+											<div class="item">
+												<em class="fa fa-book"></em> <span><a
+													href="http://www.fahasa.com/doi-tra-hang">Chính Sách
+														Đổi Trả</a></span>
+											</div>
+										</div>
+
+										<div class="product-attribute last col-sms-6">
+											<ul
+												style="text-align: justify; line-height: 22px; font-family: Roboto-Regular, 'Helvetica Neue', Helvetica, Tahoma, Arial, Sans-serif">
+												<li><a style="font-weight: bold; color: #f7941e;"
+													href="https://www.fahasa.com/top-100-best-seller">TOP
+														100 SÁCH BÁN CHẠY</a>&nbsp;</li>
+												<li><a style="font-weight: bolder; color: black;"
+													href="http://www.fahasa.com/dieu-kien-dung-ma-giam-gia">Thông
+														tin mã giảm giá</a></li>
+												<li><a style="font-weight: bolder; color: black;"
+													href="http://www.fahasa.com/membership">Ưu đãi Học Sinh
+														Sinh Viên</a></li>
+												<li><a style="font-weight: bolder; color: black;"
+													href="https://www.fahasa.com/review-hay-nhan-ngay-fpoint">Review
+														Hay - Nhận F-Point</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- =============================== [END] ==================================== -->
+
+		<!-- =============================== [FOOTER] =================================-->
+		<!-- * FOOTER * -->
+		<th:block layout:insert="~{fragments/client/footer}" />
+		<!-- =============================== [END] ===================================-->
+
+
+	</th:block>
+
+
+</th:block>
