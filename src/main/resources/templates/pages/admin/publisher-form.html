@@ -1,0 +1,59 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản lý nhà xuất bản (FORM) -->
+		<div class="category-content">
+			<div class="panel-group">
+				<div class="panel panel-edit">
+					<div class="panel-body">
+						<div class="panel-title">
+							<h6>Thông tin nhà xuất bản</h6>
+						</div>
+						<form action="" th:action="@{/Admin/Publisher/Save}" th:object="${publisher}" method="post" enctype="multipart/form-data">
+							<input type="text" class="form-control" th:field="*{id}" style="display: none;">
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">
+									Tên nhà xuất bản </label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" th:field="*{publisherName}">
+								</div>
+							</div>
+							<!-- <div class="form-group row">
+								<label class="col-sm-2 col-form-label"> Năm Sinh </label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"
+										th:field="*{authorAge}">
+								</div>
+							</div> -->
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Thông tin nhà xuất bản</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="3" th:field="*{publisherInfo}"></textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+							    <label class="col-sm-2 col-form-label">Hình nhà xuất bản</label>
+							    <div class="col-sm-10">
+							    	<input type="file" class="form-control-file" name="file">
+							    </div>
+							</div>
+
+							<div class="panel-footer text-center">
+								<button type="submit" class="btn btn-success btn-sm">Lưu</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- End -->
+
+
+	</th:block>
+
+</th:block>

@@ -1,9 +1,12 @@
 package com.hunter.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,17 @@ public class Supplier {
 	private String supplierName;
 	
 	private String supplierImage;
+	
+	@OneToMany
+	List<ProductAttribute> productAttributes;
+	
+	public List<ProductAttribute> getProductAttributes() {
+		return productAttributes;
+	}
+
+	public void setProductAttributes(List<ProductAttribute> productAttributes) {
+		this.productAttributes = productAttributes;
+	}
 
 	public int getId() {
 		return id;

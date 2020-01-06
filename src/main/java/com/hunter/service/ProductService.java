@@ -17,6 +17,6 @@ public interface ProductService {
 	
 	public List<ProductViewDTO> getProductByCategoryId(int categoryId);
 	
-	public List<ProductViewDTO> getProductByProductId(int productId);
+	public ProductViewDTO getProductByProductId(int productId);
 	
 }

@@ -3,8 +3,6 @@ package com.hunter.controller.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +34,7 @@ public class AdminCategoryController {
 	@PostMapping("/Category/List")
 	@ResponseBody
 	public List<Category> getCategories(@RequestParam(value = "keyword") String keyword, @RequestParam("page") int page) {
-		Pageable pageable = PageRequest.of(page - 1, 10);
-		List<Category> categories = categoryService.findByCategoryName(keyword, pageable);
+		List<Category> categories = categoryService.findByCategoryName(keyword, page - 1, 10);
 		return categories;
 	}
 

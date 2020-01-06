@@ -5,8 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,8 +43,9 @@ public class AdminAuthorController {
 	@PostMapping("/Author/List")
 	@ResponseBody
 	public List<Author> getAuthors(@RequestParam("keyword") String keyword ,@RequestParam("page") int page) {
-		Pageable pageable = PageRequest.of(page - 1, 10);
-		List<Author> authors = authorService.findByAuthorName(keyword, pageable);
+		System.out.println("Begin Transaction !");
+		List<Author> authors = authorService.findByAuthorName(keyword, page - 1, 10);
+		System.out.println("End Transaction !");
 		return authors;
 	}
 	

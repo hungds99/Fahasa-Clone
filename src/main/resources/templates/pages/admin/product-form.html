@@ -145,7 +145,7 @@
 
 											<div class="form-group col-6">
 												<label for="author">Tác giả</label> <select
-													class="form-control" id="author" name="authorId">
+													class="form-control" id="author" name="author">
 													<th:block th:each="author : ${authors}">
 														<option th:value="${author.id}"
 															th:text="${author.authorName}"
@@ -157,7 +157,7 @@
 
 											<div class="form-group col-6">
 												<label for="supplier">Tên Nhà Cung Cấp</label> <select
-													class="form-control" id="supplier" name="supplierId">
+													class="form-control" id="supplier" name="supplier">
 													<th:block th:each="supplier : ${suppliers}">
 														<option th:value="${supplier.id}"
 															th:text="${supplier.supplierName}"
@@ -168,7 +168,7 @@
 
 											<div class="form-group col-6">
 												<label for="publisher">Nhà xuất bản</label> <select
-													class="form-control" id="publisher" name="publisherId">
+													class="form-control" id="publisher" name="publisher">
 													<th:block th:each="publisher : ${publishers}">
 														<option th:value="${publisher.id}"
 															th:text="${publisher.publisherName}"

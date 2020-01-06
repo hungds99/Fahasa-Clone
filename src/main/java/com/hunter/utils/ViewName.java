@@ -17,6 +17,9 @@ public class ViewName {
 	public static final String ADMIN_AUTHOR_PAGE = "pages/admin/author";
 	public static final String ADMIN_AUTHOR_FORM_PAGE = "pages/admin/author-form";
 	
+	public static final String ADMIN_PUBLISHER_PAGE = "pages/admin/publisher";
+	public static final String ADMIN_PUBLISHER_FORM_PAGE = "pages/admin/publisher-form";
+	
 	public static final String ADMIN_PROMOTION_PAGE = "pages/admin/promotion";
 	public static final String ADMIN_PROMOTION_FORM_PAGE = "pages/admin/promotion-form";
 	
@@ -24,5 +27,6 @@ public class ViewName {
 	
 	public static final String CLIENT_HOME_PAGE = "pages/client/home";
 	public static final String CLIENT_DETAIL_PAGE = "pages/client/detail";
+	public static final String CLIENT_LIST_PAGE = "pages/client/list";
 	
 }

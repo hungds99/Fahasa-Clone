@@ -116,12 +116,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public List<ProductViewDTO> getProductByProductId(int productId) {
+	public ProductViewDTO getProductByProductId(int productId) {
 		List<Object []> results = productDAO.getProductByProductId(productId);
 		
 		List<ProductViewDTO> productViewDTOs = this.convertToProductView(results);
 		
-		return productViewDTOs;
+		return productViewDTOs.get(0);
 	}
 	
 	// Convert Object Select Query to Model

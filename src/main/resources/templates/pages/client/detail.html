@@ -47,18 +47,25 @@
 											</div>
 										</div>
 									</div>
+
 									<div class="col-7">
-										<h1>${product.productName}</h1>
+										<h1 th:text="${product.productName}"></h1>
 										<div class="view-rate row"></div>
 										<div class="price-block row">
 											<div class="price-block-left col-9">
 												<div class="price-box">
-													<p class="price">${product.productPrice}</p>
-													<p class="old-price">${product.productFinalprice}</p>
+													<p class="price">
+														<th:block th:text="${product.productPrice}"></th:block>
+													</p>
+													<p class="old-price">
+														<th:block th:text="${product.productFinalprice}"></th:block>
+													</p>
 												</div>
 											</div>
 											<div class="price-block-right col-3">
-												<span class="discount-percent">-${product.promotionValue}%</span>
+												<span class="discount-percent"> -<th:block
+														th:text="${product.promotionValue}"></th:block>%
+												</span>
 											</div>
 										</div>
 										<div class="add-to-box row">
@@ -162,6 +169,64 @@
 							</div>
 
 						</div>
+
+						<div class="product-detail"
+							style="background-color: white; margin-top: 15px; margin-bottom: 15px;">
+							<h4>Thông tin chi tiết</h4>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">First</th>
+										<th scope="col">Last</th>
+										<th scope="col">Handle</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Mark</td>
+										<td>Otto</td>
+										<td>@mdo</td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td>Jacob</td>
+										<td>Thornton</td>
+										<td>@fat</td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td colspan="2">Larry the Bird</td>
+										<td>@twitter</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="product-content"
+							style="background-color: white; margin-top: 15px; margin-bottom: 15px;">
+							<h4>Nội dung sản phẩm</h4>
+							<p>Học Như Một Thiên Tài Học hỏi là bản năng của loài người,
+								nhưng lại rất ít người thực sự biết phối hợp bộ não, trái tim và
+								cơ thể để tạo nên tri thức mới. Đa phần chúng ta luôn nghĩ học
+								là một khái niệm mơ hồ. Học là đọc lại một quyển sách giáo khoa?
+								Giải những bài mẫu? Học thuộc lòng? Nếu không thể thực hành kiến
+								thức vào đời thực thì đó có phải là học không?... “Học như một
+								thiên tài” sẽ vén tấm rèm che phủ bí mật đằng sau việc học tập
+								bấy lâu nay, theo một cách đầy hài hước, thú vị, và sâu sắc.
+								Cuốn sách chứa đầy những góc nhìn mới mẻ và những câu chuyện hấp
+								dẫn, giúp chúng ta hiểu được sự quan trọng và cần thiết của việc
+								học đúng cách. Sách không chỉ hướng tới đối tượng học sinh -
+								sinh viên mà còn dành cho tất cả mọi người, giúp các bạn giải
+								quyết những công việc liên quan đến tri thức một cách hiệu quả
+								và sáng tạo nhất, từ đó không ngừng nâng cao chuyên môn của
+								mình. Lĩnh hội được kiến thức mà cuốn sách mang lại, bạn chắc
+								chắn sẽ làm chủ kỹ năng để thành công trong cuộc sống, học tập,
+								công việc kinh doanh.., hay nói cách khác, trở thành chuyên gia
+								trong mọi lĩnh vực.</p>
+						</div>
+
 
 					</div>
 				</div>

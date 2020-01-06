@@ -1,9 +1,12 @@
 package com.hunter.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +16,7 @@ public class ProductAttribute {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private int attrCode;
 
 	private String attrLanguage;
@@ -23,28 +26,26 @@ public class ProductAttribute {
 	private String attrLayout;
 
 	private int attrPage;
-	
+
 	private double attrWeight;
 
 	private String attrSize;
 
 	private int publishYear;
 
-	private int authorId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "author_id")
+	private Author author;
 
-	private int publisherId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "publisher_id")
+	private Publisher publisher;
 
-	private int supplierId;
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "supplier_id")
+	private Supplier supplier;
+
 	private int productId;
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
 
 	public int getId() {
 		return id;
@@ -118,38 +119,36 @@ public class ProductAttribute {
 		this.publishYear = publishYear;
 	}
 
-	public int getAuthorId() {
-		return authorId;
+	public Author getAuthor() {
+		return author;
 	}
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
-	public int getPublisherId() {
-		return publisherId;
+	public Publisher getPublisher() {
+		return publisher;
 	}
 
-	public void setPublisherId(int publisherId) {
-		this.publisherId = publisherId;
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
-	public int getSupplierId() {
-		return supplierId;
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductAttribute [id=" + id + ", attrCode=" + attrCode + ", attrLanguage=" + attrLanguage + ", attrAge="
-				+ attrAge + ", attrLayout=" + attrLayout + ", attrPage=" + attrPage + ", attrWeight=" + attrWeight
-				+ ", attrSize=" + attrSize + ", publishYear=" + publishYear + ", authorId=" + authorId
-				+ ", publisherId=" + publisherId + ", supplierId=" + supplierId + ", productId=" + productId + "]";
+	public int getProductId() {
+		return productId;
 	}
-	
-	
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
 
 }

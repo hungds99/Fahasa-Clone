@@ -1,0 +1,181 @@
+/* * PRODUCT.HTML * */
+.main-products {
+
+}
+    .block {
+        background-color: #ffffff;
+    }
+
+    .block .block-title {
+        color: #6a6a6a;
+        position: relative;
+        font-family: "Poppins", sans-serif;
+        padding: 18px 20px;
+        padding-bottom: 0px;
+        font-size: 20px;
+        font-weight: 600;
+        border-bottom: 2px solid #f6f6f6;
+    }
+
+    .block .block-title strong span {
+        color: #c00;
+    }
+
+    .block .block-content {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .block-layered-nav dt {
+        cursor: pointer;
+        text-transform: uppercase;
+        line-height: 100%;
+        padding: 10px 0;
+        text-align: left;
+        font-weight: 600;
+        margin-bottom: 0px;
+        font-size: 13px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .block-layered-nav dd {
+        margin: 0;
+        padding: 0;
+    }
+
+    .block-layered-nav dt {
+        position: relative;
+        zoom: 1;
+        left: 0;
+        top: 0;
+    }
+
+    ul, ol {
+        margin: 0;
+        padding: 0;
+    }
+
+    .m-current-category {
+        padding-bottom: 8px;
+        font-weight: bold;
+        font-size: 14px;
+        color: #f7921f;
+        font-family: sans-serif;
+    }
+
+    .block-layered-nav li {
+        list-style: none;
+    }
+
+    .block-layered-nav dd li {
+        color: #333;
+        line-height: 22px;
+        margin: 0 0 7px 10px;
+        text-align: left;
+        width: 100%;
+        position: relative;
+    }
+
+    .block-layered-nav dd li:before {
+        content: "\f053";
+        position: absolute;
+        font-family: FontAwesome;
+        left: -15px;
+        top: 0;
+        color: #aaa;
+    }
+
+    .m-more-less {
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .m-show-more-action, .m-show-less-action {
+        color: #c00 !important;
+        font-weight: bold;
+        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .m-slider-values.left-aligned {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .m-slider-values {
+        text-align: center;
+        margin-top: 3px;
+    }
+
+    input.m-slider[type="text"] {
+        width: 91px;
+    }
+
+    ol.m-filter-css-checkboxes li a.m-checkbox-unchecked, ol.m-filter-css-checkboxes li a.m-checkbox-checked {
+        padding-left: 20px;
+        text-decoration: none;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    ol.m-filter-css-checkboxes li a.m-checkbox-unchecked {
+        background: transparent url(https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/checkbox_unchecked.png) 0 50% no-repeat;
+    }
+
+    .menu-recent {
+        background-color: white;
+        margin-bottom: 30px;
+    }
+
+    /*  */
+    .category-products {
+        background-color: white;
+    }
+
+    .category-products .row {
+        margin-right: -6px !important;
+    }
+
+    .product-name a {
+        color: #333333;
+        font-weight: normal;
+        font-size: 0.75em;
+        display: block;
+        padding-top: 5px;
+        height: inherit;
+    }
+
+    .category-products .product-name a {
+        font-size: 0.45em;
+    }
+
+    .special-price {
+        margin: 0;
+    }
+    .old-price {
+        margin: 0;
+    }
+
+    .category-products img {
+        max-width: 100%;
+    }
+
+    .category-products ul.products-grid {
+        padding-left: 0;
+    }
+
+    .category-products .products-grid, .tabs-prod .category-products .products-grid {
+        margin-left: 10px;
+    }
+
+    .products-grid .col-md-3 {
+        padding-left: 5px;
+        padding-right: 25px;
+    }
+
+    .products-grid li {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }

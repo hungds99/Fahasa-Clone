@@ -1,0 +1,247 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản lý nhà xuất bản -->
+		<div class="author-content">
+
+			<div class="panel-group">
+				<div class="panel panel-search">
+					<div class="panel-body">
+						<div class="search-row">
+							<i class="fa fa-search"></i> <span>Tìm Kiếm</span>
+						</div>
+						<div class="search-body">
+							<div class="form-group row">
+								<label for="authorNameSearch" class="col-sm-2 col-form-label">
+									Tên nhà xuất bản </label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="publisherNameSearch">
+								</div>
+							</div>
+							<div class="offset-2">
+								<button type="button" class="btn btn-primary btn-sm"
+									id="btn-search">Tìm kiếm</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-table">
+					<div class="panel-body">
+						<div class="text-right mb-2">
+							<a href="#" th:href="@{/Admin/Publisher/Create}" class="btn btn-success btn-sm fas fa-plus"> Thêm mới</a>
+							<a href="#" class="btn btn-danger btn-sm fas fa-trash-alt text-white"
+								id="btn-delete-selected" data-toggle="modal"
+								data-target="#acceptDeleteModal"> Xoá (Đã chọn)</a>
+						</div>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col"><input type="checkbox" id="select-all">
+									</th>
+									<th scope="col">Tên nhà xuất bản</th>
+									<th scope="col">Hình ảnh</th>
+									<th scope="col">Thông tin</th>
+									<th scope="col">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<!-- Insert Data -->
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination" id="pagination">
+								<li class="page-item" data-page-idx=-1><a class="page-link">Previous</a>
+								</li>
+								<li class="page-item active" data-page-idx=1><a
+									class="page-link">1</a></li>
+								<li class="page-item" data-page-idx=2><a class="page-link">2</a></li>
+								<li class="page-item" data-page-idx=3><a class="page-link">3</a></li>
+								<li class="page-item" data-page-idx=+1><a class="page-link">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!-- End -->
+
+		<!-- Modal -->
+
+		<!-- * Delete *  -->
+		<div class="modal fade" id="acceptDeleteModal" data-backdrop="static"
+			tabindex="-1" role="dialog" aria-labelledby="acceptDeleteLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h5>Bạn đã chắc chắn xóa Nhà Xuất Bản ?</h5>
+						<button type="submit" class="btn btn-danger btn-sm"
+							id="accept-delete" data-dismiss="modal">Xóa</button>
+						<button type="button" class="btn btn-secondary btn-sm offset-2"
+							data-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- End Modal -->
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+				
+				window.onload = loadPublisherList();
+				
+				/* Search And Render Data */
+				let btn_search = document.getElementById('btn-search');
+				btn_search.addEventListener('click', loadPublisherList);
+				
+				function loadPublisherList() {
+					console.log("hi");
+					
+					let publisherNameSearch = document.getElementById('publisherNameSearch');
+					let labelPage = document.getElementsByClassName("page-item active")[0];
+					let currentPage = labelPage.getAttribute('data-page-idx');
+				
+					const params = new URLSearchParams();
+			        params.append("keyword", publisherNameSearch.value);
+			        params.append('page', currentPage);
+					
+			    	console.log("hi");
+			        
+					axios.post('/Admin/Publisher/List',params)
+					  .then(function (response) {
+						  renderPublishers(response.data);
+					  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				
+					
+				};
+				
+				function renderPublishers(publishers) {
+					let tbody = document.getElementById('tbody');
+					let contents = '';
+					publishers.forEach(publisher => {
+						contents += `
+							<tr>
+							<td>
+								<input type="checkbox" value=${publisher.id} class="checkBoxGroups" >
+							</td>
+							<td>${publisher.publisherName}</td>
+							<td>
+								<img width=160 height=100 src="/images/${publisher.publisherImage}" />
+							</td>
+							<td>${publisher.publisherInfo}</td>
+							<td>
+								<a href="/Admin/Publisher/Edit/${publisher.id}">
+									<i class="fa fa-edit">  </i>
+								</a>
+							</td>
+						</tr>
+						`
+					});
+					tbody.innerHTML = contents;
+					actSelectAll();
+				}
+				
+				
+				// PAGINATION
+				
+				let paginationUl = document.getElementById('pagination');
+				
+				paginationUl.addEventListener('click', function(event) {
+					let elactive = paginationUl.getElementsByClassName("page-item active")[0];
+					let el = event.target.parentElement;
+					if(el.matches('.page-item')) {
+						elactive.classList.remove("active");
+						console.log(el.getAttribute("data-page-idx"));
+						el.classList.add("active");
+						loadPublisherList();
+					}
+				});
+				
+				// SELECT ALL
+				
+				function actSelectAll() {
+					let select_all = document.getElementById("select-all");
+					
+					select_all.addEventListener('click', function () {
+						let checked = this.getAttribute('checked');
+						let checkBoxs = document.querySelectorAll('.checkBoxGroups');
+						
+						if(checked === null) {
+							checkBoxs.forEach((checkBox) => {
+								if(checkBox.checked !== true) {
+									checkBox.checked = true;
+								}
+							});
+							this.setAttribute('checked', '');
+						} else {
+							checkBoxs.forEach((checkBox) => {
+								if(checkBox.checked === true) {
+									checkBox.checked = false;
+								}
+							});
+							this.removeAttribute('checked');
+						}
+						
+						
+					});
+					
+				}
+				
+				// DELETE SELECTED
+				
+				let publisherIds = [];
+				
+				let btn_delete_selected = document.getElementById('btn-delete-selected');
+				
+				btn_delete_selected.addEventListener('click', actDeleteSelect );
+				
+				function actDeleteSelect() {
+					let checkBoxs = document.querySelectorAll('.checkBoxGroups');
+				
+					
+					checkBoxs.forEach((checkBox) => {
+						if(checkBox.checked === true) {
+							console.log(checkBox.value);
+							publisherIds.push(checkBox.value);
+						}
+					})
+					
+					console.log(publisherIds);
+				}
+				
+				// ACCEPT DELETE
+				
+				let accept_delete = document.getElementById('accept-delete');
+				
+				accept_delete.addEventListener('click', acceptDelete);
+				
+				function acceptDelete() {
+					
+					axios.post('/Admin/Publisher/DeleteSelected', publisherIds)
+					  .then(function (response) {
+						  loadPublisherList();
+					  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				}
+				
+			
+		</script>
+
+	</th:block>
+
+</th:block>

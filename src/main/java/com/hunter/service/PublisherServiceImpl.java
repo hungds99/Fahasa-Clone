@@ -19,4 +19,14 @@ public class PublisherServiceImpl implements PublisherService {
 		return publisherRepository.findAll();
 	}
 
+	@Override
+	public List<Publisher> findByPublisherName(String publisherName, int begin, int end) {
+		return publisherRepository.findByPublisherName(publisherName, begin, end);
+	}
+
+	@Override
+	public void save(Publisher publisher) {
+		publisherRepository.save(publisher);
+	}
+
 }

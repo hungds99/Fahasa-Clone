@@ -1,10 +1,15 @@
 package com.hunter.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "publisher")
@@ -15,8 +20,30 @@ public class Publisher {
 	private int id;
 
 	private String publisherName;
+	
+	private String publisherInfo;
 
 	private String publisherImage;
+	
+	@OneToMany
+	@JsonIgnore
+	private List<ProductAttribute> productAttributes;
+	
+	public String getPublisherInfo() {
+		return publisherInfo;
+	}
+
+	public void setPublisherInfo(String publisherInfo) {
+		this.publisherInfo = publisherInfo;
+	}
+
+	public List<ProductAttribute> getProductAttributes() {
+		return productAttributes;
+	}
+
+	public void setProductAttributes(List<ProductAttribute> productAttributes) {
+		this.productAttributes = productAttributes;
+	}
 
 	public int getId() {
 		return id;

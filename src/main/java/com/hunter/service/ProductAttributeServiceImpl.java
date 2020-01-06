@@ -26,9 +26,9 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
 		
 		if (productAttributeExist != null) {
 			productAttributeExist.setAttrCode(productAttribute.getAttrCode());
-			productAttributeExist.setAuthorId(productAttribute.getAuthorId());
-			productAttributeExist.setSupplierId(productAttribute.getSupplierId());
-			productAttributeExist.setPublisherId(productAttribute.getPublisherId());
+			productAttributeExist.setAuthor(productAttribute.getAuthor());
+			productAttributeExist.setSupplier(productAttribute.getSupplier());
+			productAttributeExist.setPublisher(productAttribute.getPublisher());
 			productAttributeExist.setPublishYear(productAttribute.getPublishYear());
 			productAttributeExist.setAttrLanguage(productAttribute.getAttrLanguage());
 			productAttributeExist.setAttrSize(productAttribute.getAttrSize());

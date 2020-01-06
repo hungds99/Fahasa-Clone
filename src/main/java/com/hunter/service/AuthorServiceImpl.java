@@ -6,8 +6,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hunter.model.Author;
@@ -26,9 +24,8 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	@Transactional
-	public List<Author> findByAuthorName(String authorName, Pageable pageable) {
-		Page<Author> authorPage = authorRepository.findByAuthorName(authorName, pageable);
-		List<Author> authors = authorPage.getContent();
+	public List<Author> findByAuthorName(String authorName, int begin, int end) {
+		List<Author> authors = authorRepository.findByAuthorName(authorName, begin, end);
 		return authors;
 	}
 

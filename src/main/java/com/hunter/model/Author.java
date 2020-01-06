@@ -1,10 +1,16 @@
 package com.hunter.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "author")
@@ -21,6 +27,18 @@ public class Author {
 	private String authorInfo;
 	
 	private String authorImage;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<ProductAttribute> productAttribute;
+
+	public List<ProductAttribute> getProductAttribute() {
+		return productAttribute;
+	}
+
+	public void setProductAttribute(List<ProductAttribute> productAttribute) {
+		this.productAttribute = productAttribute;
+	}
 
 	public int getId() {
 		return id;

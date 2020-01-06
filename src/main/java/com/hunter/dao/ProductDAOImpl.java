@@ -20,7 +20,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Object[]> getProductBySearch(SearchDTO searchDTO) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-
+		
 		StringBuilder strBuilder = new StringBuilder();
 
 		strBuilder.append("SELECT p.id, p.product_code, c.category_name, p.product_name, ");
@@ -33,6 +33,8 @@ public class ProductDAOImpl implements ProductDAO {
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
+		
+		entityManager.getTransaction().commit();
 		return results;
 	}
 
@@ -40,7 +42,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Object[]> getProductByCategoryId(int categoryId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-
+		
 		StringBuilder strBuilder = new StringBuilder();
 
 		strBuilder.append("SELECT p.id, p.product_name, p.product_price, ");
@@ -54,6 +56,7 @@ public class ProductDAOImpl implements ProductDAO {
 		@SuppressWarnings("unchecked")
 		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
 
+		entityManager.getTransaction().commit();
 		return results;
 	}
 
@@ -76,6 +79,7 @@ public class ProductDAOImpl implements ProductDAO {
 		@SuppressWarnings("unchecked")
 		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
 
+		entityManager.getTransaction().commit();
 		return results;
 	}
 

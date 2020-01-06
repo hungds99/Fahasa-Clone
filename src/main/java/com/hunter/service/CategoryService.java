@@ -2,15 +2,13 @@ package com.hunter.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
-
 import com.hunter.model.Category;
 
 public interface CategoryService {
 
 	public List<Category> findAll();
 
-	public List<Category> findByCategoryName(String categoryName, Pageable pageable);
+	public List<Category> findByCategoryName(String categoryName, int begin, int end);
 
 	public Category findById(int id);
 
