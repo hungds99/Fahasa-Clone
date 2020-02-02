@@ -3,7 +3,9 @@
 	layout:decorate="~{admin-layout}">
 
 	<th:block layout:fragment="content">
-
+		
+		<link rel="stylesheet" th:href="@{/vendor/autocomplete/auto-complete.css}">
+		
 		<!-- Thêm mới sản phẩm -->
 		<div class="add-product-content content p-3 mb-5">
 			<div class="row p-3">
@@ -31,20 +33,25 @@
 											<label for="p_code">Mã sản phẩm</label> <input type="text"
 												class="form-control" id="p_code" th:field="*{productCode}">
 										</div>
-
+	
 										<div class="form-group col-6">
 											<label for="category">Danh mục sản phẩm</label> <select
 												class="form-control" name="category">
-												<th:block th:each="category : ${categories}">
-													<option th:value="${category.id}"
-														th:text="${category.categoryName}">
+												<th:block th:each="c : ${categories}">
+													<option th:value="${c.id}"
+														th:text="${c.categoryName}" 
+														th:selected="(${product.category == null ? 'null' : product.category.id}) == ${c.id}">
+														<!-- th:selected="${product.category.id} == ${category.id}" -->
 													</option>
-													
-													<!-- 
-														th:selected="${product.categoryId} == ${category.id}" -->
+														
 												</th:block>
 											</select>
 										</div>
+										
+										<!-- <div class="form-group col-6">
+											<label for="category">Danh mục sản phẩm</label>
+											<input type="text" class="form-control" th:name="category" id="category">
+										</div> -->
 
 										<div class="form-group col-6">
 											<label for="p_name">Tên sản phẩm</label> <input type="text"
@@ -65,14 +72,21 @@
 
 										<div class="form-group col-6">
 											<label for="applyPromotion">Áp dụng khuyến mãi</label> <select
-												id="applyPromotion" class="form-control" name="promotions">
-												<option value="">- Không có khuyến mãi -</option>
+												id="applyPromotion" class="form-control" name="promotion">
+												<option value=" ">- Không có khuyến mãi -</option>
 												<th:block th:each="promotion : ${promotions}">
 													<option th:value="${promotion.id}"
-														th:text="${promotion.promotionName}">
+														th:text="${promotion.promotionName}"
+														th:selected="(${product.promotion == null ? 'null' : product.promotion.id}) == ${promotion.id}">
+														<!-- th:selected="(${product.promotion == null ? 'null' : product.promotion.id}) == ${promotion.id}" -->
 													</option>
 											</select>
 										</div>
+										
+										<!-- <div class="form-group col-6">
+											<label for="promotion">Áp dụng khuyến mãi</label>
+											<input type="text" class="form-control" name="promotion" id="promotion">
+										</div> -->
 
 										<div class="form-group col-6">
 											<label for="productStatus">Trạng thái</label> <select
@@ -149,19 +163,20 @@
 													<th:block th:each="author : ${authors}">
 														<option th:value="${author.id}"
 															th:text="${author.authorName}"
-															th:selected="${productattribute.authorId} == ${author.id}"></option>
+															th:selected="${productattribute.author == null ? 'null' : productattribute.author.id} == ${author.id}"
+															></option>
+													
 													</th:block>
-
 												</select>
 											</div>
-
-											<div class="form-group col-6">
+											
+										<div class="form-group col-6">
 												<label for="supplier">Tên Nhà Cung Cấp</label> <select
 													class="form-control" id="supplier" name="supplier">
 													<th:block th:each="supplier : ${suppliers}">
 														<option th:value="${supplier.id}"
 															th:text="${supplier.supplierName}"
-															th:selected="${productattribute.supplierId} == ${supplier.id}"></option>
+															th:selected="${productattribute.supplier == null ? 'null' : productattribute.supplier.id} == ${supplier.id}"></option>
 													</th:block>
 												</select>
 											</div>
@@ -172,12 +187,12 @@
 													<th:block th:each="publisher : ${publishers}">
 														<option th:value="${publisher.id}"
 															th:text="${publisher.publisherName}"
-															th:selected="${productattribute.publisherId} == ${publisher.id}"></option>
+															th:selected="${productattribute.publisher == null ? 'null' : productattribute.publisher.id} == ${publisher.id}"></option>
 													</th:block>
 
 												</select>
 											</div>
-
+	
 											<div class="form-group col-6">
 												<label for="publisher_year">Năm xuất bản</label> <select
 													class="form-control" id="publisher_year" name="publishYear">
@@ -315,7 +330,46 @@
 						</div>
 					</div>
 				</div>
-
+		
+				<!-- <script src="js/admin.js" th:src="@{/vendor/autocomplete/auto-complete.min.js}"></script>
+				<script type="text/javascript">
+				
+				function autoCompleteFnc() {
+					let nameS = this.getAttribute("name");
+					let upperName = nameS.replace(/^\w/, function (chr) {
+						  return chr.toUpperCase();
+					});
+					
+					let url = `/Admin/${upperName}/Search`;
+					
+					new autoComplete({
+					    selector: this,
+					    source: function(keyword, response){
+					        $.getJSON(url, { q: keyword }, function(data){ response(data); });
+					    },
+					    renderItem: function (item, search){
+					        search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+					        var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+					        item = Object.values(item);
+					        return '<div class="autocomplete-suggestion" data-id="'+ item[0] +'" data-name="'+ item[1] +'">' + item[1] + '</div>';
+					    },
+					    onSelect: function(e, term, item){
+					    	let data_id = item.getAttribute('data-id');
+					    	let data_name = item.getAttribute('data-name');
+					    	this.selector.setAttribute('value', data_id);
+					    	this.selector.value = data_name;
+					    }
+					});
+					
+				}
+				
+				let categoryInput = document.querySelector('input[name="category"]');
+				categoryInput.addEventListener('focus', autoCompleteFnc);
+				
+				let promotionInput = document.querySelector('input[name="promotion"]');
+				promotionInput.addEventListener('focus', autoCompleteFnc);
+				
+				</script> -->
 
 
 			</div>

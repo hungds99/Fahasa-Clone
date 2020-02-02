@@ -94,7 +94,7 @@ public class AdminProductController {
 	public String getCreateAfterSave(Model model, @PathVariable("id") int productId) {
 		model.addAttribute("breadcrumb", "Sửa sản phẩm");
 		model.addAttribute("categories", categoryService.findAll());
-		model.addAttribute("discounts", discountService.findAll());
+		model.addAttribute("promotions", promotionService.findAllPromotion());
 		model.addAttribute("product", productService.findProductById(productId));
 		ProductAttribute productattribute = productAttributeService.findByProductId(productId);
 		model.addAttribute("productattribute", (productattribute == null) ? new ProductAttribute() : productattribute);

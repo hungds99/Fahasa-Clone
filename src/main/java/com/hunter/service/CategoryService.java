@@ -9,6 +9,8 @@ public interface CategoryService {
 	public List<Category> findAll();
 
 	public List<Category> findByCategoryName(String categoryName, int begin, int end);
+	
+	public List<Category> findByCategoryName(String categoryName);
 
 	public Category findById(int id);
 

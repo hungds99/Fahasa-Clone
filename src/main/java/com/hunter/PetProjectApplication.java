@@ -7,6 +7,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.hunter.file.storage.StorageProperties;
 
+/*
+ * Khai code đầu xuân 2020
+ * Chúc mừng năm mới !!!
+ * Mục tiêu : Hoàn thành project này trước tháng 3, Thực tập, TOEIC 400+  
+ */
+
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
 @EnableTransactionManagement

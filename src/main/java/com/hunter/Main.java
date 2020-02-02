@@ -1,7 +1,5 @@
 package com.hunter;
 
-import java.util.Date;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -11,8 +9,18 @@ public class Main {
 //		System.out.println(date);
 //		System.out.println(DateUtil.getFormatDate(date, DateUtil.PT_DD_MM_YYYY_HH_MM_SS));
 		
-		Date date = new Date();
-		System.out.println(date);
+//		Date date = new Date();
+//		System.out.println(date);
+		
+		/* System.out.println(Integer.parseInt(null)); */
+		/* System.out.println(Integer.pa); */
+		
+		Object a = null;
+		
+		
+		String c = a.toString();
+		
+		System.out.println(c);
 		
 	}
 	

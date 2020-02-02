@@ -42,22 +42,23 @@ public class ProductServiceImpl implements ProductService {
 		List<Object []> results = productDAO.getProductBySearch(searchDTO);
 		if (results != null && !results.isEmpty()) {
 			for (Object[] object : results) {
+				
 				ProductDTO product = new ProductDTO();
 				
-				product.setProductId(Integer.parseInt(object[0].toString()));
-				product.setProductCode(Integer.parseInt(object[1].toString()));
-				product.setCategoryName(object[2].toString());
-				product.setProductName(object[3].toString());
-				product.setImageUrl(object[4].toString());
-				product.setImageAlt(object[5].toString());
-				product.setHighlight(Boolean.getBoolean(object[6].toString()));
-				product.setIsshowed(Boolean.getBoolean(object[7].toString()));
-				product.setPrice(Double.parseDouble(object[8].toString()));
-				product.setFinalPrice(Double.parseDouble(object[8].toString())*Integer.parseInt(object[9].toString()));
-				product.setPromotionValue(Integer.parseInt(object[9].toString()));
+				product.setProductId(Integer.parseInt(convertString(object[0])));
+				product.setProductCode(Integer.parseInt(convertString(object[1])));
+				product.setCategoryName(convertString(object[2]));
+				product.setProductName(convertString(object[3]));
+				product.setImageUrl(object[4] == null ? null : object[4].toString());
+				product.setImageAlt(object[5] == null ? null : object[5].toString());
+				product.setHighlight(object[6].toString().equals("true") ? true : false);
+				product.setIsshowed(object[7].toString().equals("true") ? true : false);
+				product.setPrice(Double.parseDouble(convertString(object[8])));
+				product.setFinalPrice(Double.parseDouble(convertString(object[8])) * Integer.parseInt(convertString(object[9])));
+				product.setPromotionValue(Integer.parseInt(convertString(object[9])));
 				product.setCreateDate(DateUtil.getFormatDate((object[10] == null) ? null : object[10].toString(), DateUtil.FORMAT_SLASH_DD_MM_YYYY));
-				product.setAmount(Integer.parseInt(object[11].toString()));
-				switch (Integer.parseInt(object[12].toString())) {
+				product.setAmount(Integer.parseInt(convertString(object[11])));
+				switch (Integer.parseInt(convertString(object[12]))) {
 				case 1:
 					product.setProductStatus(ConstantUtil.ProductStatus.CONHANG.getValue());
 					break;
@@ -73,6 +74,14 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return products;
+	}
+	
+	public String convertString (Object obj) {
+		if (obj.equals(null)) {
+			return "0";
+		} else {
+			return obj.toString();
+		}
 	}
 
 	@Override

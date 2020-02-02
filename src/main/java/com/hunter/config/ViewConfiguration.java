@@ -8,10 +8,9 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @Configuration
 public class ViewConfiguration {
 
-  @Bean
-  public LayoutDialect layoutDialect() {
-    return new LayoutDialect();
-  }
-
+	@Bean
+	public LayoutDialect layoutDialect() {
+		return new LayoutDialect();
+	}
 
 }

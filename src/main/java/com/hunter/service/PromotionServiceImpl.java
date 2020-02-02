@@ -63,6 +63,11 @@ public class PromotionServiceImpl implements PromotionService {
 	public Promotion findById(int id) {
 		return promotionRepository.findById(id).orElse(null);
 	}
+
+	@Override
+	public List<Promotion> findByPromotionName(String promotionName) {
+		return promotionRepository.findByPromotionName(promotionName);
+	}
 	
 	
 

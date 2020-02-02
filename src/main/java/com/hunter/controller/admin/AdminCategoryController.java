@@ -70,5 +70,11 @@ public class AdminCategoryController {
 		categoryService.saveAndUpdate(category);
 		return "redirect:/Admin/Category/List";
 	}
+	
+	@GetMapping("Category/Search")
+	@ResponseBody
+	public List<Category> getCategoryByName(@RequestParam("q") String q) {
+		return categoryService.findByCategoryName(q);
+	}
 
 }

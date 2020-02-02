@@ -12,4 +12,9 @@ public interface PromotionRepository extends JpaRepository<Promotion, Integer> {
 	@Query("FROM Promotion")
 	List<Promotion> findAllPromotion();
 	
+	@Query(value = "SELECT * FROM promotion p WHERE p.promotion_name LIKE %?1%", nativeQuery = true)
+	List<Promotion> findByPromotionName(String promotionName);
+	
+	
+	
 }

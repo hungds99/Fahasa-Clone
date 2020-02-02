@@ -28,7 +28,7 @@ public class ProductDAOImpl implements ProductDAO {
 		strBuilder.append("p.product_price, pr.promotion_value, p.created_date, p.product_amount, p.product_status ");
 		strBuilder.append("FROM product p ");
 		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
-		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
+		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id AND i.display_order = 1 ");
 		strBuilder.append("LEFT JOIN promotion pr ON p.promotion_id = pr.id");
 
 		@SuppressWarnings("unchecked")
