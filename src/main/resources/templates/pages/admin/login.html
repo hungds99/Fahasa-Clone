@@ -86,7 +86,7 @@
 
 			<div th:if="${param.logout}">You have been logged out.</div>
 
-			<form action="/login" method="POST" th:action="@{/login}">
+			<form action="/Admin/login" method="POST" th:action="@{/Admin/login}" th:object="${user}">
 				<p>Đăng nhập vào hệ thống</p>
 				<div th:if="${param.error}" class="error">Vui Lòng Nhập Lại
 					Tài Khoản Và Mật Khẩu.</div>

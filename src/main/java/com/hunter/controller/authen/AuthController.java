@@ -14,7 +14,7 @@ import com.hunter.utils.ViewName;
 @Controller
 public class AuthController {
 
-	@GetMapping("/login")
+	@GetMapping("/Admin/login")
 	public String getLoginPage() {
 		return ViewName.ADMIN_LOGIN_PAGE;
 	}
@@ -25,7 +25,7 @@ public class AuthController {
 	    if (auth != null) {
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    return "redirect:/login";
+	    return "redirect:/Admin/login";
 	}
 	
 }

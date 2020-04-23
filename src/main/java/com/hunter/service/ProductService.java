@@ -19,4 +19,6 @@ public interface ProductService {
 	
 	public ProductViewDTO getProductByProductId(int productId);
 	
+	public Product getProductWithImage(int productId);
+	
 }

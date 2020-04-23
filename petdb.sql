@@ -25,6 +25,20 @@ CREATE TABLE `discount` (
     primary key (id)
 ); 
 
+-- Promotion
+CREATE TABLE `promotion` (
+	id int auto_increment,
+    promotion_name nvarchar(100),
+    promotion_value int,
+    promotion_type nvarchar(100),
+	promotion_code varchar(10),
+    promotion_rule nvarchar(255),
+    created_date date,
+    begin_date date,
+    end_date date,
+    primary key (id)
+);
+
 -- Customer
 CREATE TABLE `customer` (
 	id int auto_increment,
@@ -53,6 +67,7 @@ CREATE TABLE `product` (
     highlight boolean,
     isshowed boolean,
     discount_id int,
+    promotion_id int,
     category_id int,
     primary key (id)
 );
@@ -62,6 +77,11 @@ ALTER TABLE `product`
 ADD CONSTRAINT fk_product_discount_id
 	FOREIGN KEY (discount_id)
 	REFERENCES `discount` (id);
+    
+ALTER TABLE `product`
+ADD CONSTRAINT fk_product_promotion_id
+	FOREIGN KEY (promotion_id)
+    REFERENCES `promotion` (id);
 
 ALTER TABLE `product`
 ADD CONSTRAINT fk_product_category_id
@@ -74,6 +94,7 @@ CREATE TABLE `image` (
     image_alt nvarchar(255),
     display_order int,
     product_id int,
+    promotion_id int,
     primary key(id)
 );
 
@@ -82,6 +103,38 @@ ALTER TABLE `image`
 ADD	CONSTRAINT fk_image_product_id
 	FOREIGN KEY (product_id)
     REFERENCES `product` (id);
+
+ALTER TABLE `image`
+ADD CONSTRAINT fk_image_promotion_id
+	FOREIGN KEY (promotion_id)
+    REFERENCES `promotion` (id);
+
+-- Author
+CREATE TABLE `author` (
+	id int auto_increment,
+    author_age int,
+    author_name nvarchar(100),
+    author_info text,
+    author_image nvarchar(100),
+    primary key (id)
+);
+
+-- Publisher 
+CREATE TABLE `publisher` (
+	id int auto_increment,
+    publisher_name nvarchar(100),
+    publisher_image nvarchar(100),
+    publisher_info nvarchar(255),
+    primary key (id)
+);
+
+-- Supplier
+CREATE TABLE `supplier` (
+	id int auto_increment,
+    supplier_name nvarchar(100),
+    supplier_image nvarchar(100),
+    primary key (id)
+); 
     
 -- Product Attribute
 CREATE TABLE `product_attribute` (
@@ -100,6 +153,21 @@ CREATE TABLE `product_attribute` (
     product_id int,
     primary key(id)
 );
+
+ALTER TABLE `product_attribute`
+ADD CONSTRAINT fk_product_attribute_author_id
+	FOREIGN KEY (author_id)
+    REFERENCES `author` (id);
+    
+ALTER TABLE `product_attribute`
+ADD CONSTRAINT fk_product_attribute_publisher_id
+	FOREIGN KEY (publisher_id)
+    REFERENCES `publisher` (id);
+    
+ALTER TABLE `product_attribute`
+ADD CONSTRAINT fk_product_attribute_supplier_id
+	FOREIGN KEY (supplier_id)
+    REFERENCES `supplier` (id);
 
 -- Comment
 CREATE TABLE `comment` (
@@ -158,32 +226,6 @@ ALTER TABLE `order_detail`
 ADD CONSTRAINT fk_order_detail_order_id
 	FOREIGN KEY (order_id)
     REFERENCES `order` (id);
-
--- Author
-CREATE TABLE `author` (
-	id int auto_increment,
-    author_age int,
-    author_name nvarchar(100),
-    author_info text,
-    author_image nvarchar(100),
-    primary key (id)
-);
-
--- Publisher 
-CREATE TABLE `publisher` (
-	id int auto_increment,
-    publisher_name nvarchar(100),
-    publisher_image nvarchar(100),
-    primary key (id)
-);
-
--- Supplier
-CREATE TABLE `supplier` (
-	id int auto_increment,
-    supplier_name nvarchar(100),
-    supplier_image nvarchar(100),
-    primary key (id)
-); 
 
 -- User Admin
 CREATE TABLE `user` (

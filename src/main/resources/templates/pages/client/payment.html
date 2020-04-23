@@ -1,0 +1,240 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{client-layout}">
+
+
+	<th:block layout:fragment="content">
+
+		<link rel="stylesheet" th:href="@{/css/product-detail.css}">
+
+		<!-- =============================== [HEADER] =================================-->
+		<section class="header" id="header">
+
+			<!-- * Header 1 * -->
+			<th:block layout:insert="~{fragments/client/header}" />
+
+			<!-- * Header-Breadcrumbs * -->
+			<!-- <th:block layout:insert="~{fragments/client/header-breadcrumb}" /> -->
+
+		</section>
+		<!-- =============================== [END] ====================================-->
+
+		<!-- =============================== [MAIN-CONTAINER] =========================-->
+		<link rel="stylesheet" th:href="@{/css/payment.css}">
+		<div class="main-container" id="main-container">
+			<div class="container-1">
+				<div class="container-inner">
+					<ol class="one-step-checkout clearfix">
+						<li>
+							<h1 class="checkout_header">Thanh toán</h1>
+							<p class="subtitle">Điền vào các mục dưới đây để hoàn thành
+								mua hàng của bạn !</p>
+						</li>
+						<li id="onestepcheckout_login_link"
+							class="onestepcheckout-login-link"><a
+							href="javascript:void(0);" id="onestepcheckout-login-link"><span>&nbsp;</span>
+								Bạn đã là thành viên? ĐĂNG NHẬP </a></li>
+						<!-- Start: Added by Daniel - 02/04/2015 - Top links buttons after login from OSC -->
+						<li id="osc_top_links"><a
+							href="https://www.fahasa.com/customer/account/" title="Tài khoản">Tài
+								khoản</a> <a href="https://www.fahasa.com/checkout/cart/"
+							title="Giỏ hàng">Giỏ hàng</a> <a
+							href="https://www.fahasa.com/customer/account/logout/"
+							title="Thoát">Thoát</a></li>
+						<!-- End: Added by Daniel - 02/04/2015 - Top links buttons after login from OSC -->
+						<li class="payment_buttons"></li>
+						<li class="address-order">
+							<form id="one-step-checkout-form" method="post" th:action="@{/xac-nhan-don-hang}" th:object="${customer}">
+								<div class="address-information address-info-3-columns">
+
+									<!-- Start: Modified by Daniel -01042015- Reload data after login -->
+									<div id="onestepcheckout-billing-section">
+										<div class="billing_address">
+											<h3 id="billing_step_header" class="step_1">Địa chỉ
+												thanh toán</h3>
+											<fieldset class="group-select" id="billing-new-address-form">
+												<input type="hidden" name="billing[address_id]"
+													value="8341664" id="billing:address_id">
+												<ul>
+													<li>
+														<div class="one-field">
+															<label class="required" for="name">Tên
+																<em>*</em>
+															</label><br> 
+															<input type="text" id="name" th:field="*{name}"	
+																autocomplete="" name="name" value=""
+																title="Tên" class="input-text required-entry">
+														</div>
+													</li>
+													<li>
+														<div class="one-field">
+															<label class="required" for="email">Địa
+																chỉ Email <em>*</em>
+															</label><br> <input type="text" id="email" th:field="*{email}"
+																autocomplete="off" name="email" value=""
+																title="Địa chỉ Email"
+																class="input-text required-entry validate-email">
+															<span id="valid_email_address_image"
+																style="display: none;"><img
+																src="https://cdn0.fahasa.com/skin/frontend/base/default/images/onestepcheckout/valid.gif"
+																title="Valid Email Address" alt="Valid Email Address"
+																width="18"></span>
+															<div id="email-error-message" class="error-message"></div>
+														</div>
+													</li>
+													<li>
+														<div class="one-field">
+															<label class="required" for="phone">Điện
+																thoại <em>*</em>
+															</label><br> <input type="text" id="phone" th:field="*{phone}"
+																autocomplete="" name="phone" value=""
+																title="Điện thoại"
+																class="input-text required-entry validate-phone-numberonly-atleast7 validate-billing-telephone">
+														</div>
+													</li>
+													<li>
+														<div class="one-field">
+															<label class="required" for="address">Địa
+																chỉ <em>*</em>
+															</label><br> <input type="text" title="Địa chỉ" th:field="*{address}"
+																name="address" id="address" value=""
+																class="required-entry input-text validate-maximum-length-100">
+														</div>
+													</li>
+
+												</ul>
+											</fieldset>
+											<ul>
+												<li class="shipping_other_address">
+												</li>
+											</ul>
+										</div>
+									</div>
+
+								</div>
+								<div class="onestepcheckout-shipping-payment-review">
+									<div class="onestepcheckout-review-info">
+										<ol>
+											<li class="order-review-info">
+												<h3 style="float: left" id="review_step_header"
+													class="step_4">Kiểm tra lại đơn hàng</h3>
+												<div class="ajax-loader3" id="ajax-review"
+													style="float: left; margin-top: 14px; margin-left: 10px; display: none;"></div>
+												<div class="clear"></div>
+
+												<div id="checkout-review-load"
+													class="default-box checkout-review-load">
+													<div id="checkout-review-table-wrapper">
+														<table class="data-table" id="checkout-review-table">
+															<colgroup>
+																<col>
+																<col width="1">
+																<col width="1">
+																<col width="1">
+															</colgroup>
+															<tbody>
+																<tr class="first odd">
+																	<th style="width: 70%" rowspan="1" class="a-left">Tên
+																		sản phẩm</th>
+																	<th style="width: 16%" rowspan="1" class="a-center">SL</th>
+																	<th style="width: 30%" colspan="1" class="a-right">Thành
+																		tiền</th>
+																</tr>
+															</tbody>
+															<tfoot>
+																<tr class="first">
+																	<td colspan="2">&nbsp;</td>
+																	<td class="last">&nbsp;</td>
+																</tr>
+																<tr>
+																	<td style="" class="a-right" colspan="2">Thành
+																		tiền</td>
+																	<td style="" class="a-right last"><span
+																		class="price">66.400&nbsp;đ</span></td>
+																</tr>
+																<tr>
+																	<td style="" class="a-right" colspan="2">Phí vận
+																		chuyển (Miễn phí vận chuyển)</td>
+																	<td style="" class="a-right last"><span
+																		class="price">0&nbsp;đ</span></td>
+																</tr>
+																<tr>
+																	<td style="" class="a-right" colspan="2"><strong>Tổng
+																			Số Tiền (gồm VAT)</strong></td>
+																	<td style="" class="a-right price-checkout last"
+																		value="66400"><strong><span
+																			class="price">66.400&nbsp;đ</span></strong></td>
+																</tr>
+																<tr class="last">
+																	<td colspan="2">&nbsp;</td>
+																	<td class="last">&nbsp;</td>
+																</tr>
+															</tfoot>
+															<tbody>
+																<tr class="even" th:each="product: ${carts}">
+
+																	<td>
+
+																		<h2 style="width: inherit;" class="product-name" th:text="${product.productName}">Lịch
+																			Bàn Thỏ Bảy Màu 2020</h2>
+																	</td>
+
+																	<td class="a-center qty-box">
+																		<div class="box-qty">
+																			<span class="qty" id="qty-26576938" th:text="${product.productAmount}">1</span>
+																		</div>
+																	</td>
+																	<td class="last"><span class="cart-price">
+																			<span class="price" th:text="${product.productPrice}">12.000&nbsp;đ</span>
+																	</span></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+												</div> <!-- Begin of Discount section -->
+												<div class="onestepcheckout-discount">
+													<label for="couponcode"><a
+														href="https://www.fahasa.com/dieu-kien-dung-ma-giam-gia">Mã
+															Giảm Giá/Mã Quà Tặng <i
+															class="fa fa-question-circle fa-2" aria-hidden="true"></i>
+													</a></label>
+												</div>
+											</li>
+										</ol>
+									</div>
+
+									<!-- Block: Buffet Combo With Gift -->
+									<!-- EVENT_CART BEGIN -->
+									<!-- EVENT_CART END -->
+									<div class="button-set clearfix button-onestepcheckout">
+										<div class="clear"></div>
+										<button style="float: left"
+											id="onestepcheckout-button-place-order" type="submit"
+											title="Xác nhận đơn hàng"
+											class="btn-proceed-checkout onestepcheckout-place onestepcheckout-btn-checkout">
+											<span> <span> Xác nhận đơn hàng </span>
+											</span>
+										</button>
+									</div>
+								</div>
+							</form>
+						</li>
+					</ol>
+					
+				</div>
+			</div>
+		</div>
+		<!-- =============================== [END] ==================================== -->
+
+		<!-- =============================== [FOOTER] =================================-->
+		<!-- * FOOTER * -->
+		<!-- <th:block layout:insert="~{fragments/client/footer}" /> -->
+		<!-- =============================== [END] ===================================-->
+
+
+	</th:block>
+
+
+</th:block>

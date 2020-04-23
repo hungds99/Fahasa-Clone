@@ -26,7 +26,7 @@ public class Role implements Serializable {
 	
 	private String role;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -52,6 +52,11 @@ public class Role implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", role=" + role + ", user=" + user + "]";
 	}
 	
 	

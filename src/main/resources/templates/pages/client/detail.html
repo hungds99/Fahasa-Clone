@@ -1,11 +1,11 @@
-<th:block xmlns:th="http://www.thymeleaf.org"
+<th:block xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{client-layout}">
 
 
 	<th:block layout:fragment="content">
 
-		<link rel="stylesheet" th:href="@{css/product-detail.css}">
+		<link rel="stylesheet" th:href="@{/css/product-detail.css}">
 
 		<!-- =============================== [HEADER] =================================-->
 		<section class="header" id="header">
@@ -39,8 +39,9 @@
 							<div class="row">
 								<div class="product-essential col-9 row">
 									<div class="col-5">
-										<img src="images/9e6a45a1-1ed9-45c2-9834-0e1b19463a21.jpg"
-											alt="">
+										<img th:src="@{/images/{image}(image=${product.imageUrl})}"
+											alt="" id="productImage" th:attr="data-src=${product.imageUrl}">
+
 										<div class="more-views">
 											<div class="row">
 												<div class="lightgallery"></div>
@@ -49,16 +50,14 @@
 									</div>
 
 									<div class="col-7">
-										<h1 th:text="${product.productName}"></h1>
+										<h1 th:text="${product.productName}" id="productName"></h1>
 										<div class="view-rate row"></div>
 										<div class="price-block row">
 											<div class="price-block-left col-9">
 												<div class="price-box">
-													<p class="price">
-														<th:block th:text="${product.productPrice}"></th:block>
-													</p>
-													<p class="old-price">
-														<th:block th:text="${product.productFinalprice}"></th:block>
+													<p class="price" id="productPrice" th:attr="data-price=${product.productPrice}"
+														th:text="${product.productPrice}"></p>
+													<p class="old-price" th:text="${product.productFinalprice}">
 													</p>
 												</div>
 											</div>
@@ -69,13 +68,16 @@
 											</div>
 										</div>
 										<div class="add-to-box row">
-											<label for="qty">Số lượng:</label> <input type="text"
-												name="qty" id="qty" maxlength="12" value="1" title="SL"
+											<label for="productAmount">Số lượng:</label> <input type="text"
+												name="qty" id="productAmount" maxlength="12" value="1" title="SL"
 												class="input-text qty">
 											<button type="button" title="Chọn mua"
-												class="button btn-cart-view">
-												<span><span><i class="fa fa-shopping-cart"></i>Chọn
-														mua</span></span>
+												class="button btn-cart-view" id="addToCart"
+												th:attr="data-id=${product.productId}"
+												>
+												<span> <span> <i class="fa fa-shopping-cart"></i>Chọn
+														mua
+												</span></span>
 											</button>
 										</div>
 										<div class="additional-list row">
@@ -232,6 +234,39 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			/* 	window.addEventListener('load', function() {
+					console.log("load event")		
+				}); */
+
+			const addToCartBtn = document.getElementById('addToCart');
+			addToCartBtn.addEventListener('click', addToCart)
+
+			function addToCart() {
+				const productName = document.getElementById('productName');
+				const productImage = document.getElementById('productImage');
+				const productPrice = document.getElementById('productPrice');
+				const productAmount = document.getElementById('productAmount');
+				
+				let cartDTO = {
+						productId: addToCartBtn.getAttribute('data-id'),
+						productName: productName.textContent,
+						productImage: productImage.getAttribute('data-src'),
+						productPrice: productPrice.getAttribute('data-price'),
+						productAmount: productAmount.value
+				}
+				
+				console.log(cartDTO);
+				
+				axios.post('/api/cart/addToCart',cartDTO)
+				  .then(function (response) {
+					  /* location.reload(); */
+				  })
+				  .catch(function (error) {
+				    alter('san pham da het hang vui long chon san pham khac')
+				  });
+			}
+		</script>
 		<!-- =============================== [END] ==================================== -->
 
 		<!-- =============================== [FOOTER] =================================-->

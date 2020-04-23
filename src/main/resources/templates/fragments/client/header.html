@@ -1,9 +1,10 @@
-<div class="header-1" xmlns:th="http://www.thymeleaf.org">
+<th:block  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div class="header-1">
 	<div class="top-link top-banner">
 		<div class="top-banner-block">
 			<p>
 				<a href="#"> <img
-					src="images/trang-tuan-2-ccgcvs-rs-1263x80.png"
+					th:src="@{/images/trang-tuan-2-ccgcvs-rs-1263x80.png}"
 					alt="mua-cang-nhieu-giam-cang-cao">
 				</a>
 			</p>
@@ -23,22 +24,38 @@
 					<div class="col-7 header-right">
 						<div class="languages pull-right ">
 							<ul class="nav-links">
-								<li><img src="images/default.png" alt="VN"></li>
-								<li><img src="images/english.png" alt="EN"></li>
+								<li><img th:src="@{/images/default.png}" alt="VN"></li>
+								<li><img th:src="@{/images/english.png}" alt="EN"></li>
 							</ul>
 						</div>
-						<div class="account pull-right" style="padding-top: 5px;">
+						<div class="account pull-right" style="padding-top: 5px;" sec:authorize="isAnonymous()">
 							<ul class="nav-links">
 								<li>
-									<div>
-										<img src="images/ico_thoat.png"> <a href="#"
+									<div id="signup">
+										<img th:src="@{/images/ico_thoat.png}"> <a href="javascript:void(0)"
 											title="Tạo tài khoản">Tạo tài khoản</a>
 									</div>
 								</li>
 								<li>
-									<div>
-										<img src="images/ico_dangnhap.png"> <a href="#"
+									<div id="signin">
+										<img th:src="@{/images/ico_dangnhap.png}"> <a href="javascript:void(0)"
 											title="Đăng nhập">Đăng nhập</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="account pull-right" style="padding-top: 5px;" sec:authorize="isAuthenticated()">
+							<ul class="nav-links">
+								<li>
+									<div id="signup">
+										<img th:src="@{/images/ico_thoat.png}"> <a href="javascript:void(0)"
+											title="tài khoản">Tài khoản</a>
+									</div>
+								</li>
+								<li>
+									<div id="signin">
+										<img th:src="@{/images/ico_dangnhap.png}"> <a href="javascript:void(0)"
+											title="Đăng nhập">Thoát</a>
 									</div>
 								</li>
 							</ul>
@@ -51,8 +68,8 @@
 					<div class="row">
 						<div class="col-3">
 							<div class="logo-store">
-								<a href="#" title="FAHASA.COM" class="logo"> <img
-									src="images/logo.png" alt="FAHASA.COM">
+								<a href="/" title="FAHASA.COM" class="logo"> <img
+									th:src="@{/images/logo.png}" alt="FAHASA.COM">
 								</a>
 							</div>
 						</div>
@@ -68,51 +85,42 @@
 							</div>
 						</div>
 						<div class="col-2">
+							<a href="/kiem-tra-gio-hang">
 							<div class="cart-top">
 								<div class="cart-icon">
-									<i class="fas fa-shopping-bag fa-lg"></i>
+									<i class="fa fa-shopping-bag fa-lg"></i>
+									<div class="cart-total" th:text="${cartTotal}">
+									 
+									</div>
 								</div>
 								<div class="cart-title">
 									<p>GIỎ HÀNG</p>
 								</div>
 								<div class="cart-content">
 									<div class="cart-contain">
+									<th:block th:if="${carts} == null">
+										<div>
+											<p>Không có sản phẩm nào trong giỏ.</p>
+										</div>
+									</th:block>
+									<th:block th:each="product : ${carts}" th:if="${carts} != null">
 										<div class="row">
 											<div class="col-2">
 												<img
-													src="images/hay_cung_ca_voi_ngam_bien_xanh_nao_bia_1.jpg"
-													alt="">
+													th:src="@{/images/{image}(image=${product.productImage})}"
+													alt="" style="width: 50px; height: 70px;">
 											</div>
 											<div class="col-10">
-												<p>Hãy cùng cá voi xanh ngắm biển nào !</p>
-												<p>100.000 đ</p>
+												<p th:text="${product.productName}">Hãy cùng cá voi xanh ngắm biển nào !</p>
+												
+												<p th:text="${product.productPrice}">100.000 đ</p>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-2">
-												<img
-													src="images/hay_cung_ca_voi_ngam_bien_xanh_nao_bia_1.jpg"
-													alt="">
-											</div>
-											<div class="col-10">
-												<p>Hãy cùng cá voi xanh ngắm biển nào !</p>
-												<p>100.000 đ</p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-2">
-												<img
-													src="images/hay_cung_ca_voi_ngam_bien_xanh_nao_bia_1.jpg"
-													alt="">
-											</div>
-											<div class="col-10">
-												<p>Hãy cùng cá voi xanh ngắm biển nào !</p>
-												<p>100.000 đ</p>
-											</div>
-										</div>
+									</th:block>
 									</div>
 								</div>
 							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -120,3 +128,4 @@
 		</div>
 	</div>
 </div>
+</th:block>

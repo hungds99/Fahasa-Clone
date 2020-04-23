@@ -127,5 +127,14 @@ public class Customer {
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", gender=" + gender + ", birthday="
+				+ birthday + ", phone=" + phone + ", email=" + email + ", username=" + username + ", password="
+				+ password + ", comments=" + comments + ", orders=" + orders + "]";
+	}
+	
+	
 	
 }

@@ -1,54 +1,110 @@
-
 <th:block xmlns:th="http://www.thymeleaf.org">
-	<div class="youama-ajaxlogin-cover"></div>
-	<div class="youama-login-window">
+	<div class="youama-ajaxlogin-cover" id="youama-ajaxlogin-cover"></div>
+	<div class="youama-login-window" id="youama-login-window">
 		<div class="youama-window-outside">
-			<span class="close">×</span>
+			<span class="close" id="close-sigin">×</span>
 			<div class="youama-window-inside">
 				<div class="youama-window-title">
 					<h3>Đăng nhập</h3>
 				</div>
-				<div class="youama-window-box first">
-					<div class="youama-window-content">
-						<div class="input-fly youama-showhideme">
-							<label for="youama-email">Địa chỉ Email <span>*</span></label> <input
-								type="email" class="fhs-l-email" placeholder="Địa chỉ Email"
-								id="youama-email" name="youama-email" value="">
-							<div
-								class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin">
-							</div>
-						</div>
-						<div class="input-fly youama-showhideme">
-							<label for="youama-password">Mật khẩu <span>*</span></label> <input
-								type="password" placeholder="Mật khẩu" id="youama-password"
-								name="youama-password" value="">
-							<div
-								class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword">
-							</div>
-						</div>
-					</div>
-				</div>
+			<!-- 	<form action="/customer/signin" method="POST"
+					th:action="@{/customer/signin}"> -->
+					<div class="youama-window-box first">
+						<div class="youama-window-content">
 
-				<div class="youama-window-box last fhs-no-mt">
-					<div
-						class="youama-window-content box-contents box-contents-button youama-showhideme">
-						<span class="youama-forgot-password youama-fhs-fp"> <a
-							href="https://www.fahasa.com/customer/account/forgotpassword/">Quên
-								mật khẩu?</a>
-						</span>
-						<button type="button"
-							class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button fl">
-							<span> <span> Đăng nhập </span>
-							</span>
-						</button>
-						<div class="fr"></div>
-						<div class="fr youama-ac">
-							<a href="https://www.fahasa.com/customer/account/create">Tạo
-								tài khoản ?</a>
+							<div class="input-fly youama-showhideme">
+								<label for="youama-email">Địa chỉ Email <span>*</span></label> <input
+									type="email" class="fhs-l-email" placeholder="Địa chỉ Email"
+									id="email" name="email" value="">
+								<div
+									class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin">
+								</div>
+							</div>
+							<div class="input-fly youama-showhideme">
+								<label for="youama-password">Mật khẩu <span>*</span></label> <input
+									type="password" placeholder="Mật khẩu" id="password"
+									name="password" value="">
+								<div
+									class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword">
+								</div>
+							</div>
+
 						</div>
 					</div>
-				</div>
+
+					<div class="youama-window-box last fhs-no-mt">
+						<div
+							class="youama-window-content box-contents box-contents-button youama-showhideme">
+							<span class="youama-forgot-password youama-fhs-fp"> <a
+								href="https://www.fahasa.com/customer/account/forgotpassword/">Quên
+									mật khẩu?</a>
+							</span>
+							<button type="button"
+								class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button fl" id="loginBtn">
+								<span> <span> Đăng nhập </span>
+								</span>
+							</button>
+							<div class="fr"></div>
+							<div class="fr youama-ac">
+								<a href="https://www.fahasa.com/customer/account/create">Tạo
+									tài khoản ?</a>
+							</div>
+						</div>
+					</div>
+			<!-- 	</form> -->
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		const signinBtn = document.getElementById("signin");
+		const closeSigninBtn = document.getElementById("close-sigin");
+
+		const login_cover = document.getElementById("youama-ajaxlogin-cover");
+		const login_window = document.getElementById("youama-login-window");
+
+		signinBtn.addEventListener('click', showLoginModel);
+
+		login_cover.addEventListener('click', closeLoginModel)
+
+		closeSigninBtn.addEventListener('click', closeLoginModel)
+
+		function showLoginModel() {
+			if (login_cover.style.display === 'none') {
+				login_cover.style.display = 'block';
+				login_window.style.display = 'block';
+			} else {
+				login_cover.style.display = 'none';
+				login_window.style.display = 'none';
+			}
+		}
+
+		function closeLoginModel() {
+			login_cover.style.display = 'none';
+			login_window.style.display = 'none';
+		}
+		
+		const loginBtn = document.getElementById("loginBtn");
+		
+		loginBtn.addEventListener('click', customerLogin);
+		
+		function customerLogin (){
+			console.log("login processing...")
+			let email = document.getElementById('email');
+			let password = document.getElementById('password');
+		
+			const formData = new FormData();
+			formData.append('email', email.value);
+			formData.append('password', password.value)
+		
+			axios.post('/customer/signin', formData)
+			.then((res) => {
+				console.log(res.data);
+				window.location.reload();
+			})
+			.catch((err) => console.log(err))
+		}
+		
+	</script>
+
 </th:block>

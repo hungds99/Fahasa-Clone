@@ -133,6 +133,14 @@
 
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script type="text/javascript">
+		
+			// Formatter VND
+			const formatter = new Intl.NumberFormat('it-IT', {
+		    	style: 'currency',
+		    	currency: 'VND',
+		    	minimumFractionDigits: 0
+			})
+		
 			window.onload = loadProductList();
 			
 			let btn_search = document.getElementById('btn-search');
@@ -202,14 +210,14 @@
 							<ul>
 								<li>
 									<button type="button" class="btn btn-success btn-sm">
-										Click để xem chi tiết 
+										Click để xem chi tiết !
 										<span> 
 											<i class="fas fa-mouse-pointer"></i>
 										</span>
 									</button>
 								</li>
-								<li>Giá gốc: ${product.price} vnd</li>
-								<li>Giá bán: ${product.finalPrice} vnd | Khuyến mãi: ${product.promotionValue}</li>
+								<li>Giá gốc: ${formatter.format(product.price)}</li>
+								<li>Giá: ${formatter.format(product.finalPrice)} | Giảm giá: ${product.promotionValue}</li>
 								<li>Ngày thêm : ${product.createDate}</li>
 								<li>Số lượng : ${product.amount}</li>
 								<li>Trạng thái : ${product.productStatus}</li>
@@ -217,7 +225,7 @@
 						</td>
 						<td>
 							<a href="/Admin/Product/ProductCreateOrUpdate/productId=${product.productId}" class="fas fa-edit"></a> 
-							<a class="fas fa-trash-alt"></a>
+							<a href="" class="fa fa-trash-alt"></a>
 						</td>
 					</tr>
 					`;

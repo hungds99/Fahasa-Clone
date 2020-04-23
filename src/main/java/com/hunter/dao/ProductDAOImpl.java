@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.hunter.dto.SearchDTO;
 
 @Repository
+@Transactional
 public class ProductDAOImpl implements ProductDAO {
 
 	@Autowired
@@ -39,6 +41,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Object[]> getProductByCategoryId(int categoryId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();

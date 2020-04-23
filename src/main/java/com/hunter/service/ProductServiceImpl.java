@@ -2,6 +2,7 @@ package com.hunter.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +13,7 @@ import com.hunter.dao.ProductDAO;
 import com.hunter.dto.ProductDTO;
 import com.hunter.dto.ProductViewDTO;
 import com.hunter.dto.SearchDTO;
+import com.hunter.model.Image;
 import com.hunter.model.Product;
 import com.hunter.repository.CategoryRepository;
 import com.hunter.repository.ProductRepository;
@@ -19,32 +21,32 @@ import com.hunter.utils.ConstantUtil;
 import com.hunter.utils.DateUtil;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductRepository productRepository;
-	
+
 	@Autowired
 	CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	ProductDAO productDAO;
-	
+
 	@Override
 	public Product findProductById(int id) {
 		return productRepository.findById(id).orElse(null);
 	}
-	
+
 	@Override
-	@Transactional
 	public List<ProductDTO> getProductBySearch(SearchDTO searchDTO) {
 		List<ProductDTO> products = new ArrayList<ProductDTO>();
-		List<Object []> results = productDAO.getProductBySearch(searchDTO);
+		List<Object[]> results = productDAO.getProductBySearch(searchDTO);
 		if (results != null && !results.isEmpty()) {
 			for (Object[] object : results) {
-				
+
 				ProductDTO product = new ProductDTO();
-				
+
 				product.setProductId(Integer.parseInt(convertString(object[0])));
 				product.setProductCode(Integer.parseInt(convertString(object[1])));
 				product.setCategoryName(convertString(object[2]));
@@ -54,9 +56,10 @@ public class ProductServiceImpl implements ProductService {
 				product.setHighlight(object[6].toString().equals("true") ? true : false);
 				product.setIsshowed(object[7].toString().equals("true") ? true : false);
 				product.setPrice(Double.parseDouble(convertString(object[8])));
-				product.setFinalPrice(Double.parseDouble(convertString(object[8])) * Integer.parseInt(convertString(object[9])));
+				product.setFinalPrice(
+						Double.parseDouble(convertString(object[8])) * Integer.parseInt(convertString(object[9])));
 				product.setPromotionValue(Integer.parseInt(convertString(object[9])));
-				product.setCreateDate(DateUtil.getFormatDate((object[10] == null) ? null : object[10].toString(), DateUtil.FORMAT_SLASH_DD_MM_YYYY));
+				product.setCreateDate(object[10].toString());
 				product.setAmount(Integer.parseInt(convertString(object[11])));
 				switch (Integer.parseInt(convertString(object[12]))) {
 				case 1:
@@ -69,14 +72,14 @@ public class ProductServiceImpl implements ProductService {
 					product.setProductStatus(ConstantUtil.ProductStatus.SAPMOBAN.getValue());
 					break;
 				}
-				
+
 				products.add(product);
 			}
 		}
 		return products;
 	}
-	
-	public String convertString (Object obj) {
+
+	public String convertString(Object obj) {
 		if (obj.equals(null)) {
 			return "0";
 		} else {
@@ -85,11 +88,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	@Transactional
 	public Product saveAndUpdate(Product product) {
 		Product productExist = productRepository.findById(product.getId()).orElse(null);
 		if (productExist != null) {
-			
+
 			productExist.setProductCode(product.getProductCode());
 //			productExist.setCategory(categoryRepository.findById(product.getCategory().getId()).orElse(null));
 			productExist.setCategory(product.getCategory());
@@ -102,58 +104,65 @@ public class ProductServiceImpl implements ProductService {
 			productExist.setHighlight(product.isHighlight());
 			productExist.setIsshowed(product.isIsshowed());
 			productExist.setProductContent(product.getProductContent());
-			
+
 			Product p = productRepository.save(productExist);
 			return p;
-		} 
+		}
 		product.setCreatedDate(DateUtil.getCurrentDateTime());
 		Product p = productRepository.save(product);
 		return p;
-		
+
 	}
 
 	@Override
-	@Transactional
 	public List<ProductViewDTO> getProductByCategoryId(int categoryId) {
-		
-		List<Object []> results = productDAO.getProductByCategoryId(categoryId);
-		
+
+		List<Object[]> results = productDAO.getProductByCategoryId(categoryId);
+
 		List<ProductViewDTO> productViewDTOs = this.convertToProductView(results);
-		
+
 		return productViewDTOs;
 	}
 
 	@Override
-	@Transactional
 	public ProductViewDTO getProductByProductId(int productId) {
-		List<Object []> results = productDAO.getProductByProductId(productId);
-		
+		List<Object[]> results = productDAO.getProductByProductId(productId);
+
 		List<ProductViewDTO> productViewDTOs = this.convertToProductView(results);
-		
+
 		return productViewDTOs.get(0);
 	}
-	
+
 	// Convert Object Select Query to Model
-	public List<ProductViewDTO> convertToProductView(List<Object []> results) {
+	public List<ProductViewDTO> convertToProductView(List<Object[]> results) {
 		List<ProductViewDTO> productViewDTOs = new ArrayList<ProductViewDTO>();
-		
+
 		if (results != null && !results.isEmpty()) {
-			
+
 			for (Object[] obj : results) {
 				ProductViewDTO product = new ProductViewDTO();
-				
+
 				product.setProductId(Integer.parseInt(obj[0].toString()));
 				product.setProductName(obj[1].toString());
 				product.setProductPrice(Double.parseDouble(obj[2].toString()));
 				product.setPromotionValue(Integer.parseInt(obj[3].toString()));
 				product.setImageUrl(obj[4].toString());
 				product.setImageAlt(obj[5].toString());
-				product.setProductFinalprice((Double.parseDouble(obj[2].toString()) * Integer.parseInt(obj[3].toString()))/100);
-				
+				product.setProductFinalprice(
+						(Double.parseDouble(obj[2].toString()) * Integer.parseInt(obj[3].toString())) / 100);
+
 				productViewDTOs.add(product);
 			}
 		}
 		return productViewDTOs;
+	}
+
+	@Override
+	public Product getProductWithImage(int productId) {
+		Product product = this.findProductById(productId);
+		Set<Image> images = product.getImages();
+		
+		return null;
 	}
 
 }

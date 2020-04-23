@@ -16,7 +16,7 @@ public class ProductDTO {
 	private double finalPrice;
 	private int promotionValue;
 	private int amount;
-	private Date createDate;
+	private String createDate;
 	private String productStatus;
 	
 	public int getProductId() {
@@ -91,10 +91,10 @@ public class ProductDTO {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	public String getProductStatus() {

@@ -164,8 +164,21 @@ body {
 
     .header-1 .cart-top .cart-icon {
         color: #F7941E;
-
+		position: relative;
     }
+    
+     .header-1 .cart-top .cart-icon > div{
+		position: absolute;
+		top: -7px;
+		left: 20px;
+		background-color: green;
+		border-radius: 50%;
+    	width: 20px;
+    	height: 20px;
+    	text-align: center;
+    	display: inline-block;
+    }
+    
 
     .header-1 .cart-top .cart-title {
         color: #F7941E;

@@ -6,11 +6,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.hunter.model.User;
+import com.hunter.model.Customer;
 
 @Transactional
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-	Optional<User> findByEmail(String email);
+	Optional<Customer> findByEmail(String email);
 	
 }
