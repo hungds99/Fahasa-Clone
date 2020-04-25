@@ -1,36 +1,38 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
 
-<div class="feature">
-	<div class="feature-header">
-		<div class="feature-title ml-2">
-			<h5>Văn học</h5>
+	<div class="feature">
+		<div class="feature-header">
+			<div class="feature-title">Văn học</div>
+			<div class="feature-categories">
+				<ul class="nav-links">
+					<li class="active">Sắp phát hành</li>
+					<li>Sách HOT - Giảm Sốc</li>
+					<li>Nổi bật</li>
+				</ul>
+			</div>
 		</div>
-		<div class="feature-categories">
-			<ul class="nav-links">
-				<li>Sắp phát hành</li>
-				<li>Sách HOT - Giảm Sốc</li>
-				<li>Nổi bật</li>
-			</ul>
+		<div class="feature-products">
+			<div class="row p-2" id="block-data">
+				<!-- Block - Data -->
+			</div>
 		</div>
 	</div>
-	<div class="feature-products">
-		<div class="row" id="block-data">
-			<!-- Block - Data -->
-		</div>
-	</div>
-</div>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript">
-	
-	/* 
-	*
-	* Tab Data
-	*
-	*/
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
 	
 	let TAB_GET_URL = "/api/tabslider/index/getdata";
 	let current_block = "block_van_hoc";
+	
+	function VNDFormatter (money) {
+		const formatter = new Intl.NumberFormat('it-IT', {
+			  style: 'currency',
+			  currency: 'VND'
+			})
+		return formatter.format(money)
+	}
+	
+	
 	
 	axios.get(TAB_GET_URL, {
 	    params: {
@@ -53,34 +55,43 @@
 		let content = '';
 		
 		content = `
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">${product.promotionValue}%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/${product.imageUrl}" alt="${product.imageAlt}"
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="/san-pham/${product.productId}" title="${product.productName}">${product.productName}</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">${product.productPrice}</span>
-							</p>
-							<p class="old-price">
-								<span class="price">${product.productFinalprice}</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
+			<div class="col-2">
+			<div class="item-inner" style="position: relative">
+				<div class="label-pro-sale">
+					<span class="p-sale-label discount-l-fs">${product.promotionValue}%</span>
+				</div>
+				<div class="ma-box-content">
+					<div class="products clearfix">
+						<div class="product images-container">
+							<a
+								href="/san-pham/${product.productId}"
+								title="${product.imageAlt}"
+								class="product-image"><span class="product-image"><img
+									src="images/${product.imageUrl}"
+									width="270" height="364" class=""
+									alt="${product.imageAlt}"></span></a>
 						</div>
 					</div>
+					<h2 class="product-name">
+						<a
+							href="/san-pham/${product.productId}"
+							title="${product.imageAlt}">${product.productName}</a>
+					</h2>
+					<div class="price-label">
+						<p class="special-price">
+							<span class="price-label">Giảm giá: </span><span
+								id="product-price-384170601" class="price m-price-font">${VNDFormatter(product.productFinalprice)}</span>
+						</p>
+						<p class="old-price bg-white">
+							<span class="price-label">Giá bìa: </span><span
+								id="old-price-170601" class="price m-price-font">${VNDFormatter(product.productPrice)}</span>
+						</p>
+					</div>
+					<div class="fhs-rating-container"></div>
 				</div>
 			</div>
+		</div>
+		
 		`;
 		
 		block_data.innerHTML += content;
@@ -89,5 +100,5 @@
 	
 	
 </script>
-
+ 
 </th:block>

@@ -1,4 +1,5 @@
-<th:block xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<th:block xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{client-layout}">
 
@@ -40,7 +41,8 @@
 								<div class="product-essential col-9 row">
 									<div class="col-5">
 										<img th:src="@{/images/{image}(image=${product.imageUrl})}"
-											alt="" id="productImage" th:attr="data-src=${product.imageUrl}">
+											alt="" id="productImage"
+											th:attr="data-src=${product.imageUrl}">
 
 										<div class="more-views">
 											<div class="row">
@@ -53,12 +55,15 @@
 										<h1 th:text="${product.productName}" id="productName"></h1>
 										<div class="view-rate row"></div>
 										<div class="price-block row">
-											<div class="price-block-left col-9">
+											<div class="price-block-left col-7">
 												<div class="price-box">
-													<p class="price" id="productPrice" th:attr="data-price=${product.productPrice}"
-														th:text="${product.productPrice}"></p>
-													<p class="old-price" th:text="${product.productFinalprice}">
-													</p>
+													<span class="price-label">Giá bán: </span> <span
+														class="price" id="productPrice"
+														th:attr="data-price=${product.productPrice}"
+														th:text="${product.productPrice}" style="font-size: 18px;">
+													</span> <br /> <span class="price-label">Giá bìa: </span> <span
+														class="old-price" th:text="${product.productFinalprice}">
+													</span>
 												</div>
 											</div>
 											<div class="price-block-right col-3">
@@ -67,19 +72,33 @@
 												</span>
 											</div>
 										</div>
-										<div class="add-to-box row">
-											<label for="productAmount">Số lượng:</label> <input type="text"
-												name="qty" id="productAmount" maxlength="12" value="1" title="SL"
-												class="input-text qty">
+
+
+										<div id="catalog-product-details-discount">
+											<div class="product-view-quantity-box">
+												<label for="productAmount">Số lượng:</label>
+												<div class="product-view-quantity-box-block">
+													<a class="btn-subtract-qty"><img
+														style="width: 12px; height: auto;"
+														src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_minus2x.png"></a>
+													<input type="text" name="qty" id="productAmount"
+														maxlength="12" align="center" value="1" title="SL"
+														class="input-text qty"> <a class="btn-add-qty"><img
+														style="width: 12px; height: auto;"
+														src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_plus2x.png"></a>
+												</div>
+											</div>
+
 											<button type="button" title="Chọn mua"
 												class="button btn-cart-view" id="addToCart"
-												th:attr="data-id=${product.productId}"
-												>
+												th:attr="data-id=${product.productId}">
 												<span> <span> <i class="fa fa-shopping-cart"></i>Chọn
 														mua
 												</span></span>
 											</button>
 										</div>
+
+
 										<div class="additional-list row">
 											<div class="col-4">
 												<ul class="add-to-links">
@@ -95,8 +114,9 @@
 													nhận xét của bạn</a>
 											</div>
 										</div>
-										<div class="short-description">
 
+
+										<div class="short-description">
 											<span
 												style="font-weight: bold; color: black; font-size: 13px; font-family: Roboto, Helvetica, Arial, sans-serif">20
 												Hành Trang Cho Chuyến Xe Tuổi 20s. Cuốn sách 20 hành trang
@@ -172,64 +192,114 @@
 
 						</div>
 
-						<div class="product-detail"
-							style="background-color: white; margin-top: 15px; margin-bottom: 15px;">
-							<h4>Thông tin chi tiết</h4>
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">First</th>
-										<th scope="col">Last</th>
-										<th scope="col">Handle</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td colspan="2">Larry the Bird</td>
-										<td>@twitter</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="content" style="margin-top: 10px;">
+							<div id="product_view_tab" style="background-color: #fff; padding: 10px;">
+								<div>
+									<ul id="product-view-tab_list" class="product-view-tab">
+										<li
+											class="product-view-tab-item product-view-tab-info-item active"><a>Thông
+												tin sản phẩm</a>
+											<hr></li>
+										<!-- <li
+											class="product-view-tab-item product-view-tab-review-item "><a>Khách
+												Hàng Nhận Xét</a>
+											<hr></li> -->
+									</ul>
+								</div>
+								<div id="product_view_tab_content_ad"
+									class="product_view_tab_content_ad"
+									style="height: 620px; min-height: 620px;">
+
+									<div class="product_view_tab_content_additional">
+										<table class="data-table table-additional">
+											<colgroup>
+												<col width="25%">
+												<col>
+											</colgroup>
+											<tbody>
+												<tr>
+													<th class="table-label">Mã hàng</th>
+													<td class="data">8936067597035</td>
+												</tr>
+												<tr>
+													<th class="table-label">Tên Nhà Cung Cấp</th>
+													<td class="data"><a class="xem-chi-tiet"
+														href="minh-long"> Minh Long </a></td>
+												</tr>
+												<tr>
+													<th class="table-label">Tác giả</th>
+													<td class="data">Lilian Yeo</td>
+												</tr>
+												<tr>
+													<th class="table-label">NXB</th>
+													<td class="data">NXB Đại Học Quốc Gia Hà Nội</td>
+												</tr>
+												<tr>
+													<th class="table-label">Năm XB</th>
+													<td class="data">02-2017</td>
+												</tr>
+												<tr>
+													<th class="table-label">Trọng lượng (gr)</th>
+													<td class="data">150</td>
+												</tr>
+												<tr>
+													<th class="table-label">Kích thước</th>
+													<td class="data">19 x 26</td>
+												</tr>
+												<tr>
+													<th class="table-label">Số trang</th>
+													<td class="data">128</td>
+												</tr>
+												<tr>
+													<th class="table-label">Hình thức</th>
+													<td class="data">Bìa Mềm</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="clear"></div>
+									<div id="product_tabs_description_contents">
+										<div id="desc_content" class="std">
+											<p style="text-align: justify;">Tinh Thông Toán Học -
+												Mastering Mathematics - Dành Cho Trẻ 11-12 Tuổi - Quyển A</p>
+											<p style="text-align: justify;">
+												<strong><span>TINH THÔNG TOÁN HỌC Mastering
+														Mathematics</span></strong><span>&nbsp;là một bộ sách gồm 12 cuốn,
+													đặc biệt được biên soạn để việc học môn Toán của học sinh
+													trở nên dễ dàng hơn. Bộ sách có nội dung bám sát chương
+													trình sách giáo khoa Toán được ban hành bởi Bộ Giáo dục
+													Singapore.</span>
+											</p>
+											<p style="text-align: justify;">
+												<span><br> </span><strong><span>&nbsp;
+														&nbsp; &nbsp;</span></strong><span>Mỗi cuốn sách được xây dựng nhằm
+													tạo nên một nền tảng tốt cũng như để hỗ trợ và tăng cường
+													cho việc học Toán của các em học sinh. Các dạng bài tập
+													được sắp xếp khoa học với mức độ khó dễ xen kẽ, giúp các em
+													hiểu kỹ hơn về các khái niệm Toán học, cũng như kích thích
+													khả năng tư duy phán đoán. Đối với những học sinh ở lứa
+													tuổi nhỏ, những cuốn sách này giống như một sự chuẩn bị hấp
+													dẫn để thu hút sự quan tâm của các em nhằm làm quen với môi
+													trường học tập trong tương lai. Điều đó cũng giúp các em
+													hứng thú làm bài tập và hướng các em từng bước tiến tới làm
+													chủ Toán học. Trên thực tế, việc thực hành thường xuyên và
+													nhất quán là điều cần thiết để có một nền tảng Toán học
+													tốt.</span>
+											</p>
+											<div class="clear"></div>
+										</div>
+									</div>
+
+								</div>
+								<div class="clear"></div>
+								<div id="desc_viewmore" class="desc_viewmore"
+									style="display: block;">
+									<div class="showmore-content">
+										<input type="button" id="btn_showmore" value="Xem Thêm">
+									</div>
+								</div>
+							</div>
 						</div>
-
-						<div class="product-content"
-							style="background-color: white; margin-top: 15px; margin-bottom: 15px;">
-							<h4>Nội dung sản phẩm</h4>
-							<p>Học Như Một Thiên Tài Học hỏi là bản năng của loài người,
-								nhưng lại rất ít người thực sự biết phối hợp bộ não, trái tim và
-								cơ thể để tạo nên tri thức mới. Đa phần chúng ta luôn nghĩ học
-								là một khái niệm mơ hồ. Học là đọc lại một quyển sách giáo khoa?
-								Giải những bài mẫu? Học thuộc lòng? Nếu không thể thực hành kiến
-								thức vào đời thực thì đó có phải là học không?... “Học như một
-								thiên tài” sẽ vén tấm rèm che phủ bí mật đằng sau việc học tập
-								bấy lâu nay, theo một cách đầy hài hước, thú vị, và sâu sắc.
-								Cuốn sách chứa đầy những góc nhìn mới mẻ và những câu chuyện hấp
-								dẫn, giúp chúng ta hiểu được sự quan trọng và cần thiết của việc
-								học đúng cách. Sách không chỉ hướng tới đối tượng học sinh -
-								sinh viên mà còn dành cho tất cả mọi người, giúp các bạn giải
-								quyết những công việc liên quan đến tri thức một cách hiệu quả
-								và sáng tạo nhất, từ đó không ngừng nâng cao chuyên môn của
-								mình. Lĩnh hội được kiến thức mà cuốn sách mang lại, bạn chắc
-								chắn sẽ làm chủ kỹ năng để thành công trong cuộc sống, học tập,
-								công việc kinh doanh.., hay nói cách khác, trở thành chuyên gia
-								trong mọi lĩnh vực.</p>
-						</div>
-
-
 					</div>
 				</div>
 			</div>
@@ -260,7 +330,7 @@
 				
 				axios.post('/api/cart/addToCart',cartDTO)
 				  .then(function (response) {
-					  /* location.reload(); */
+					  location.reload();
 				  })
 				  .catch(function (error) {
 				    alter('san pham da het hang vui long chon san pham khac')

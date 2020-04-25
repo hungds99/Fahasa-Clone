@@ -41,7 +41,6 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	@Transactional
 	public List<Object[]> getProductByCategoryId(int categoryId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();

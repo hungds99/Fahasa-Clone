@@ -30,5 +30,6 @@ public class ViewName {
 	public static final String CLIENT_LIST_PAGE = "pages/client/list";
 	public static final String CLIENT_CART_PAGE = "pages/client/cart";
 	public static final String CLIENT_PAYMENT_PAGE = "pages/client/payment";
+	public static final String CLIENT_CUSTOMER_PAGE = "pages/client/customer";
 	
 }

@@ -1,81 +1,320 @@
 .product-view {
-    font-family: 'Roboto',sans-serif !important;
-    background: white !important;
+	font-family: 'Roboto', sans-serif !important;
+	background: white !important;
 }
 
-    .product-view .row {
-        margin-left: 0;
-    }
+.product-view .row {
+	margin-left: 0;
+	padding-bottom: 10px;
+}
 
-    .product-essential {
-        padding: 27px;
-        padding-top: 45px;
-        padding-bottom: 30px;
-        margin-top: 0px;
-        background-color: white;
-    }
+.product-essential {
+	padding: 27px;
+	padding-top: 45px;
+	padding-bottom: 30px;
+	margin-top: 0px;
+	background-color: white;
+}
 
-    .product-essential img {
-        max-width: 80%;
-    }
+.product-essential h1 {
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #333;
+	font-family: 'Roboto', sans-serif !important;
+	line-height: 1.5em;
+	overflow-wrap: break-word;
+	padding-bottom: 6px;
+}
 
-    .block-note-product {
-        background-color: #fafafa;
-        /* margin: 20px; */
-        /* border: 1px solid #ccc; */
-        margin-top: 45px;
-        margin-right: 10px;
-        border: none;
-    }
+.product-essential img {
+	max-width: 80%;
+}
 
-    .block-note-product .product-attribute {
-        padding: 10px;
-        padding-left: 20px;
-        border-bottom: 1px solid #eff0f5;
-        color: #2c2c2c;
-        font-size: 14px;
-        font-family: 'OpenSansRegular', Arial, Helvetica, sans-serif;
-    }
+.block-note-product {
+	background-color: #fafafa;
+	/* margin: 20px; */
+	/* border: 1px solid #ccc; */
+	margin-top: 45px;
+	margin-right: 10px;
+	border: none;
+}
 
-    .block-note-product label {
-        color: #838282;
-    }
+.block-note-product .product-attribute {
+	padding: 10px;
+	padding-left: 20px;
+	border-bottom: 1px solid #eff0f5;
+	color: #2c2c2c;
+	font-size: 14px;
+	font-family: 'OpenSansRegular', Arial, Helvetica, sans-serif;
+}
 
-    .xem-chi-tiet {
-        font-weight: normal;
-    }
+.block-note-product label {
+	color: #838282;
+}
 
-    .xem-chi-tiet {
-        color: #c00;
-    }
+.xem-chi-tiet {
+	font-weight: normal;
+}
 
-    .old-price {
-        color: #888888;
-        text-decoration: line-through;
-        font-size: 13px;
-    }
+.xem-chi-tiet {
+	color: #c00;
+}
 
-    .block-note-product .product-attribute .item {
-        margin-bottom: 10px;
-    }
+.old-price {
+	color: #888888;
+	text-decoration: line-through;
+	font-size: 13px;
+}
 
-    .block-note-product .fa {
-        border: 1px solid #ccc;
-        color: #ccc;
-        border-radius: 50%;
-        font-size: 20px;
-        line-height: 33px;
-        float: left;
-        margin-right: 5px;
-        text-align: center;
-        width: 35px;
-        height: 35px;
-    }
+.discount-percent {
+	background-color: #f7941e;
+	color: #fff;
+	padding: 5px;
+}
 
-    .block-note-product .product-attribute .item span {
-        height: 35px;
-        display: table-cell;
-        vertical-align: middle;
-        color: #2c2c2c;
-        /* font-weight: bold; */
-    }
+.review_like {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_like_empty.png)
+		no-repeat bottom;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 22px;
+	width: 22px;
+	display: inline-block;
+	margin-bottom: -0.05em;
+}
+
+.review_liked {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_like_fill.png)
+		no-repeat bottom;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 22px;
+	width: 22px;
+	display: inline-block;
+	margin-bottom: 0.1em;
+}
+
+.review_report {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/report_orange.png)
+		no-repeat bottom;
+	-webkit-background-size: 24px 22px;
+	-moz-background-size: 24px 22px;
+	-o-background-size: 24px 22px;
+	background-size: 24px 22px;
+	height: 22px;
+	width: 24px;
+	display: inline-block;
+	margin-bottom: -0.15em;
+}
+
+.review_reported {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/alert_fill.png)
+		no-repeat bottom;
+	-webkit-background-size: 24px 22px;
+	-moz-background-size: 24px 22px;
+	-o-background-size: 24px 22px;
+	background-size: 24px 22px;
+	height: 22px;
+	width: 24px;
+	display: inline-block;
+	margin-bottom: 0.1em;
+}
+
+.Verified_Purchase {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/verify.png)
+		no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 22px;
+	width: 22px;
+	display: inline-block;
+}
+
+.rating_item {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_star_gray_2x.png)
+		no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 22px;
+	width: 22px;
+	display: inline-block;
+	cursor: pointer;
+	user-select: none;
+}
+
+.rating_item.active {
+	background:
+		url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_star_yellow_2x.png)
+		no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 22px;
+	width: 22px;
+	display: inline-block;
+}
+
+.product-view-tab > .product-view-tab-item {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 30px;
+    user-select: none;
+}
+
+.product-view-tab > .product-view-tab-item.active a, .product-view-tab .product-view-tab-item:hover a {
+    color: #F7931E;
+}
+
+ul.product-view-tab {
+	margin: 0;
+}
+
+.table-label {
+    display: table-cell;
+    padding-left: 0 !important;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: baseline;
+    color: #777;
+}
+
+.data-table th, .data-table td {
+    padding: 4px;
+}
+
+.data-table th {
+	width: 350px;
+}
+
+.data-table td {
+    padding: 6px 10px;
+}
+
+/*  */
+#catalog-product-details-discount {
+	width: 100%;
+	padding: 8px 0;
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0 10px 0;
+}
+
+.product-view-quantity-box {
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	text-align: center;
+}
+
+.product-view-quantity-box label {
+	font-size: 1.2em;
+	font-weight: 650;
+	padding-right: 8px;
+	margin-bottom: 0;
+}
+
+.product-view-quantity-box-block {
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+	border: 1px solid #c1c1c1;
+}
+
+.product-view-quantity-box-block a {
+	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	padding: 15px;
+	cursor: pointer;
+	user-select: none;
+	transition: all 0.3s;
+}
+
+.product-view-quantity-box-block #productAmount {
+	border: none !important;
+	width: 3em !important;
+	font-weight: 650;
+	font-size: 1.2em;
+}
+
+input.qty, input[title="Qty"] {
+	display: inline;
+	text-align: center;
+	width: 60px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/*  */
+.block-note-product .product-attribute .item {
+	margin-bottom: 10px;
+}
+
+.block-note-product .fa {
+	border: 1px solid #ccc;
+	color: #ccc;
+	border-radius: 50%;
+	font-size: 20px;
+	line-height: 33px;
+	float: left;
+	margin-right: 5px;
+	text-align: center;
+	width: 35px;
+	height: 35px;
+}
+
+.block-note-product .product-attribute .item span {
+	height: 35px;
+	display: table-cell;
+	vertical-align: middle;
+	color: #2c2c2c;
+	/* font-weight: bold; */
+}

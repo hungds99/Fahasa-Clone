@@ -1,0 +1,140 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{client-layout}">
+
+
+	<th:block layout:fragment="content">
+
+		<link rel="stylesheet" th:href="@{/css/product-detail.css}">
+
+		<!-- =============================== [HEADER] =================================-->
+		<section class="header" id="header">
+
+			<!-- * Header 1 * -->
+			<th:block layout:insert="~{fragments/client/header}" />
+
+			<!-- * Header-Breadcrumbs * -->
+			<!-- <th:block layout:insert="~{fragments/client/header-breadcrumb}" /> -->
+
+		</section>
+		<!-- =============================== [END] ====================================-->
+
+		<!-- =============================== [MAIN-CONTAINER] =========================-->
+		<link rel="stylesheet" th:href="@{/css/cart.css}">
+		<div class="main-container" id="main-container">
+			<div class="container-1">
+				<div class="container-inner">
+					<div class="row pt-2">
+						<div class="col-3">
+
+							<div class="block block-account">
+								<div class="block-title" style="color: #6a6a6a;position: relative;font-family: 'Poppins', sans-serif;padding: 18px 20px;padding-bottom: 0px;font-size: 20px;font-weight: 600;border-bottom: 2px solid #f6f6f6;background: #fff;padding-left: 20px;">
+									<strong><span style="color: #F39801;">Tài khoản</span></strong>
+								</div>
+								<div class="block-content">
+									<ul>
+										<li class="current"><strong>Bảng điều khiển tài
+												khoản</strong></li>
+										<li><a
+											href="https://www.fahasa.com/customer/account/edit/">Thông
+												tin tài khoản</a></li>
+										<li><a href="https://www.fahasa.com/customer/address/">Sổ
+												địa chỉ</a></li>
+										<li><a href="https://www.fahasa.com/sales/order/history/">Đơn
+												hàng của tôi</a></li>
+										<li><a href="https://www.fahasa.com/review/customer/">Nhận
+												xét của tôi</a></li>
+										<li><a href="https://www.fahasa.com/wishlist/">Yêu
+												thích</a></li>
+										<li><a href="https://www.fahasa.com/newsletter/manage/">Đăng
+												ký nhận tin điện tử</a></li>
+										<li><a href="https://www.fahasa.com/tryout/history/">Tài
+												Khoản F-point / Freeship / Voucher</a></li>
+										<li><a href="https://www.fahasa.com/tryout/refer/">Mã
+												giới thiệu</a></li>
+										<li><a
+											href="https://www.fahasa.com/customer/notification/">Thông
+												Báo</a></li>
+									</ul>
+								</div>
+							</div>
+
+							<div style="margin-bottom: 30px;">
+								<div
+									style="vertical-align: middle; display: flex; padding: 8px 0; background-color: white;">
+									<div class="col-sm-7">
+										<a target="_blank" href="https://www.facebook.com/fahasa/"
+											title="Facebook"> <img alt="Facebook"
+											style="width: 30px; height: auto;"
+											src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/footer/Facebook-on.png">
+										</a> <a target="_blank"
+											href="https://www.instagram.com/fahasa_official/"
+											title="Instagram"> <img alt="Instagram"
+											style="width: 30px; height: auto;"
+											src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images//footer/Insta-on.png">
+										</a> <a target="_blank"
+											href="https://www.youtube.com/channel/UCUZcVOLSxK1q6RfgzQ9-HYQ"
+											title="Youtube"> <img alt="Youtube"
+											style="width: 30px; height: auto;"
+											src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images//footer/Youtube-on.png">
+										</a> <a target="_blank" href="https://www.pinterest.com/fahasaVN/"
+											title="Pinterest"> <img alt="Pinterest"
+											style="width: 30px; height: auto;"
+											src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images//footer/pinterest-on.png">
+										</a>
+									</div>
+									<div class="col-sm-5" style="margin-top: 7px;">
+										<span style="font-size: 12px; font-weight: bold;">#fahasaOnline</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-9">
+
+							<div class="my-account" style="background-color: #fff;">
+								<div class="dashboard">
+									<div class="page-title">
+										<h1>Bảng điều khiển của khách hàng</h1>
+									</div>
+									<!--show member ship-->
+									<div style="margin: 0 0 20px; overflow: auto;">
+										<div
+											class="col-lg-12 col-md-12 col-sm-12 col-xs-12 member-info">
+											<div
+												class="col-lg-12 col-md-12 col-sm-12 col-xs-12 member-info-label">
+												<p>
+													Họ và tên: <span class="member-value">Hùng Đinh</span>
+												</p>
+												<p style="word-wrap: break-word;">
+													Email: <strong class="member-value">dinhsyhung99@gmail.com</strong>
+												</p>
+
+												<p>
+													Cấp độ thành viên: <span class="member-value">Thân
+														thiết</span>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- =============================== [END] ==================================== -->
+
+		<!-- =============================== [FOOTER] =================================-->
+		<!-- * FOOTER * -->
+		<th:block layout:insert="~{fragments/client/footer}" />
+		<!-- =============================== [END] ===================================-->
+
+
+	</th:block>
+
+
+</th:block>
