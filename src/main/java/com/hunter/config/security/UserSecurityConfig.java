@@ -64,7 +64,10 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter
         	.passwordParameter("password")
         	.failureHandler(authFailureHandler)
             .successHandler(authSuccessHandler)
-	        
+	        .and()
+	        .logout()
+	        .logoutUrl("/customer/account/logout")
+	        .logoutSuccessUrl("/")
 	    .and()
 	    	.csrf().disable();
     }

@@ -22,7 +22,6 @@ import com.hunter.model.Product;
 import com.hunter.model.ProductAttribute;
 import com.hunter.service.AuthorService;
 import com.hunter.service.CategoryService;
-import com.hunter.service.DiscountService;
 import com.hunter.service.ImageService;
 import com.hunter.service.ProductAttributeService;
 import com.hunter.service.ProductService;
@@ -59,8 +58,8 @@ public class AdminProductController {
 	@Autowired
 	private PublisherService publisherService;
 
-	@Autowired
-	private DiscountService discountService;
+//	@Autowired
+//	private DiscountService discountService;
 	
 	@Autowired
 	private PromotionService promotionService;

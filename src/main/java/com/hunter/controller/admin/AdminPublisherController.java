@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hunter.file.storage.FileSystemStorageService;
-import com.hunter.model.Author;
 import com.hunter.model.Publisher;
 import com.hunter.service.PublisherService;
 import com.hunter.utils.ViewName;

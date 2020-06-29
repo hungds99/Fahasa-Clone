@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "customer")
@@ -18,16 +20,20 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotEmpty(message = "Vui lòng điền họ tên")
 	private String name;
 	
+	@NotEmpty(message = "Vui lòng điền địa chỉ")
 	private String address;
 	
 	private String gender;
 	
 	private Date birthday;
 	
-	private int phone;
+	@NotNull(message = "Vui lòng điền số điện thoại")
+	private Integer phone;
 	
+	@NotEmpty(message = "Vui lòng điền địa chỉ email")
 	private String email;
 	
 	private String username;
@@ -38,7 +44,7 @@ public class Customer {
 	private Set<Comment> comments;
 	
 	@OneToMany(mappedBy = "customer")
-	private Set<Order> orders;
+	private Set<OrderCustomer> orders;
 
 	public int getId() {
 		return id;
@@ -80,11 +86,11 @@ public class Customer {
 		this.birthday = birthday;
 	}
 
-	public int getPhone() {
+	public Integer getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(Integer phone) {
 		this.phone = phone;
 	}
 
@@ -120,11 +126,11 @@ public class Customer {
 		this.comments = comments;
 	}
 
-	public Set<Order> getOrders() {
+	public Set<OrderCustomer> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(Set<OrderCustomer> orders) {
 		this.orders = orders;
 	}
 

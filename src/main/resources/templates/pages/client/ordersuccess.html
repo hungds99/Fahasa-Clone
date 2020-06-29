@@ -1,0 +1,144 @@
+<th:block xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{client-layout}">
+
+
+	<th:block layout:fragment="content">
+
+		<link rel="stylesheet" th:href="@{/css/product-detail.css}">
+
+		<!-- =============================== [HEADER] =================================-->
+		<section class="header" id="header">
+
+			<!-- * Header 1 * -->
+			<th:block layout:insert="~{fragments/client/header}" />
+
+			<!-- * Header-Breadcrumbs * -->
+			<!-- <th:block layout:insert="~{fragments/client/header-breadcrumb}" /> -->
+
+		</section>
+		<!-- =============================== [END] ====================================-->
+
+		<!-- =============================== [MAIN-CONTAINER] =========================-->
+		<link rel="stylesheet" th:href="@{/css/cart.css}">
+		<div class="main-container" id="main-container">
+			<div class="container-1">
+				<div class="container-inner">
+					
+					<!-- * LOGIN * -->
+					<th:block layout:insert="~{fragments/client/login}" />
+				
+					<div class="mt-3 p-3"
+						style="background-color: #fff; text-align: center;">
+						<h2
+							style="font-size: 2em; margin: 16px 0; color: #28B928; font-weight: 600;">Đơn
+							đặt hàng thành công</h2>
+						<p style="margin: 0;">Mã đơn hàng của bạn là: #123</p>
+						<p>Chúng tôi sẽ xác nhận đơn hàng và gửi về email cho quý
+							khách.</p>
+
+						<div class="p-1" style="background-color: #fff">
+							<div style="text-align: center;">
+								<img width="200" height="200" alt="gio hang trong"
+									src="https://cdn0.iconfinder.com/data/icons/shopping-icons-part-1/512/shopping-12-512.png">
+								<p class="mt-3">Cảm ơn quý khách đã tin tưởng.</p>
+								<a style="color: white; text-transform: uppercase;" href="/">
+									<button type="button" title="Tiếp tục mua sắm "
+										style="margin: auto; cursor: pointer; user-select: none; height: 40px; width: 220px; transition: all 0.3s; box-shadow: 0px 4px 6px hsl(0, 0%, 90%); -moz-box-shadow: 0px 4px 6px hsl(0, 0%, 90%); -webkit-box-shadow: 0px 4px 6px hsl(0, 0%, 90%); border-radius: 22px; -moz-border-radius: 22px; -webkit-border-radius: 22px; color: #fff; background-color: #F39801; border: 2px solid #F39801; font-size: 14px; font-weight: bold; text-transform: uppercase;">Tiếp
+										tục mua sắm</button>
+								</a>
+							</div>
+						</div>
+
+					</div>
+					<!--  
+					<table class="data-table" style="background-color: #fff;">
+            <colgroup>
+                <col>
+                <col width="1">
+                <col width="1">
+                <col width="1">
+                <col width="1">
+            </colgroup>
+            <tbody>
+                <tr class="first odd">
+                    <th style="width:10%;border-bottom: 1px solid #d9dde3;font-weight: bold;" rowspan="1" class="a-center"></th>
+                    <th style="width:50%;border-bottom: 1px solid #d9dde3;font-weight: bold;" rowspan="1" class="a-left">Tên sản phẩm</th>
+                    <th style="width:10%;border-bottom: 1px solid #d9dde3;font-weight: bold;" rowspan="1" class="a-center">Sku</th>
+                    <th style="width:10%;border-bottom: 1px solid #d9dde3;font-weight: bold;" rowspan="1" class="a-center">Giá</th>
+                    <th style="width:10%;border-bottom: 1px solid #d9dde3;font-weight: bold;" rowspan="1" class="a-center">Số lượng</th>
+                    <th style="width:10%;border-bottom: 1px solid #d9dde3;font-weight: bold;" colspan="1" class="a-right">Thành tiền</th>
+                </tr> 
+            </tbody>
+            <tfoot>
+                <tr class="first"><td colspan="5">&nbsp;</td><td class="last">&nbsp;</td></tr>
+                <tr>
+                    <td class="a-right" colspan="5" style="padding: 5px;">
+                        Thành tiền    </td>
+                    <td class="a-right last">
+                        <span class="price">55.200đ</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border-right: 0px;"></td>
+                    <td class="a-right" colspan="3" style="padding: 5px;">
+                        Phí vận chuyển                        <div style="background-color: #f1f1f1;padding: 8px;text-align: left;margin-top: 5px;">
+                            Giao hàng tiêu chuẩn                        </div>
+                    </td>
+                    <td class="a-right last">
+                        <span class="price">25.000đ</span>
+                    </td>
+                </tr>
+                                                                                                <tr>
+                    <td class="a-right" colspan="5" style="padding: 5px;">
+                        <strong>Tổng Số Tiền (gồm VAT)</strong>
+                    </td>
+                    <td class="a-right last" style="padding: 5px;color: #d80000;font-size: 16px;">
+                        <strong><span class="price">80.200đ</span></strong>
+                    </td>
+                </tr>
+                <tr class="last"><td colspan="2">&nbsp;</td><td class="last">&nbsp;</td></tr>
+            </tfoot>
+            <tbody>
+                                                    <tr>
+                        <td class="order-review-item-image">
+                            <a href="https://www.fahasa.com/nha-gia-kim-tai-ban-2017.html">
+                                <img src="https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/8/9/8935235213746.jpg" alt="Nhà Giả Kim (Tái Bản 2017)" style="max-width: 60%;">
+                            </a>
+                        </td>
+                        <td classs="order-review-item-name">
+                            <a href="https://www.fahasa.com/nha-gia-kim-tai-ban-2017.html">
+                                <h2 style="width: inherit;" class="product-name">
+                                    Nhà Giả Kim (Tái Bản 2017)                                </h2>
+                            </a>
+			                            </td>
+                        <td class="order-review-item-sku">
+                            8935235213746                        </td>
+                        <td class="order-review-item-price">
+                            55.200đ                        </td>
+                        <td class="a-center qty-box order-review-item-quantity">
+                            1                        </td>
+                        <td class="last order-review-item-subtotal">
+                            55.200đ                        </td>
+                    </tr>
+                                
+                            </tbody>
+        </table>
+				
+					-->
+				</div>
+			</div>
+		</div>
+		<!-- =============================== [END] ==================================== -->
+
+		<!-- =============================== [FOOTER] =================================-->
+		<!-- * FOOTER * -->
+		<th:block layout:insert="~{fragments/client/footer}" />
+		<!-- =============================== [END] ===================================-->
+
+
+	</th:block>
+
+
+</th:block>

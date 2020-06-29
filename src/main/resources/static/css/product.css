@@ -77,14 +77,14 @@ ul, ol {
 	position: relative;
 }
 
-.block-layered-nav dd li:before {
+/* .block-layered-nav dd li:before {
 	content: "\f053";
 	position: absolute;
 	font-family: FontAwesome;
 	left: -15px;
 	top: 0;
 	color: #aaa;
-}
+} */
 
 .m-more-less {
 	font-size: 11px;

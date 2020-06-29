@@ -35,6 +35,7 @@ public class CartAPIController {
 			return null;
 
 		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
 		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
 
 		// Chưa có gì trong giỏ hàng => Tạo giỏ hàng

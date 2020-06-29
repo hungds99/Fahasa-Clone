@@ -25,143 +25,162 @@
 		<div class="main-container" id="main-container">
 			<div class="container-1">
 				<div class="container-inner">
+
+					<!-- * LOGIN * -->
+					<th:block layout:insert="~{fragments/client/login}" />
+
 					<div id="content">
 						<div class="cart">
 							<div class="cart-banner-block fhs-no-mobile-block"></div>
 							<div class="page-title title-buttons">
 								<h1>Giỏ hàng</h1>
 							</div>
-
-							<table class="table table-bordered"
-								style="background-color: #fff">
-								<thead class="text-center">
-									<tr class="first last">
-										<th rowspan="1" class="a-center">Gỡ bỏ</th>
-										<th rowspan="1" class="a-center">Hình ảnh</th>
-										<th rowspan="1"><span class="nobr">Tên sản phẩm</span></th>
-
-										<th class="a-center" colspan="1"><span class="nobr">Giá</span></th>
-										<th rowspan="1" class="a-center">Số lượng</th>
-										<th class="a-center" colspan="1">Thành tiền</th>
-
-									</tr>
-								</thead>
-								<tbody class="text-center">
-									<tr class="first last odd" th:each="product: ${carts}">
-										<td class="a-center"><a
-											href="https://www.fahasa.com/checkout/cart/delete/id/26576938/uenc/aHR0cHM6Ly93d3cuZmFoYXNhLmNvbTo4MS9jaGVja291dC9jYXJ0Lw,,/form_key/O6RsMItAuHTpgOvK/"
-											title="Xóa sản phẩm" id="26576938"
-											class="btn-remove btn-remove2">X</a></td>
-										<td><img
-											th:src="@{/images/{image}(image=${product.productImage})}"
-											width="75" height="75" alt=""></td>
-										<td>
-											<h2 class="product-name">
-												<a
-													href="https://www.fahasa.com/lich-ban-tho-bay-mau-2020.html"
-													th:text="${product.productName}">Lịch Bàn Thỏ Bảy Màu
-													2020</a>
-											</h2>
-
-										</td>
-										<td><span class="cart-price"> <span class="price"
-												th:text="${product.productPrice}">12.000&nbsp;đ</span>
-										</span></td>
-										<td class="a-center"><input
-											th:value="${product.productAmount}" size="4" title="Số lượng"
-											class="input-text qty" maxlength="12"></td>
-										<td class="last"><span class="cart-price"> <span
-												class="price"
-												th:text="${product.productPrice}*${product.productAmount}">12.000&nbsp;đ</span>
-										</span></td>
-
-									</tr>
-								</tbody>
-								<tfoot>
-									<tr class="first last">
-										<td colspan="50" class="a-right last">
-											<button type="button" title="Chọn Thêm"
-												class="button btn-continue"
-												onclick="setLocation('https://www.fahasa.com/')">
-												<span><span>Chọn Thêm</span></span>
-											</button>
-											<button type="submit" name="update_cart_action"
-												value="update_qty" title="Cập nhật giỏ hàng"
-												class="button btn-update">
-												<span><span>Cập nhật giỏ hàng</span></span>
-											</button>
-											<button type="submit" name="update_cart_action"
-												value="empty_cart" title="Xóa hết giỏ hàng"
-												class="button btn-empty netcore-remove-all-in-cart"
-												id="empty_cart_button">
-												<span><span>Xóa hết giỏ hàng</span></span>
-											</button>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
-							<div class="clearfix"></div>
-							<div class="cart-collaterals row">
-								<div class="col-2 col-xs-12 col-sm-6 cart-product-block">
-									<div class="cd-b-l">
-										<div>
-											<a href="https://www.fahasa.com/review-hay-nhan-ngay-fpoint">
-												<img
-												src="https://www.fahasa.com/media/wysiwyg/Thang-10-2018/REVIEW-596x230.jpg"
-												alt="">
-											</a>
-										</div>
+							<th:block th:if="${carts == null}">
+								<div class="p-5" style="background-color: #fff">
+									<div style="text-align: center;">
+										<img alt="gio hang trong"
+											src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg">
+										<p class="mt-3">Không có sản phẩm trong giỏ hàng của bạn.</p>
+										<a style="color: white; text-transform: uppercase;" href="/">
+											<button type="button" title="Tiếp tục mua sắm "
+												style="margin: auto; cursor: pointer; user-select: none; height: 40px; width: 220px; transition: all 0.3s; box-shadow: 0px 4px 6px hsl(0, 0%, 90%); -moz-box-shadow: 0px 4px 6px hsl(0, 0%, 90%); -webkit-box-shadow: 0px 4px 6px hsl(0, 0%, 90%); border-radius: 22px; -moz-border-radius: 22px; -webkit-border-radius: 22px; color: #fff; background-color: #F39801; border: 2px solid #F39801; font-size: 14px; font-weight: bold; text-transform: uppercase;">Tiếp
+												tục mua sắm</button>
+										</a>
 									</div>
-
 								</div>
-								<div class="col-xs-12 col-sm-6 fhs-cart-block-total">
-									<div class="col-xs-12 col-sm-12 block" id="block-totals"
-										style="background-color: #fff;">
-										<div class="block-title">Giỏ hàng</div>
-										<div class="totals">
-											<table id="shopping-cart-totals-table">
-												<colgroup>
-													<col>
-													<col width="1">
-												</colgroup>
-												<tfoot>
-													<tr>
-														<td style="" class="a-right" colspan="1"><strong>Tổng
-																Số Tiền (gồm VAT)Tổng Số Tiền (gồm VAT)</strong></td>
-														<td style="" class="a-right price-checkout" value="40000">
-															<strong><span class="price">40.000&nbsp;đ</span></strong>
-														</td>
-													</tr>
-												</tfoot>
-												<tbody>
-													<tr>
-														<td style="" class="a-right" colspan="1">Thành tiền</td>
-														<td style="" class="a-right"><span class="price">40.000&nbsp;đ</span>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-											<ul class="checkout-types">
-												<li><a href="/tien-hanh-thanh-toan">
-														<button type="button" title="Thanh toán"
-															class="button btn-proceed-checkout btn-checkout">
-															<span><span> Thanh toán </span></span>
-														</button>
+							</th:block>
+							<th:block th:if="${carts != null}">
+								<table class="table table-bordered"
+									style="background-color: #fff">
+									<thead class="text-center">
+										<tr class="first last">
+											<th rowspan="1" class="a-center">Gỡ bỏ</th>
+											<th rowspan="1" class="a-center">Hình ảnh</th>
+											<th rowspan="1"><span class="nobr">Tên sản phẩm</span></th>
+
+											<th class="a-center" colspan="1"><span class="nobr">Giá</span></th>
+											<th rowspan="1" class="a-center">Số lượng</th>
+											<th class="a-center" colspan="1">Thành tiền</th>
+
+										</tr>
+									</thead>
+									<tbody class="text-center">
+										<tr class="first last odd" th:each="product: ${carts}">
+											<td class="a-center"><a
+												href="https://www.fahasa.com/checkout/cart/delete/id/26576938/uenc/aHR0cHM6Ly93d3cuZmFoYXNhLmNvbTo4MS9jaGVja291dC9jYXJ0Lw,,/form_key/O6RsMItAuHTpgOvK/"
+												title="Xóa sản phẩm" id="26576938"
+												class="btn-remove btn-remove2">X</a></td>
+											<td><img
+												th:src="@{/images/{image}(image=${product.productImage})}"
+												width="75" height="75" alt=""></td>
+											<td>
+												<h2 class="product-name">
+													<a
+														href="https://www.fahasa.com/lich-ban-tho-bay-mau-2020.html"
+														th:text="${product.productName}">Lịch Bàn Thỏ Bảy Màu
+														2020</a>
+												</h2>
+
+											</td>
+											<td><span class="cart-price"> <span class="price"
+													th:text="${product.productPrice}">12.000&nbsp;đ</span>
+											</span></td>
+											<td class="a-center"><input
+												th:value="${product.productAmount}" size="4"
+												title="Số lượng" class="input-text qty" maxlength="12"></td>
+											<td class="last"><span class="cart-price"> <span
+													class="price"
+													th:text="${product.productPrice}*${product.productAmount}">12.000&nbsp;đ</span>
+											</span></td>
+
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr class="first last">
+											<td colspan="50" class="a-right last">
+												<button type="button" title="Chọn Thêm"
+													class="button btn-continue"
+													onclick="setLocation('https://www.fahasa.com/')">
+													<span><span>Chọn Thêm</span></span>
+												</button>
+												<button type="submit" name="update_cart_action"
+													value="update_qty" title="Cập nhật giỏ hàng"
+													class="button btn-update">
+													<span><span>Cập nhật giỏ hàng</span></span>
+												</button>
+												<button type="submit" name="update_cart_action"
+													value="empty_cart" title="Xóa hết giỏ hàng"
+													class="button btn-empty netcore-remove-all-in-cart"
+													id="empty_cart_button">
+													<span><span>Xóa hết giỏ hàng</span></span>
+												</button>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+								<div class="clearfix"></div>
+								<div class="cart-collaterals row">
+									<div class="col-2 col-xs-12 col-sm-6 cart-product-block">
+										<div class="cd-b-l">
+											<div>
+												<a href="https://www.fahasa.com/review-hay-nhan-ngay-fpoint">
+													<img
+													src="https://www.fahasa.com/media/wysiwyg/Thang-10-2018/REVIEW-596x230.jpg"
+													alt="">
 												</a>
-													<div class="retail-note">
-														<a href="https://www.fahasa.com/chinh-sach-khach-si/"
-															target="_blank">(Giảm giá trên web chỉ áp dụng cho
-															bán lẻ)</a>
-													</div></li>
-											</ul>
+											</div>
 										</div>
+
 									</div>
-									<div id="fhs_error_message_cart"></div>
+									<div class="col-xs-12 col-sm-6 fhs-cart-block-total">
+										<div class="col-xs-12 col-sm-12 block" id="block-totals"
+											style="background-color: #fff;">
+											<div class="block-title">Giỏ hàng</div>
+											<div class="totals">
+												<table id="shopping-cart-totals-table">
+													<colgroup>
+														<col>
+														<col width="1">
+													</colgroup>
+													<tfoot>
+														<tr>
+															<td style="" class="a-right" colspan="1"><strong>Tổng
+																	Số Tiền (gồm VAT)Tổng Số Tiền (gồm VAT)</strong></td>
+															<td style="" class="a-right price-checkout" value="40000">
+																<strong><span class="price">40.000&nbsp;đ</span></strong>
+															</td>
+														</tr>
+													</tfoot>
+													<tbody>
+														<tr>
+															<td style="" class="a-right" colspan="1">Thành tiền</td>
+															<td style="" class="a-right"><span class="price">40.000&nbsp;đ</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<ul class="checkout-types">
+													<li><a href="/tien-hanh-thanh-toan">
+															<button type="button" title="Thanh toán"
+																class="button btn-proceed-checkout btn-checkout">
+																<span><span> Thanh toán </span></span>
+															</button>
+													</a>
+														<div class="retail-note">
+															<a href="https://www.fahasa.com/chinh-sach-khach-si/"
+																target="_blank">(Giảm giá trên web chỉ áp dụng cho
+																bán lẻ)</a>
+														</div></li>
+												</ul>
+											</div>
+										</div>
+										<div id="fhs_error_message_cart"></div>
+									</div>
 								</div>
-							</div>
-							<div class="personalize-short-block">
-								<span></span>
-							</div>
+								<div class="personalize-short-block">
+									<span></span>
+								</div>
+							</th:block>
 						</div>
 					</div>
 				</div>

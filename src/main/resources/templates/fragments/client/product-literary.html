@@ -5,10 +5,10 @@
 			<div class="feature-title">Văn học</div>
 			<div class="feature-categories">
 				<ul class="nav-links">
-					<li class="active">Sắp phát hành</li>
-					<li>Sách HOT - Giảm Sốc</li>
-					<li>Nổi bật</li>
-				</ul>
+					<li class="active" onClick="changeSort(39,'coming_soon')">Sắp phát hành</li>
+					<li onClick="changeSort(39,'price_orders')">Sách HOT - Giảm Sốc</li>
+					<li onClick="changeSort(39,'highlight')">Nổi bật</li>
+				</ul>	
 			</div>
 		</div>
 		<div class="feature-products">
@@ -17,12 +17,11 @@
 			</div>
 		</div>
 	</div>
+	
+	
 
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script type="text/javascript">
-	
-	let TAB_GET_URL = "/api/tabslider/index/getdata";
-	let current_block = "block_van_hoc";
 	
 	function VNDFormatter (money) {
 		const formatter = new Intl.NumberFormat('it-IT', {
@@ -31,23 +30,34 @@
 			})
 		return formatter.format(money)
 	}
-	
-	
-	
-	axios.get(TAB_GET_URL, {
-	    params: {
-	    	category_id: 1
-	    }
-	  })
-	  .then(function (response) {
-	    console.log(response.data);
-	    let products = response.data;
-	    products.forEach(product => renderProductHtml(product));
-	    
-	  })
-	  .catch(function (error) {
-	    console.log(error);
-	  }); 
+
+	window.onload = changeSort(39,"coming_soon");
+
+	// Change sort category
+	function changeSort(categoryId, sortBy) {
+		
+		console.log(sortBy);
+		
+		let api = '/api/catalog/getData';
+		
+		axios.get(api, {
+		    params: {
+		    	category_id: categoryId,
+		    	sortBy: sortBy
+		    }
+		  })
+		  .then(function (response) {
+		    console.log(response.data);
+		    let products = response.data;
+		    let block_data = document.getElementById('block-data');
+		    block_data.innerHTML = '';
+		    products.forEach(product => renderProductHtml(product));
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  }); 
+		
+	}
 	
 	// Render each data
 	function renderProductHtml(product) {
@@ -96,7 +106,6 @@
 		
 		block_data.innerHTML += content;
 	}
-	
 	
 	
 </script>

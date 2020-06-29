@@ -1,7 +1,5 @@
 package com.hunter.dto;
 
-import java.util.Date;
-
 public class ProductDTO {
 
 	private int productId;

@@ -15,4 +15,10 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	@Query(value = "SELECT * FROM category c WHERE c.category_name LIKE %?1%", nativeQuery = true)
 	List<Category> findByCategoryName(String categoryName);
 	
+	Category findByParentId(int id);
+	
+	List<Category> findAllById(int id);
+	
+	List<Category> findAllByParentId(int parentId);
+
 }

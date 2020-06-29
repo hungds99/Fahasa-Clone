@@ -37,6 +37,7 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
 		
 		entityManager.getTransaction().commit();
+		entityManager.close();
 		return results;
 	}
 
@@ -51,14 +52,34 @@ public class ProductDAOImpl implements ProductDAO {
 		strBuilder.append("pr.promotion_value, ");
 		strBuilder.append("i.image_url, i.image_alt ");
 		strBuilder.append("FROM product p ");
-		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id AND p.category_id = " + categoryId + " ");
+		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
 		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
 		strBuilder.append("LEFT JOIN promotion pr ON p.promotion_id = pr.id ");
+		strBuilder.append("WHERE p.category_id = " + categoryId);
+		
+		// Những sản phẩm sắp phát hành
+//		String a = "";
+//		if(a.equals(ConstantUtil.ProductStatus.SAPMOBAN.getValue())) {
+//			strBuilder.append(" AND p.product_status = " + 1);
+//		} else {
+//			strBuilder.append(" AND p.product_status != " + 1);
+//		}
+		
+		// Những sản phẩm nổi bật
+//		if(a == "1") {
+//			strBuilder.append(" AND p.highlight = " + 1);
+//		}
+		
+		// Sắp xếp theo khuyến mãi		
+		strBuilder.append(" ORDER BY pr.promotion_value DESC");
+		
+		strBuilder.append(" LIMIT 24");
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
 
 		entityManager.getTransaction().commit();
+		entityManager.close();
 		return results;
 	}
 
@@ -82,6 +103,103 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
 
 		entityManager.getTransaction().commit();
+		entityManager.close();
+		return results;
+	}
+
+	@Override
+	public List<Object[]> getProductByOrder(int categoryId, int productStatus, boolean highlight, boolean promotion) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder strBuilder = new StringBuilder();
+
+		strBuilder.append("SELECT p.id, p.product_name, p.product_price, ");
+		strBuilder.append("pr.promotion_value, ");
+		strBuilder.append("i.image_url, i.image_alt ");
+		strBuilder.append("FROM product p ");
+		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
+		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
+		strBuilder.append("LEFT JOIN promotion pr ON p.promotion_id = pr.id ");
+		strBuilder.append("WHERE p.category_id = " + categoryId);
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return results;
+	}
+
+	@Override
+	public List<Object[]> getProductByCategoryIdSort(int categoryId, String sortBy) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder strBuilder = new StringBuilder();
+
+		strBuilder.append("SELECT p.id, p.product_name, p.product_price, ");
+		strBuilder.append("pr.promotion_value, ");
+		strBuilder.append("i.image_url, i.image_alt ");
+		strBuilder.append("FROM product p ");
+		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
+		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
+		strBuilder.append("LEFT JOIN promotion pr ON p.promotion_id = pr.id ");
+		strBuilder.append("WHERE p.category_id = " + categoryId);
+		
+		// Những sản phẩm sắp phát hành
+		if(sortBy.equalsIgnoreCase("coming_soon")) {
+			strBuilder.append(" AND p.product_status = " + 3);
+		} else {
+			strBuilder.append(" AND p.product_status != " + 3);
+		}
+		
+		// Những sản phẩm nổi bật
+		if(sortBy.equalsIgnoreCase("highlight")) {
+			strBuilder.append(" AND p.highlight = " + 1);
+		}
+		
+		strBuilder.append(" AND pr.promotion_value > 15 ");
+		
+		// Sắp xếp theo khuyến mãi		
+		strBuilder.append("ORDER BY pr.promotion_value DESC ");
+		
+		// Giới hạn hiển thị
+		strBuilder.append("LIMIT 12 ");
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return results;
+	}
+
+	@Override
+	public List<Object[]> getProductByOrder(int category_id, String order_by, int page, int limit) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder strBuilder = new StringBuilder();
+
+		strBuilder.append("SELECT p.id, p.product_name, p.product_price, ");
+		strBuilder.append("pr.promotion_value, ");
+		strBuilder.append("i.image_url, i.image_alt ");
+		strBuilder.append("FROM product p ");
+		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
+		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
+		strBuilder.append("LEFT JOIN promotion pr ON p.promotion_id = pr.id ");
+		strBuilder.append("WHERE p.category_id = " + category_id);
+		
+		// Phân trang
+		strBuilder.append(" LIMIT " + 12 + " OFFSET " + (page-1)*12);
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		return results;
 	}
 

@@ -25,6 +25,10 @@
 		<div class="main-container" id="main-container">
 			<div class="container-1">
 				<div class="container-inner">
+					
+					<!-- * LOGIN * -->
+					<th:block layout:insert="~{fragments/client/login}" />
+				
 					<ol class="one-step-checkout clearfix">
 						<li>
 							<h1 class="checkout_header">Thanh toán</h1>
@@ -34,7 +38,7 @@
 						<li class="payment_buttons"></li>
 						<li class="address-order">
 							<form id="one-step-checkout-form" method="post"
-								th:action="@{/xac-nhan-don-hang}" th:object="${customer}">
+								th:action="@{/tien-hanh-thanh-toan}" th:object="${customer}">
 								<div class="address-information address-info-3-columns">
 
 									<!-- Start: Modified by Daniel -01042015- Reload data after login -->
@@ -44,12 +48,25 @@
 												thanh toán</h3>
 											<fieldset class="group-select" id="billing-new-address-form">
 												<ul>
+													<li style="display: none;">
+														<div class="one-field">
+															<label class="required" for="id">ID <em>*</em>
+															</label><br> <input type="text" id="id" th:field="*{id}"
+																autocomplete="" name="name" th:value="${customer.id}"
+																title="ID" class="input-text required-entry">
+
+														</div>
+													</li>
+
 													<li>
 														<div class="one-field">
 															<label class="required" for="name">Tên <em>*</em>
 															</label><br> <input type="text" id="name" th:field="*{name}"
 																autocomplete="" name="name" th:value="${customer.name}"
-																title="Tên" class="input-text required-entry">
+																title="Tên" class="input-text required-entry"> <br>
+															<small style="color: red;"
+																th:if="${#fields.hasErrors('name')}" th:errors="*{name}">*
+																Vui lòng nhập lại</small>
 														</div>
 													</li>
 													<li>
@@ -60,7 +77,9 @@
 																th:field="*{email}" autocomplete="off" name="email"
 																th:value="${customer.email}" title="Địa chỉ Email"
 																class="input-text required-entry validate-email">
-															<div id="email-error-message" class="error-message"></div>
+															<br> <small style="color: red;"
+																th:if="${#fields.hasErrors('email')}"
+																th:errors="*{email}">* Vui lòng nhập lại</small>
 														</div>
 													</li>
 													<li>
@@ -70,6 +89,9 @@
 																th:field="*{phone}" autocomplete="" name="phone"
 																th:value="${customer.phone}" title="Điện thoại"
 																class="input-text required-entry validate-phone-numberonly-atleast7 validate-billing-telephone">
+															<br> <small style="color: red;"
+																th:if="${#fields.hasErrors('phone')}"
+																th:errors="*{phone}">* Vui lòng nhập lại</small>
 														</div>
 													</li>
 													<li>
@@ -79,6 +101,9 @@
 																th:field="*{address}" name="address" id="address"
 																th:value="${customer.address}"
 																class="required-entry input-text validate-maximum-length-100">
+															<br> <small style="color: red;"
+																th:if="${#fields.hasErrors('address')}"
+																th:errors="*{address}">* Vui lòng nhập lại</small>
 														</div>
 													</li>
 

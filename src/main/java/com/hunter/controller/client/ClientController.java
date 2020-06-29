@@ -1,6 +1,5 @@
 package com.hunter.controller.client;
 
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hunter.dto.CartDTO;
+import com.hunter.dto.ProductCatalog;
 import com.hunter.dto.ProductViewDTO;
 import com.hunter.model.Customer;
 import com.hunter.repository.CustomerRepository;
@@ -41,6 +41,7 @@ public class ClientController {
 	@GetMapping
 	public String getHomePage(Model model, HttpServletRequest request) {
 		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
 		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
 		
 		model.addAttribute("carts", carts);
@@ -54,6 +55,7 @@ public class ClientController {
 		ProductViewDTO productViewDTO = productService.getProductByProductId(productId);
 
 		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
 		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
 
 		model.addAttribute("product", productViewDTO);
@@ -64,13 +66,31 @@ public class ClientController {
 	}
 
 	@GetMapping("danh-muc/{categoryId}")
-	public String getCategoryProductPage(@PathVariable("categoryId") int categoryId, Model model) {
+	public String getCategoryProductPage(@PathVariable("categoryId") int categoryId, Model model, HttpServletRequest request) {
+		
+		ProductCatalog catalog = productService.getProductCatalog(categoryId);
+		
+		model.addAttribute("category", catalog.getCategory());
+		model.addAttribute("parentCategories", catalog.getParent_categories());
+		
+		model.addAttribute("productList", catalog.getProductList());
+		
+//		model.addAttribute("catalog", catalog);
+		
+		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
+		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
+		
+		model.addAttribute("carts", carts);
+		model.addAttribute("cartTotal", (carts == null) ? 0 : carts.size());
+		
 		return ViewName.CLIENT_LIST_PAGE;
 	}
 
 	@GetMapping("kiem-tra-gio-hang")
 	public String getCartPage(HttpServletRequest request, Model model) {
 		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
 		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
 
 		model.addAttribute("carts", carts);
@@ -82,6 +102,7 @@ public class ClientController {
 	@GetMapping("tien-hanh-thanh-toan")
 	public String getPaymentPage(HttpServletRequest request, Model model) {
 		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
 		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
 
 		model.addAttribute("customer", new Customer());
@@ -102,6 +123,7 @@ public class ClientController {
 	@GetMapping("/customer/account")
 	public String getCustomerAccountInfo(HttpServletRequest request, Model model) {
 		HttpSession session = (HttpSession) request.getSession();
+		@SuppressWarnings("unchecked")
 		List<CartDTO> carts = (List<CartDTO>) session.getAttribute("cart");
 
 		model.addAttribute("customer", new Customer());

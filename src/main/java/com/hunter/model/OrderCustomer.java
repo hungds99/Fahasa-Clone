@@ -14,23 +14,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "order_customer")
+public class OrderCustomer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private Date createdDate;
-	
-	private int status;
-	
+
+	private int orderStatus;
+
 	private String paymethod;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
-	
+
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetails;
 
@@ -48,14 +48,6 @@ public class Order {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
 	}
 
 	public String getPaymethod() {
@@ -81,5 +73,13 @@ public class Order {
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
-	
+
+	public int getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(int orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
 }

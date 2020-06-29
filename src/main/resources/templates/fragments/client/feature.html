@@ -1,192 +1,111 @@
-<div class="feature" xmlns:th="http://www.thymeleaf.org">
-	<div class="feature-header">
-		<div class="feature-title ml-2">
-			<h5>Nổi Bật</h5>
+<th:block xmlns:th="http://www.thymeleaf.org">
+
+	<div class="feature">
+		<div class="feature-header">
+			<div class="feature-title ml-2">
+				<h5>Sách Ngoại</h5>
+			</div>
+			<div class="feature-categories">
+				<ul class="nav-links">
+					<li class="active" onClick="changeSort2(42,'Sách viễn tưởng')">Sách viễn tưởng</li>
+					<li onClick="changeSort2(42,'Phát triển con người')">Phát triển con người</li>
+					<li onClick="changeSort2(42,'Quản lý kinh doanh')">Quản lý kinh doanh</li>
+				</ul>
+			</div>
 		</div>
-		<div class="feature-categories">
-			<ul class="nav-links">
-				<li>Sách Hay Nổi Bật</li>
-				<li>Sách HOT - Giảm Sốc</li>
-				<li>Bestseller Ngoại Văn</li>
-			</ul>
-		</div>
-	</div>
-	<div class="feature-products">
-		<div class="row">
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">40%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/image_175155.jpg" alt=""
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="#" title="Bạn đã bao giờ hôn bố mẹ chưa ?">Bạn đã
-								bao giờ hôn bố mẹ chưa ?</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">53.400đ</span>
-							</p>
-							<p class="old-price">
-								<span class="price">89.000đ</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">40%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/image_175155.jpg" alt=""
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="#" title="Bạn đã bao giờ hôn bố mẹ chưa ?">Bạn đã
-								bao giờ hôn bố mẹ chưa ?</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">53.400đ</span>
-							</p>
-							<p class="old-price">
-								<span class="price">89.000đ</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">40%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/image_175155.jpg" alt=""
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="#" title="Bạn đã bao giờ hôn bố mẹ chưa ?">Bạn đã
-								bao giờ hôn bố mẹ chưa ?</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">53.400đ</span>
-							</p>
-							<p class="old-price">
-								<span class="price">89.000đ</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">40%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/image_175155.jpg" alt=""
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="#" title="Bạn đã bao giờ hôn bố mẹ chưa ?">Bạn đã
-								bao giờ hôn bố mẹ chưa ?</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">53.400đ</span>
-							</p>
-							<p class="old-price">
-								<span class="price">89.000đ</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">40%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/image_175155.jpg" alt=""
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="#" title="Bạn đã bao giờ hôn bố mẹ chưa ?">Bạn đã
-								bao giờ hôn bố mẹ chưa ?</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">53.400đ</span>
-							</p>
-							<p class="old-price">
-								<span class="price">89.000đ</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="product-box">
-					<div class="label-pro-sale">
-						<span class="p-sale-label">40%</span>
-					</div>
-					<div class="box-content">
-						<div class="product-image">
-							<a href="#"> <img src="images/image_175155.jpg" alt=""
-								height="220">
-							</a>
-						</div>
-						<div class="product-name">
-							<a href="#" title="Bạn đã bao giờ hôn bố mẹ chưa ?">Bạn đã
-								bao giờ hôn bố mẹ chưa ?</a>
-						</div>
-						<div class="product-label-price">
-							<p class="special-price">
-								<span class="price">53.400đ</span>
-							</p>
-							<p class="old-price">
-								<span class="price">89.000đ</span>
-							</p>
-						</div>
-						<div class="product-rate">
-							<div>******</div>
-						</div>
-					</div>
-				</div>
+		<div class="feature-products">
+			<div class="row p-2" id="foreign-book-block-data">
 			</div>
 		</div>
 	</div>
-</div>
+	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+	
+	function VNDFormatter (money) {
+		const formatter = new Intl.NumberFormat('it-IT', {
+			  style: 'currency',
+			  currency: 'VND'
+			})
+		return formatter.format(money)
+	}
+
+	window.onload = changeSort2(42,"Sách viễn tưởng");
+
+	// Change sort category
+	function changeSort2(categoryId, sortBy) {
+		
+		console.log(sortBy);
+		
+		let api = '/api/catalog/getData';
+		
+		axios.get(api, {
+		    params: {
+		    	category_id: categoryId,
+		    	sortBy: sortBy
+		    }
+		  })
+		  .then(function (response) {
+		    console.log(response.data);
+		    let products = response.data;
+		    let block_data = document.getElementById('foreign-book-block-data');
+		    block_data.innerHTML = '';
+		    products.forEach(product => renderProductHtml2(product));
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  }); 
+		
+	}
+	
+	// Render each data
+	function renderProductHtml2(product) {
+		let block_data = document.getElementById('foreign-book-block-data');
+		let content = '';
+		
+		content = `
+			<div class="col-2">
+			<div class="item-inner" style="position: relative">
+				<div class="label-pro-sale">
+					<span class="p-sale-label discount-l-fs">${product.promotionValue}%</span>
+				</div>
+				<div class="ma-box-content">
+					<div class="products clearfix">
+						<div class="product images-container">
+							<a
+								href="/san-pham/${product.productId}"
+								title="${product.imageAlt}"
+								class="product-image"><span class="product-image"><img
+									src="images/${product.imageUrl}"
+									width="270" height="364" class=""
+									alt="${product.imageAlt}"></span></a>
+						</div>
+					</div>
+					<h2 class="product-name">
+						<a
+							href="/san-pham/${product.productId}"
+							title="${product.imageAlt}">${product.productName}</a>
+					</h2>
+					<div class="price-label">
+						<p class="special-price">
+							<span class="price-label">Giảm giá: </span><span
+								id="product-price-384170601" class="price m-price-font">${VNDFormatter(product.productFinalprice)}</span>
+						</p>
+						<p class="old-price bg-white">
+							<span class="price-label">Giá bìa: </span><span
+								id="old-price-170601" class="price m-price-font">${VNDFormatter(product.productPrice)}</span>
+						</p>
+					</div>
+					<div class="fhs-rating-container"></div>
+				</div>
+			</div>
+		</div>
+		
+		`;
+		
+		block_data.innerHTML += content;
+	}
+	
+</script>
+
+</th:block>

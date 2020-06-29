@@ -66,4 +66,13 @@ public class ProductViewDTO {
 		this.imageAlt = imageAlt;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductViewDTO [productId=" + productId + ", productName=" + productName + ", productPrice="
+				+ productPrice + ", promotionValue=" + promotionValue + ", productFinalprice=" + productFinalprice
+				+ ", imageUrl=" + imageUrl + ", imageAlt=" + imageAlt + "]";
+	}
+	
+	
+
 }
