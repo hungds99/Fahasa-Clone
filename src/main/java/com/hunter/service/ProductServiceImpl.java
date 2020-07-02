@@ -227,4 +227,13 @@ public class ProductServiceImpl implements ProductService {
 		return productViewDTOs;
 	}
 
+	@Override
+	public List<ProductViewDTO> getProductBySearch(String terms, String order_by, int page, int limit) {
+		List<Object[]> results = productDAO.getProductBySearch(terms, order_by, page, limit);
+
+		List<ProductViewDTO> productViewDTOs = convertToProductView(results);
+		
+		return productViewDTOs;
+	}
+
 }

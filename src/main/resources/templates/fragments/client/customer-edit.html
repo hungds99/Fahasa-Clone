@@ -1,0 +1,145 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+
+	<style>
+.fhs-input-box {
+	margin-top: 10px;
+}
+
+.fhs-input-box input {
+	padding-left: 5px;
+}
+
+#btn-save-account-info:hover {
+	background: green;
+	transition: background 0.5s ease;
+}
+</style>
+
+	<div style="background-color: #fff; padding: 10px;">
+		<div class="page-title-2">
+			<h1>Thông tin tài khoản</h1>
+		</div>
+		<form action="/customer/account/edit" method="post"
+			id="form-account-info" autocomplete="off">
+			<div>
+				<div style="display: none;">
+					<input class="fhs-textbox" type="text" name="id" th:feild="*{id}"
+						th:value="${customer.id}" maxlength="200">
+				</div>
+				<div
+					class="fhs-input-box fhs-input-group-horizontal-account checked-error row">
+					<label class="col-5">Họ và Tên*</label>
+					<div class="fhs-input-item col-6">
+						<div class="fhs-input-group">
+							<input class="fhs-textbox" type="text" placeholder="Nhập họ tên"
+								name="name" th:feild="*{name}" th:value="${customer.name}"
+								maxlength="200">
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="fhs-input-box fhs-input-group-horizontal-account fhs-input-send row">
+					<label class="col-5">Số điện thoại</label>
+					<div class="fhs-input-item col-6">
+						<div class="fhs-input-group">
+							<input class="fhs-textbox" type="text" th:feild="*{phone}"
+								th:value="${customer.phone}" name="phone" maxlength="11">
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="fhs-input-box fhs-input-group-horizontal-account fhs-input-send row">
+					<label class="col-5">Email</label>
+					<div class="fhs-input-item col-6">
+						<div class="fhs-input-group">
+							<input class="fhs-textbox" type="text"
+								placeholder="Chưa có email" id="email" name="email"
+								th:feild="*{email}" th:value="${customer.email}" maxlength="200">
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="fhs-input-box fhs-input-group-horizontal-account checked-error row">
+					<label class="col-5">Địa chỉ*</label>
+					<div class="fhs-input-item col-6">
+						<div class="fhs-input-group">
+							<input class="fhs-textbox" type="text" placeholder="Nhập địa chỉ"
+								name="address" th:feild="*{address}"
+								th:value="${customer.address}" maxlength="225">
+						</div>
+					</div>
+				</div>
+
+				<div class="fhs-input-box fhs-input-group-horizontal-account row">
+					<label class="col-5">Giới tính</label>
+					<div class="col-6">
+						<select class="form-control" th:feild="*{gender}" name="gender">
+							<option th:value="'F'" th:text="Nữ"
+								th:selected="${customer.gender == 'F' ? 'true' : ' '}">Nữ</option>
+							<option th:value="'M'" th:text="Nam"
+								th:selected="${customer.gender == 'M' ? 'true' : ' '}">Nam</option>
+						</select>
+					</div>
+				</div>
+
+				<div
+					class="fhs-input-box fhs-input-group-horizontal-account fhs-input-send row">
+					<label class="col-5">Ngày sinh*</label>
+					<div class="fhs-input-item col-6">
+						<div class="fhs-input-group">
+							<input class="fhs-textbox" type="date" name="birthday"
+								th:feild="*{birthday}" th:value="${customer.birthday}">
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="fhs-edit-account-password-form">
+					<div class="fhs-input-box fhs-input-group-horizontal-account row">
+						<label class="col-5">Mật khẩu hiện tại*</label>
+						<div class="fhs-input-item col-6">
+							<div class="fhs-input-group">
+								<input class="fhs-textbox" type="password"
+									placeholder="Mật khẩu hiện tại" name="current_password"
+									id="current_password" value="" maxlength="16"> <span
+									class="fhs-input-icon fhs-textbox-alert"></span>
+							</div>
+						</div>
+					</div>
+					<div class="fhs-input-box fhs-input-group-horizontal-account row">
+						<label class="col-5">Mật khẩu mới*</label>
+						<div class="fhs-input-item col-6">
+							<div class="fhs-input-group">
+								<input class="fhs-textbox" type="password"
+									placeholder="Mật khẩu mới" name="password" id="password"
+									value="" maxlength="16"> <span
+									class="fhs-input-icon fhs-textbox-alert"></span>
+							</div>
+						</div>
+					</div>
+					<div class="fhs-input-box fhs-input-group-horizontal-account row">
+						<label class="col-5">Nhập lại mật khẩu mới*</label>
+						<div class="fhs-input-item col-6">
+							<div class="fhs-input-group">
+								<input class="fhs-textbox" type="password"
+									placeholder="Nhập lại mật khẩu mới" name="confirmation"
+									id="confirmation" value="" maxlength="16"> <span
+									class="fhs-input-icon fhs-textbox-alert"></span>
+							</div>
+						</div>
+					</div>
+				</div> -->
+			</div>
+			<div style="text-align: center; padding: 20px 0 10px 0;">
+				<button type="submit" title="Lưu thay đổi"
+					id="btn-save-account-info" class="btn-save-confirm"
+					style="border-radius: 25px; background: rgb(255, 152, 0); background: linear-gradient(90deg, rgba(255, 152, 0, 1) 0%, rgba(247, 105, 93, 1) 100%); height: 40px; width: 200px; color: white; font-weight: 700; font-size: 16px; border: none; outline: none; font-weight: 700;">
+					<span><span>Lưu thay đổi</span></span>
+				</button>
+			</div>
+		</form>
+	</div>
+
+</th:block>

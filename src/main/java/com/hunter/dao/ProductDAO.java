@@ -18,4 +18,6 @@ public interface ProductDAO {
 	
 	List<Object[]> getProductByOrder(int category_id, String order_by, int page, int limit);
 	
+	List<Object[]> getProductBySearch(String terms, String order_by, int page, int limit);
+	
 }

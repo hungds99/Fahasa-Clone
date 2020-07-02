@@ -1,0 +1,38 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+
+	<div style="background-color: #fff; padding: 10px;">
+		<div class="page-title-2">
+			<h4>Thông tin đơn hàng</h4>
+		</div>
+		<div>
+			<div class="inner">
+				<table class="table table-border">
+					<thead>
+						<tr>
+							<th style="white-space:nowrap">Mã đơn hàng</th>
+							<th style="white-space:nowrap">Ngày mua</th>
+							<th style="white-space:nowrap">Sản phẩm</th>
+							<th style="white-space:nowrap">Tổng tiền</th>
+							<th style="white-space:nowrap">Trạng thái đơn hàng</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="order : ${orderList}">
+							<td><a th:href="@{/sales/order/view/{orderId}(orderId = ${order.orderId})}" th:text="${'DH' + order.orderId}" style="color: #007bff !important;"></a></td>
+							<td th:text="${order.orderDate}"></td>
+							<td>
+								<th:block th:each="product : ${order.orderProduct}">
+									<p th:text="${product.orderProduct} + ' (X' + (${product.orderAmount}) + ')'"></p>
+								</th:block>
+							</td>
+							<td th:text="${#numbers.formatDecimal(#aggregates.sum(order.orderProduct.![orderPrice*orderAmount]),0, 'POINT' ,0, 'POINT')}"></td>
+							<td th:text="${order.orderStatus}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+</th:block>

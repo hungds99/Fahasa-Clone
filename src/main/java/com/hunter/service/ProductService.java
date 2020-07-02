@@ -27,5 +27,7 @@ public interface ProductService {
 	public List<ProductViewDTO> getProductByCategoryIdSort(int categoryId, String sortBy);
 
 	public List<ProductViewDTO> getProductByOrder(int category_id, String order_by, int page, int limit);
+	
+	public List<ProductViewDTO> getProductBySearch(String terms, String order_by, int page, int limit);
 
 }

@@ -41,15 +41,19 @@
 										<ol class="breadcrumb">
 												<li class="home"><a href="https://www.fahasa.com/"
 												title="Tới trang chủ">Trang chủ</a> <span>/ </span></li>
-												
-												<th:block th:each="parent : ${parentCategories}">
-												<li class="category4"><a
-												href="https://www.fahasa.com/sach-trong-nuoc.html" title="" th:text="${parent.categoryName}"></a> <span>/ </span></li>
+												<th:block th:if="${viewName=='resultSearch'}">
+													<li class="category201" id="categoryId"><strong>Kết quả tìm kiếm</strong></li>
 												</th:block>
-											
-								
-												<li class="category201" id="categoryId" th:data-cat-id="${category.id}"><strong th:text="${category.categoryName}"></strong></li>
-										</ol>
+												<th:block th:if="${viewName=='resultList'}">
+													<th:block th:each="parent : ${parentCategories}">
+													<li class="category4"><a
+													href="https://www.fahasa.com/sach-trong-nuoc.html" title="" th:text="${parent.categoryName}"></a> <span>/ </span></li>
+													</th:block>
+									
+													<li class="category201" id="categoryId" th:data-cat-id="${category.id}"><strong th:text="${category.categoryName}"></strong></li>
+										
+												</th:block>
+												</ol>
 									</div>
 								</div>
 

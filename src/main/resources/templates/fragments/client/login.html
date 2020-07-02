@@ -1,5 +1,7 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
 	<div class="youama-ajaxlogin-cover" id="youama-ajaxlogin-cover"></div>
+	
+	<!-- Form Đăng Nhập -->
 	<div class="youama-login-window" id="youama-login-window">
 		<div class="youama-window-outside">
 			<span class="close" id="close-sigin">×</span>
@@ -7,56 +9,117 @@
 				<div class="youama-window-title">
 					<h3>Đăng nhập</h3>
 				</div>
-			<!-- 	<form action="/customer/signin" method="POST"
+				<!-- 	<form action="/customer/signin" method="POST"
 					th:action="@{/customer/signin}"> -->
-					<div class="youama-window-box first">
-						<div class="youama-window-content">
+				<div class="youama-window-box first">
+					<div class="youama-window-content">
 
-							<div class="input-fly youama-showhideme">
-								<label for="youama-email">Địa chỉ Email <span>*</span></label> <input
-									type="email" class="fhs-l-email" placeholder="Địa chỉ Email"
-									id="email" name="email" value="">
-								<div
-									class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin">
-								</div>
+						<div class="input-fly youama-showhideme">
+							<label for="youama-email">Địa chỉ Email <span>*</span></label> <input
+								type="email" class="fhs-l-email" placeholder="Địa chỉ Email"
+								id="email" name="email" value="">
+							<div
+								class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin">
 							</div>
-							<div class="input-fly youama-showhideme">
-								<label for="youama-password">Mật khẩu <span>*</span></label> <input
-									type="password" placeholder="Mật khẩu" id="password"
-									name="password" value="">
-								<div
-									class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword">
-								</div>
-							</div>
-
 						</div>
-					</div>
+						<div class="input-fly youama-showhideme">
+							<label for="youama-password">Mật khẩu <span>*</span></label> <input
+								type="password" placeholder="Mật khẩu" id="password"
+								name="password" value="">
+							<div
+								class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword">
+							</div>
+						</div>
 
-					<div class="youama-window-box last fhs-no-mt">
-						<div
-							class="youama-window-content box-contents box-contents-button youama-showhideme">
-							<span class="youama-forgot-password youama-fhs-fp"> <a
-								href="https://www.fahasa.com/customer/account/forgotpassword/">Quên
-									mật khẩu?</a>
+					</div>
+				</div>
+
+				<div class="youama-window-box last fhs-no-mt">
+					<div
+						class="youama-window-content box-contents box-contents-button youama-showhideme">
+						<span class="youama-forgot-password youama-fhs-fp"> <a
+							href="https://www.fahasa.com/customer/account/forgotpassword/">Quên
+								mật khẩu?</a>
+						</span>
+						<button type="button"
+							class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button fl"
+							id="loginBtn">
+							<span> <span> Đăng nhập </span>
 							</span>
-							<button type="button"
-								class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button fl" id="loginBtn">
-								<span> <span> Đăng nhập </span>
-								</span>
-							</button>
-							<div class="fr"></div>
-							<div class="fr youama-ac">
-								<a href="https://www.fahasa.com/customer/account/create">Tạo
-									tài khoản ?</a>
-							</div>
+						</button>
+						<div class="fr"></div>
+						<div class="fr youama-ac">
+							<a href="https://www.fahasa.com/customer/account/create">Tạo
+								tài khoản ?</a>
 						</div>
 					</div>
-			<!-- 	</form> -->
+				</div>
+				<!-- 	</form> -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- Form Đăng Ký  -->
+	<div class="youama-login-window" id="youama-register-window">
+		<div class="youama-window-outside">
+			<span class="close" id="close-register">×</span>
+			<div class="youama-window-inside">
+				<div class="youama-window-title">
+					<h3>Đăng Ký</h3>
+				</div>
+				<!-- 	<form action="/customer/signin" method="POST"
+					th:action="@{/customer/signin}"> -->
+				<div class="youama-window-box first">
+					<div class="youama-window-content">
+
+						<div class="input-fly youama-showhideme">
+							<label for="youama-email">Địa chỉ Email <span>*</span></label> <input
+								type="email" class="fhs-l-email" placeholder="Địa chỉ Email"
+								id="email" name="email" value="">
+							<div
+								class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin">
+							</div>
+						</div>
+						<div class="input-fly youama-showhideme">
+							<label for="youama-password">Mật khẩu <span>*</span></label> <input
+								type="password" placeholder="Mật khẩu" id="password"
+								name="password" value="">
+							<div
+								class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword">
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="youama-window-box last fhs-no-mt">
+					<div
+						class="youama-window-content box-contents box-contents-button youama-showhideme">
+						<span class="youama-forgot-password youama-fhs-fp"> <a
+							href="https://www.fahasa.com/customer/account/forgotpassword/">Quên
+								mật khẩu?</a>
+						</span>
+						<button type="button"
+							class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button fl"
+							id="registerBtn">
+							<span> <span> Đăng ký </span>
+							</span>
+						</button>
+						<div class="fr"></div>
+						<div class="fr youama-ac">
+							<a href="https://www.fahasa.com/customer/account/create">Tạo
+								tài khoản ?</a>
+						</div>
+					</div>
+				</div>
+				<!-- 	</form> -->
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
+	
+		// Form Đăng Nhập
 		const signinBtn = document.getElementById("signin");
 		const closeSigninBtn = document.getElementById("close-sigin");
 
@@ -78,7 +141,8 @@
 				login_window.style.display = 'none';
 			}
 		}
-
+		
+		
 		function closeLoginModel() {
 			login_cover.style.display = 'none';
 			login_window.style.display = 'none';
@@ -103,6 +167,34 @@
 				window.location.reload();
 			})
 			.catch((err) => console.log(err))
+		}
+		
+		// Form Đăng Ký
+		const registerBtn = document.getElementById("register");
+		const closeRegisterBtn = document.getElementById("close-register");
+
+		const register_cover = document.getElementById("youama-ajaxlogin-cover");
+		const register_window = document.getElementById("youama-register-window");
+
+		registerBtn.addEventListener('click', showRegisterModel);
+
+		register_cover.addEventListener('click', closeRegisterModel);
+		
+		closeRegisterBtn.addEventListener('click', closeRegisterModel);
+		
+		function showRegisterModel() {
+			if (register_cover.style.display === 'none') {
+				register_cover.style.display = 'block';
+				register_window.style.display = 'block';
+			} else {
+				register_cover.style.display = 'none';
+				register_window.style.display = 'none';
+			}
+		}
+		
+		function closeRegisterModel() {
+			register_cover.style.display = 'none';
+			register_window.style.display = 'none';
 		}
 		
 	</script>

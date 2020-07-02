@@ -37,11 +37,9 @@
 										<li class="current"><strong>Bảng điều khiển tài
 												khoản</strong></li>
 										<li><a
-											href="https://www.fahasa.com/customer/account/edit/">Thông
+											href="/customer/account/edit">Thông
 												tin tài khoản</a></li>
-										<li><a href="https://www.fahasa.com/customer/address/">Sổ
-												địa chỉ</a></li>
-										<li><a href="https://www.fahasa.com/sales/order/history/">Đơn
+										<li><a href="/sales/order/history">Đơn
 												hàng của tôi</a></li>
 										<li><a href="https://www.fahasa.com/review/customer/">Nhận
 												xét của tôi</a></li>
@@ -94,31 +92,9 @@
 						<div class="col-9">
 
 							<div class="my-account" style="background-color: #fff;">
-								<div class="dashboard">
-									<div class="page-title">
-										<h1>Bảng điều khiển của khách hàng</h1>
-									</div>
-									<!--show member ship-->
-									<div style="margin: 0 0 20px; overflow: auto;">
-										<div
-											class="col-lg-12 col-md-12 col-sm-12 col-xs-12 member-info">
-											<div
-												class="col-lg-12 col-md-12 col-sm-12 col-xs-12 member-info-label">
-												<p>
-													Họ và tên: <span class="member-value">Hùng Đinh</span>
-												</p>
-												<p style="word-wrap: break-word;">
-													Email: <strong class="member-value">dinhsyhung99@gmail.com</strong>
-												</p>
-
-												<p>
-													Cấp độ thành viên: <span class="member-value">Thân
-														thiết</span>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
+								<th:block th:if="${viewName=='accountInfo'}" th:insert="~{fragments/client/customer-dashboard}"></th:block>
+								<th:block th:if="${viewName=='accountEdit'}" th:insert="~{fragments/client/customer-edit}"></th:block>
+								<th:block th:if="${viewName=='accountOrder'}" th:insert="~{fragments/client/customer-order}"></th:block>
 							</div>
 
 						</div>

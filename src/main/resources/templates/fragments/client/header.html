@@ -31,7 +31,7 @@
 						<div class="account pull-right" style="padding-top: 5px;" sec:authorize="isAnonymous()">
 							<ul class="nav-links">
 								<li>
-									<div id="signup">
+									<div id="register">
 										<img th:src="@{/images/ico_thoat.png}"> <a href="javascript:void(0)"
 											title="Tạo tài khoản">Tạo tài khoản</a>
 									</div>
@@ -47,7 +47,7 @@
 						<div class="account pull-right" style="padding-top: 5px;" sec:authorize="isAuthenticated()">
 							<ul class="nav-links">
 								<li>
-									<div id="signup">
+									<div id="register">
 										<img th:src="@{/images/ico_thoat.png}"> <a href="/customer/account"
 											title="tài khoản">Tài khoản</a>
 									</div>
@@ -75,13 +75,16 @@
 						</div>
 						<div class="col-7">
 							<div class="search-box">
-								<div class="search-input">
-									<div class="search">
-										<input type="text" name="q" id="search"
-											placeholder="Tìm kiếm sản phẩm mong muốn..."> <span
-											class="button-search fas fa-search"></span>
+								<form action="/catalog/search" method="get">
+									<div class="search-input">
+										<div class="search">
+											<input type="text" name="q" id="search" autocomplete="off"
+												placeholder="Tìm kiếm sản phẩm mong muốn..."> <span
+												class="button-search fas fa-search"></span>
+												<input type="submit" hidden />
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 						<div class="col-2">

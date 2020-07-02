@@ -203,4 +203,32 @@ public class ProductDAOImpl implements ProductDAO {
 		return results;
 	}
 
+	@Override
+	public List<Object[]> getProductBySearch(String terms, String order_by, int page, int limit) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder strBuilder = new StringBuilder();
+
+		strBuilder.append("SELECT p.id, p.product_name, p.product_price, ");
+		strBuilder.append("pr.promotion_value, ");
+		strBuilder.append("i.image_url, i.image_alt ");
+		strBuilder.append("FROM product p ");
+		strBuilder.append("LEFT JOIN category c ON p.category_id = c.id ");
+		strBuilder.append("LEFT JOIN image i ON i.product_id = p.id ");
+		strBuilder.append("LEFT JOIN promotion pr ON p.promotion_id = pr.id ");
+		strBuilder.append("WHERE p.product_name LIKE '%" + terms + "%'");
+		
+		// Phân trang
+		strBuilder.append(" LIMIT " + 12 + " OFFSET " + (page-1)*12);
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = entityManager.createNativeQuery(strBuilder.toString()).getResultList();
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return results;
+	}
+
 }
