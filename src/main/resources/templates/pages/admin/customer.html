@@ -1,0 +1,254 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản lý danh mục -->
+		<div class="author-content">
+
+			<div class="panel-group">
+				<div class="panel panel-search">
+					<div class="panel-body">
+						<div class="search-row">
+							<i class="fa fa-search"></i> <span>Tìm Kiếm</span>
+						</div>
+						<div class="search-body">
+							<div class="form-group row">
+								<label for="customerNameSearch" class="col-sm-2 col-form-label">
+									Tên khách hàng </label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="customerNameSearch">
+								</div>
+							</div>
+							<div class="offset-2">
+								<button type="button" class="btn btn-primary btn-sm"
+									id="btn-search">Tìm kiếm</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-table">
+					<div class="panel-body">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col"><input type="checkbox" id="select-all">
+									</th>
+									<th scope="col" style="white-space:nowrap">SID</th>
+									<th scope="col" style="white-space:nowrap">Tên khách hàng</th>
+									<th scope="col" style="white-space:nowrap">Số điện thoại</th>
+									<th scope="col" style="white-space:nowrap">Email</th>
+									<th scope="col" style="white-space:nowrap">Địa chỉ</th>
+									<th scope="col" style="white-space:nowrap">Giới tính</th>
+									<th scope="col" style="white-space:nowrap">Ngày sinh</th>
+									<th scope="col" style="white-space:nowrap">Trạng thái</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<!-- Insert Data -->
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination" id="pagination">
+								<li class="page-item" data-page-idx=-1><a class="page-link">Previous</a>
+								</li>
+								<li class="page-item active" data-page-idx=1><a
+									class="page-link">1</a></li>
+								<li class="page-item" data-page-idx=2><a class="page-link">2</a></li>
+								<li class="page-item" data-page-idx=3><a class="page-link">3</a></li>
+								<li class="page-item" data-page-idx=+1><a class="page-link">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!-- End -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Khách Hàng > <strong id="customer-name-title"></strong></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<div>
+		      		<h5>Thông tin khách hàng</h5>
+		      		<div class="row" id="customer-info">
+		      			<div class="col-6"><p>Họ và tên: ${customer.name}</p></div>
+			      			<div class="col-6"><p>Giới tính: ${customer.gender}</p></div>
+			      			<div class="col-6"><p>Ngày sinh: ${customer.birthday}</p></div>
+			      			<div class="col-6"><p>Điện thoại: ${customer.phone}</p></div>
+			      			<div class="col-6"><p>Email: ${customer.email}</p></div>
+			      			<div class="col-6"><p>Địa chỉ: ${customer.address}</p></div>
+			      			<div class="col-6"><p>Trạng thái: Chưa đăng ký</p></div>
+		      		</div>
+					  
+		      	</div>
+		        <div>
+		        	<h5>Lịch sử mua hàng</h5>
+		        	<table class="table">
+						  <thead>
+						    <tr>
+						      <th scope="col">Ngày tạo</th>
+						      <th scope="col">Mã đơn hàng</th>
+						      <th scope="col">Thành tiền</th>
+						      <th scope="col">Trạng thái</th>
+						    </tr>
+						  </thead>
+						  <tbody id="order_list">
+						  </tbody>
+						</table>
+		        </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+		        <button type="button" class="btn btn-primary">Lưu</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- End Modal -->
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+				
+				window.onload = loadCustomerList();
+				
+				/* Search And Render Data */
+				let btn_search = document.getElementById('btn-search');
+				btn_search.addEventListener('click', loadCustomerList);
+				
+				function loadCustomerList() {
+					
+					let customerNameSearch = document.getElementById('customerNameSearch');
+					let labelPage = document.getElementsByClassName("page-item active")[0];
+					let currentPage = labelPage.getAttribute('data-page-idx');
+					
+					const params = new URLSearchParams();
+			        params.append("keyword", customerNameSearch.value);
+			        params.append('page', currentPage);
+					
+					axios.post('/Admin/Customer/List',params)
+					  .then(function (response) {
+						  renderCustomers(response.data);
+					  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				};
+				
+				function renderCustomers(customers) {
+					let tbody = document.getElementById('tbody');
+					let contents = '';
+					customers.forEach(customer => {
+						contents += `
+							<tr>
+							<td>
+								<input type="checkbox" value=${customer.id} class="checkBoxGroups" >
+							</td>
+							<td>
+								<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal" onClick="showCustomerDetail(${customer.id})">${customer.id}</a>	
+							</td>
+							<td>${customer.name}</td>
+							<td>
+								${customer.phone}
+							</td>
+							<td>${customer.email}</td>
+							<td>
+								${customer.address}
+							</td>
+							<td>
+								${customer.gender}
+							</td>
+							<td>
+								${customer.birthday}
+							</td>
+							<td>
+								${customer.username === null ? 'Chưa đăng ký' : 'Đã đăng ký'}
+							</td>
+						</tr>
+						`
+					});
+					tbody.innerHTML = contents;
+				}
+				
+				
+				// PAGINATION
+				
+				let paginationUl = document.getElementById('pagination');
+				
+				paginationUl.addEventListener('click', function(event) {
+					let elactive = paginationUl.getElementsByClassName("page-item active")[0];
+					let el = event.target.parentElement;
+					if(el.matches('.page-item')) {
+						elactive.classList.remove("active");
+						console.log(el.getAttribute("data-page-idx"));
+						el.classList.add("active");
+						loadCustomerList();
+					}
+				});
+				
+				// Show Customer Details
+				function showCustomerDetail(customerId) {
+					let customerNameTitle = document.getElementById('customer-name-title');
+					
+					
+					axios.get(`/Admin/Customer/GetOne/${customerId}`)
+					  .then(function (response) {
+					   	console.log(response);
+					    let customer = response.data;
+					    customerNameTitle.textContent = customer.name;
+					    
+					    let customer_infor = document.getElementById('customer-info');
+					    
+					    customer_infor.innerHTML = `
+					    	<div class="col-6"><p>Họ và tên: ${customer.name}</p></div>
+			      			<div class="col-6"><p>Giới tính: ${customer.gender}</p></div>
+			      			<div class="col-6"><p>Ngày sinh: ${customer.birthday}</p></div>
+			      			<div class="col-6"><p>Điện thoại: ${customer.phone}</p></div>
+			      			<div class="col-6"><p>Email: ${customer.email}</p></div>
+			      			<div class="col-6"><p>Địa chỉ: ${customer.address}</p></div>
+			      			<div class="col-6"><p>Trạng thái: Chưa đăng ký</p></div>
+					    `;
+					    
+					    return axios.get(`/Admin/Customer/Order/History/${customerId}`)
+					  })
+					  .then(function (response) {
+						    console.log(response);
+						    let orders = response.data;
+						    let order_list = document.getElementById('order_list');
+						    order_list.innerHTML = " ";
+						    orders.forEach(order => {
+						    	order_list.innerHTML += `
+						    		<tr>
+								      <th scope="row">${order.orderDate}</th>
+								      <td>${order.orderId}</td>
+								      <td>${order.orderId}</td>
+								      <td>${order.orderStatus}</td>
+								    </tr>
+						    	`;
+						    })
+						  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				}
+				
+		</script>
+
+	</th:block>
+
+</th:block>

@@ -1,0 +1,348 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-layout}">
+
+	<th:block layout:fragment="content">
+
+		<!-- Quản lý danh mục -->
+		<div class="author-content">
+
+			<div class="panel-group">
+				<div class="panel panel-search">
+					<div class="panel-body">
+						<div class="search-row">
+							<i class="fa fa-search"></i> <span>Tìm Kiếm</span>
+						</div>
+						<div class="search-body">
+							<div class="form-group row">
+								<label for="orderIdSearch" class="col-sm-2 col-form-label">
+									Mã đơn hàng </label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="orderIdSearch">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="customerNameSearch" class="col-sm-2 col-form-label">
+									Tên khách hàng </label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="customerNameSearch">
+								</div>
+							</div>
+							<div class="offset-2">
+								<button type="button" class="btn btn-primary btn-sm"
+									id="btn-search">Tìm kiếm</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-table">
+					<div class="panel-body">
+						<table class="table table-bordered text-center">
+							<thead>
+								<tr>
+									<th scope="col">Mã đơn hàng</th>
+									<th scope="col">Ngày tạo</th>
+									<th scope="col">Người tạo</th>
+									<th scope="col">Thành tiền</th>
+									<th scope="col">Trạng thái</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<!-- Insert Data -->
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination" id="pagination">
+								<li class="page-item" data-page-idx=-1><a class="page-link">Previous</a>
+								</li>
+								<li class="page-item active" data-page-idx=1><a
+									class="page-link">1</a></li>
+								<li class="page-item" data-page-idx=2><a class="page-link">2</a></li>
+								<li class="page-item" data-page-idx=3><a class="page-link">3</a></li>
+								<li class="page-item" data-page-idx=+1><a class="page-link">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!-- End -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Cập nhật đơn
+							hàng</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-9">
+								<!-- 	<div>
+									<h5>Thông tin khách hàng</h5>
+									<div class="row" id="customer-info">
+										<div class="col-4">
+											<p>Họ và tên: ${customer.name}</p>
+										</div>
+										<div class="col-4">
+											<p>Ngày sinh: ${customer.birthday}</p>
+										</div>
+										<div class="col-4">
+											<p>Điện thoại: ${customer.phone}</p>
+										</div>
+										<div class="col-4">
+											<p>Email: ${customer.email}</p>
+										</div>
+										<div class="col-4">
+											<p>Địa chỉ: ${customer.address}</p>
+										</div>
+										<div class="col-4">
+											<p>Trạng thái: Chưa đăng ký</p>
+										</div>
+									</div>
+
+								</div> -->
+								<div>
+									<h5>Thông tin đặt hàng</h5>
+									<div class="row mb-2">
+										<div class="col">
+											<input type="text" class="form-control"
+												placeholder="Tên người nhận" id="recipient_name">
+										</div>
+										<div class="col">
+											<input type="text" class="form-control"
+												placeholder="Số điện thoại" id="recipient_phone">
+										</div>
+									</div>
+									<div class="row mb-2">
+										<div class="col">
+											<input type="text" class="form-control"
+												placeholder="Địa chỉ email" id="recipient_email">
+										</div>
+										<div class="col">
+											<input type="text" class="form-control"
+												placeholder="Địa chỉ giao hàng" id="recipient_address">
+										</div>
+									</div>
+								</div>
+								<div>
+									<h5>Chi tiết đơn hàng</h5>
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">STT</th>
+												<th scope="col">Tên sản phẩm</th>
+												<th scope="col">Giá</th>
+												<th scope="col">Số lượng</th>
+												<th scope="col">Thành tiền</th>
+											</tr>
+										</thead>
+										<tbody id="order-product">
+
+										</tbody>
+										
+										<tfoot>
+											<tr>
+												<td colspan="4" class="text-right" style="border-top: none"><span>Tạm tính</span></td>
+												<td style="border-top: none" id="order-total"></td>
+											</tr>
+											<tr>
+												<td colspan="4" class="text-right" style="border-top: none"><span>Phí vận chuyển</span></td>
+												<td style="border-top: none">0 ₫</td>
+											</tr>
+											<tr>
+												<td colspan="4" class="text-right" style="border-top: none"><span>Tổng cộng</span></td>
+												<td style="border-top: none"><span class="sum" id="order-sum"></span></td>
+											</tr>
+										</tfoot>
+										
+									</table>
+								</div>
+							</div>
+							<div class="col-3">
+								<div>
+									<p style="margin: 0; padding: 0;">Mã đơn hàng</p>
+									<h5 id="order-id">CH01-200706-0957-46BC</h5>
+								</div>
+								<div style="background-color: green; padding: 5px;">
+									<p style="margin: 0; padding: 0; color: white;">Trạng thái</p>
+									<select class="form-control"
+										style="width: 90%; margin: 0 auto;" id="order-status">
+
+									</select>
+								</div>
+
+								<div id="customer-info"></div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Đóng</button>
+									<button type="button" class="btn btn-primary">Lưu</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- End Modal -->
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+				
+				window.onload = loadOrderList();
+				
+				/* Search And Render Data */
+				let btn_search = document.getElementById('btn-search');
+				btn_search.addEventListener('click', loadOrderList);
+				
+				function loadOrderList() {
+					let orderIdSearch = document.getElementById('orderIdSearch');
+					let customerNameSearch = document.getElementById('customerNameSearch');
+					let labelPage = document.getElementsByClassName("page-item active")[0];
+					let currentPage = labelPage.getAttribute('data-page-idx');
+					
+					const params = new URLSearchParams();
+			        params.append("keyword", parseInt(1));
+			        params.append('page', currentPage);
+					
+					axios.post('/Admin/Order/List',params)
+					  .then(function (response) {
+						  renderOrders(response.data);
+					  })
+					  .catch(function (error) {
+					    console.log(error);
+					  });
+					
+				};
+				
+				function renderOrders(orders) {
+					let tbody = document.getElementById('tbody');
+					let contents = '';
+					orders.forEach(order => {
+						contents += `
+							<tr>
+							<td>
+								<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal" onClick="showOrderDetail(${order.orderId})">${order.orderId}</>
+							</td>
+							<td>
+								${order.orderDate}
+							</td>
+							<td>${order.createdName}</td>
+							<td>${order.totalPrice} đ</td>
+							<td>
+								<span style="background-color: #E8E8E8;font-size: .78571429rem;padding:5px;">${order.orderStatus}</span>
+							</td>
+						</tr>
+						`
+					});
+					tbody.innerHTML = contents;
+				}
+				
+				// Show Order Detail
+				function showOrderDetail(orderId) {
+					console.log(orderId);
+					
+					axios.get(`/Admin/Order/Detail/${orderId}`)
+					.then((res) => {
+						let order = res.data;
+						console.log(order);
+						
+						let order_id = document.getElementById('order-id');
+						
+						order_id.textContent = order.orderId;
+						
+						let recipient_name = document.getElementById('recipient_name');
+						let recipient_phone = document.getElementById('recipient_phone');
+						let recipient_email = document.getElementById('recipient_email');
+						let recipient_address = document.getElementById('recipient_address');
+
+						recipient_name.value = order.recipientName;
+						recipient_phone.value = order.recipientPhone;
+						recipient_email.value = order.recipientEmail;
+						recipient_address.value = order.recipientAddress;
+						
+						let customer_info = document.getElementById('customer-info');
+						customer_info.innerHTML = `
+							<p>Thông tin khách hàng</p>
+							<p>Họ và tên: ${order.customer.customerName}</p>
+							<p>Điện thoại: ${order.customer.customerPhone}</p>
+							<p>Email: ${order.customer.customerEmail}</p>
+							<p>Địa chỉ: ${order.customer.customerAddress}</p>
+							<p>Trạng thái: Chưa đăng ký</p>
+						`;
+						
+						let order_status = document.getElementById('order-status');
+						
+						order_status.innerHTML = `
+							<option>Đơn hàng mới</option>
+							<option>Đang xử lý</option>
+							<option>Đang giao hàng</option>
+							<option>Đã giao hang</option>
+							<option>Hoàn thành</option>
+							<option>Hủy bỏ</option>
+							`;
+							
+						let products = order.orderProduct;
+						let order_product = document.getElementById('order-product');
+						order_product.innerHTML = " ";
+						let i = 0;
+						let orderPriceTotal = 0;
+						products.forEach((product) => {
+							order_product.innerHTML += `
+								<tr>
+									<td>${i}</td>
+									<td>${product.productName}</td>
+									<td>${product.orderPrice}</td>
+									<td>${product.orderAmount}</td>
+									<td>${product.orderPrice * product.orderAmount}</td>
+								</tr>
+							`;
+							orderPriceTotal += product.orderPrice * product.orderAmount;
+							i++;
+						})
+						
+						let order_total = document.getElementById('order-total');
+						order_total.textContent = orderPriceTotal;
+						
+						let order_sum = document.getElementById('order-sum');
+						order_sum.textContent = orderPriceTotal;
+						
+					})
+					.catch((err) => console.log(err))
+				}
+				
+				
+				// PAGINATION
+				
+				let paginationUl = document.getElementById('pagination');
+				
+				paginationUl.addEventListener('click', function(event) {
+					let elactive = paginationUl.getElementsByClassName("page-item active")[0];
+					let el = event.target.parentElement;
+					if(el.matches('.page-item')) {
+						elactive.classList.remove("active");
+						console.log(el.getAttribute("data-page-idx"));
+						el.classList.add("active");
+						loadOrderList();
+					}
+				});
+				
+		</script>
+
+	</th:block>
+
+</th:block>

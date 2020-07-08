@@ -1,5 +1,7 @@
 package com.hunter.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	OrderService orderService;
 
 	@Override
 	public void saveOrEdit(Customer customer) {
@@ -30,6 +35,18 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		customerRepository.save(customerExisted);
 		
+	}
+
+	@Override
+	public List<Customer> findByCustomerName(String authorName, int begin, int end) {
+		return customerRepository.findByCustomerName(authorName, begin, end);
+	}
+
+	@Override
+	public Customer findCustomerById(int id) {
+		Customer customer = customerRepository.findById(id).orElse(null);
+//		List<OrderDTO> order = orderService.orderInfo(customer.getId());
+		return customer;
 	}
 
 }

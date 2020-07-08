@@ -4,6 +4,25 @@ public class OrderProductDTO {
 	private String orderProduct;
 	private Double orderPrice;
 	private int orderAmount;
+	private Double orderPriceTotal;
+	private String productName;
+	
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public Double getOrderPriceTotal() {
+		return orderPriceTotal;
+	}
+
+	public void setOrderPriceTotal(Double orderPriceTotal) {
+		this.orderPriceTotal = this.orderPrice*this.orderAmount;
+	}
 
 	public String getOrderProduct() {
 		return orderProduct;

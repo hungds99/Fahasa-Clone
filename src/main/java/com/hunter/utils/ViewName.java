@@ -23,6 +23,10 @@ public class ViewName {
 	public static final String ADMIN_PROMOTION_PAGE = "pages/admin/promotion";
 	public static final String ADMIN_PROMOTION_FORM_PAGE = "pages/admin/promotion-form";
 	
+	public static final String ADMIN_CUSTOMER_PAGE = "pages/admin/customer";
+	
+	public static final String ADMIN_ORDER_PAGE = "pages/admin/order";
+	
 	// CLIENT VIEW NAME
 	
 	public static final String CLIENT_HOME_PAGE = "pages/client/home";
@@ -32,6 +36,8 @@ public class ViewName {
 	public static final String CLIENT_PAYMENT_PAGE = "pages/client/payment";
 	public static final String CLIENT_ORDER_SUCCESS_PAGE = "pages/client/ordersuccess";
 	public static final String CLIENT_CUSTOMER_PAGE = "pages/client/customer";
+	
+	public static final String CLIENT_404_ERROR_PAGE = "pages/client/error";
 	
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hunter.dto.CartDTO;
+import com.hunter.dto.CustomerDTO;
 import com.hunter.dto.OrderDTO;
 import com.hunter.dto.OrderProductDTO;
 import com.hunter.model.Customer;
@@ -119,6 +120,127 @@ public class OrderServiceImpl implements OrderService {
 		entityManager.close();
 
 		return orderDtoList;
+	}
+
+	@Override
+	public List<OrderDTO> findAllByOrder(int orderId, int begin, int end) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		stringBuilder.append("SELECT oc.id,  c.name , oc.created_date, oc.order_status, SUM(od.order_price * od.order_amount) AS totalPrice ");
+		stringBuilder.append("FROM customer c, order_customer oc, order_detail od ");
+		stringBuilder.append("WHERE c.id = oc.customer_id AND od.order_id = oc.id ");
+		stringBuilder.append("GROUP BY oc.id ");
+		stringBuilder.append("LIMIT " + begin + "," + end);
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> listObject = entityManager.createNativeQuery(stringBuilder.toString()).getResultList();
+		
+		List<OrderDTO> orders = new ArrayList<OrderDTO>();
+		
+		for (Object[] object : listObject) {
+			System.out.println("Value of Object : " + object[0]);
+			System.out.println("Value of Object : " + object[1]);
+			System.out.println("Value of Object : " + object[2]);
+			System.out.println("Value of Object : " + object[3]);
+			System.out.println("Value of Object : " + object[4]);
+			
+			OrderDTO o = new OrderDTO();
+			o.setOrderId(Integer.parseInt(object[0].toString()));
+			o.setCreatedName(object[1].toString());
+			o.setOrderDate(object[2].toString());
+			o.setOrderStatus(object[3].toString());
+			o.setTotalPrice(Double.parseDouble(object[4].toString()));
+			
+			orders.add(o);
+		}
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+		return orders;
+	}
+
+	@Override
+	@Transactional
+	public OrderDTO orderCustomerInfo(int orderId) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		stringBuilder.append("SELECT oc.id, oc.recipient_name, oc.recipient_phone, "
+				+ "oc.recipient_email, oc.recipient_address,oc.order_status, c.name, c.phone, c.email, c.address ");
+		stringBuilder.append("FROM order_customer oc, customer c ");
+		stringBuilder.append("WHERE oc.customer_id = c.id ");
+		stringBuilder.append("AND oc.id = " + orderId);
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> listObject = entityManager.createNativeQuery(stringBuilder.toString()).getResultList();
+		
+		OrderDTO orderdto = new OrderDTO();
+		
+		for (Object[] object : listObject) {
+			System.out.println("orderId: " + object[0]);
+			System.out.println("recipient_name: " + object[1]);
+			System.out.println("recipient_phone: " + object[2]);
+			System.out.println("recipient_email: " + object[3]);
+			System.out.println("recipient_address: " + object[4]);
+			System.out.println("customer_name: " + object[5]);
+			System.out.println("customer_phone: " + object[6]);
+			System.out.println("customer_email: " + object[7]);
+			System.out.println("customer_address: " + object[8]);
+			
+			orderdto.setOrderId(Integer.parseInt(object[0].toString()));
+			orderdto.setRecipientName(object[1] == null ? null : object[1].toString());
+			orderdto.setRecipientPhone(object[2] == null ? null : object[2].toString());
+			orderdto.setRecipientEmail(object[3] == null ? null : object[3].toString());
+			orderdto.setRecipientAddress(object[4] == null ? null : object[4].toString());
+			orderdto.setOrderStatus(object[5] == null ? null : object[5].toString());
+			
+			CustomerDTO customer = new CustomerDTO();
+			customer.setCustomerName(object[6] == null ? null : object[6].toString());
+			customer.setCustomerPhone(object[7] == null ? null : object[7].toString());
+			customer.setCustomerEmail(object[8] == null ? null : object[8].toString());
+			customer.setCustomerAddress(object[9] == null ? null : object[9].toString());
+			
+			orderdto.setCustomer(customer);
+		}
+		
+		orderdto.setOrderProduct(this.orderCustomerProduct(orderId));
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return orderdto;
+	}
+	
+	public List<OrderProductDTO> orderCustomerProduct(int orderId) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("SELECT p.product_name, od.order_amount, od.order_price ");
+		stringBuilder.append("FROM order_detail od, product p ");
+		stringBuilder.append("WHERE od.product_id = p.id AND od.order_id = " + orderId);
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> listObject = entityManager.createNativeQuery(stringBuilder.toString()).getResultList();
+		
+		List<OrderProductDTO> products = new ArrayList<OrderProductDTO>();
+		
+		for (Object[] object : listObject) {
+			OrderProductDTO dto = new OrderProductDTO();
+			dto.setProductName(object[0] == null ? null : object[0].toString());
+			dto.setOrderAmount(object[1] == null ? null : Integer.parseInt(object[1].toString()));
+			dto.setOrderPrice(object[2] == null ? null : Double.parseDouble(object[2].toString()));
+			products.add(dto);
+		}
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return products;
 	}
 
 }

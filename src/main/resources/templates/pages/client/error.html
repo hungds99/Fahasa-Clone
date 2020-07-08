@@ -1,0 +1,46 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{client-layout}">
+
+	<th:block layout:fragment="content">
+
+		<link rel="stylesheet" th:href="@{/css/product.css}">
+
+		<!-- =============================== [HEADER] =================================-->
+		<section class="header" id="header">
+
+			<!-- * Header 1 * -->
+			<th:block layout:insert="~{fragments/client/header}" />
+
+			<!-- * Header-Breadcrumbs * -->
+			<!-- <th:block layout:insert="~{fragments/client/header-breadcrumb}" /> -->
+
+		</section>
+		<!-- =============================== [END] ====================================-->
+
+		<!-- =============================== [MAIN-CONTAINER] =========================-->
+		<div class="main-container" id="main-container">
+			<div class="container-1">
+				<div class="container-inner">
+
+
+					<!-- * LOGIN * -->
+					<th:block layout:insert="~{fragments/client/login}" />
+					
+					<div>
+						<h1>Không tìm thấy trang</h1>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		<!-- =============================== [FOOTER] =================================-->
+		<!-- * FOOTER * -->
+		<th:block layout:insert="~{fragments/client/footer}" />
+		<!-- =============================== [END] ====================================-->
+
+
+	</th:block>
+
+</th:block>
