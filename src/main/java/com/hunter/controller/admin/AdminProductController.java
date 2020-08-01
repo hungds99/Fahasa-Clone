@@ -108,6 +108,7 @@ public class AdminProductController {
 	@PostMapping("/Product/Save")
 	public String getSaveProduct(Product product) {
 		Product p = productService.saveAndUpdate(product);
+		
 		return "redirect:/Admin/Product/ProductCreateOrUpdate/productId=" + p.getId();
 	}
 

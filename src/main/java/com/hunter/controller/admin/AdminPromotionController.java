@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,5 +63,17 @@ public class AdminPromotionController {
 	public List<Promotion> getPromotionByName(@RequestParam("q") String q) {
 		return promotionService.findByPromotionName(q);
 	}
+	
+	@GetMapping("/Promotion/Edit/{promotionId}")
+	public String editPromotion(@PathVariable("promotionId") int promotionId, Model model) {
+		
+		Promotion promotion = promotionService.findById(promotionId);
+		
+		model.addAttribute("breadcrumb", "Thêm khuyến mãi");
+		model.addAttribute("promotion", promotion);
+		
+		return ViewName.ADMIN_PROMOTION_FORM_PAGE;
+	}
+	
 
 }

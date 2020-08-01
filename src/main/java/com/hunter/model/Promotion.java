@@ -26,28 +26,38 @@ public class Promotion implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String promotionName;
-	
+
 	private String promotionValue;
-	
+
 	private String promotionType;
-	
+
 	private Date createdDate;
-	
+
 	private Date beginDate;
-	
+
 	private Date endDate;
-	
+
 	private String promotionRule;
-	
+
+	private boolean usedValid;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
 	@JsonIgnore
 	private List<Product> products;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
 	@JsonIgnore
 	private List<Image> images;
+
+	public boolean isUsedValid() {
+		return usedValid;
+	}
+
+	public void setUsedValid(boolean usedValid) {
+		this.usedValid = usedValid;
+	}
 
 	public int getId() {
 		return id;

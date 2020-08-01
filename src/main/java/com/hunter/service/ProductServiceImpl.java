@@ -45,10 +45,10 @@ public class ProductServiceImpl implements ProductService {
 		if (results != null && !results.isEmpty()) {
 			for (Object[] object : results) {
 
-				for (int i = 0; i < object.length; i++) {
-					System.out.println("Giá trị" + object[i]);
-					
-				}
+//				for (int i = 0; i < object.length; i++) {
+//					System.out.println("Giá trị" + object[i]);
+//					
+//				}
 				
 				ProductDTO product = new ProductDTO();
 

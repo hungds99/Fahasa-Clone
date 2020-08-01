@@ -34,7 +34,7 @@ public class AdminCategoryController {
 	@PostMapping("/Category/List")
 	@ResponseBody
 	public List<Category> getCategories(@RequestParam(value = "keyword") String keyword, @RequestParam("page") int page) {
-		List<Category> categories = categoryService.findByCategoryName(keyword, page - 1, 10);
+		List<Category> categories = categoryService.findByCategoryName(keyword, (page - 1)*3, 3);
 		return categories;
 	}
 

@@ -3,9 +3,18 @@
 	layout:decorate="~{admin-layout}">
 
 	<th:block layout:fragment="content">
-
+	<style>
+				.activated {
+					border: 5px solid green;
+				}
+				
+				.out-date {
+					border: 5px solid red;
+				}
+			</style>
 		<!-- Khuyến mãi - Giảm giá -->
 		<div>
+			
 			<div class="promotion p-3">
 				<div class="row" id="promotion-content">
 				
@@ -95,6 +104,7 @@
 			axios.post('/Admin/Promotion/List')
 			  .then(function (response) {
 				  let promotions = response.data;
+				  console.log(promotions);
 				  promotions.forEach((promotion) => renderPromotion(promotion));
 			  })
 			  .catch(function (error) {
@@ -107,9 +117,17 @@
 			let promotion_content = document.getElementById('promotion-content');
 			let content = '';
 			
+			let checkActivated = '';
+			
+			if(promotion.usedValid) {
+				checkActivated = "block activated";
+			} else {
+				checkActivated = "block out-date";
+			}
+			
 			content = `
 				<div class="col-3 p-1">
-					<div class="block">
+					<div class="${checkActivated}">
 						<h6>${promotion.promotionName}</h6>
 						<ul>
 							<li>Giảm giá: ${promotion.promotionValue} (${promotion.promotionType})</li>

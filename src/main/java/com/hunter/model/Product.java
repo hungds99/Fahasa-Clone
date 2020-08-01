@@ -31,15 +31,15 @@ public class Product implements Serializable {
 
 	private String productName;
 
-	private double productPrice;
+	private Double productPrice;
 
 	private double productFinalprice;
 
-	private int productCode;
+	private Integer productCode;
 
 	private int productStatus;
 	
-	private int productAmount;
+	private Integer productAmount;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
@@ -87,11 +87,11 @@ public class Product implements Serializable {
 		this.productName = productName;
 	}
 
-	public double getProductPrice() {
+	public Double getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(double productPrice) {
+	public void setProductPrice(Double productPrice) {
 		this.productPrice = productPrice;
 	}
 
@@ -101,18 +101,18 @@ public class Product implements Serializable {
 
 	public void setProductFinalprice(double productFinalprice) {
 		this.productFinalprice = productFinalprice;
-	}
-
-	public int getProductCode() {
-		return productCode;
-	}
-
-	public void setProductCode(int productCode) {
-		this.productCode = productCode;
-	}
+	}	
 
 	public int getProductStatus() {
 		return productStatus;
+	}
+
+	public Integer getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(Integer productCode) {
+		this.productCode = productCode;
 	}
 
 	public void setProductStatus(int productStatus) {
@@ -135,11 +135,11 @@ public class Product implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public int getProductAmount() {
+	public Integer getProductAmount() {
 		return productAmount;
 	}
 
-	public void setProductAmount(int productAmount) {
+	public void setProductAmount(Integer productAmount) {
 		this.productAmount = productAmount;
 	}
 

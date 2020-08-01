@@ -48,7 +48,8 @@ public class PromotionServiceImpl implements PromotionService {
 			promotionExisted.setEndDate(promotion.getEndDate());
 			promotionExisted.setCreatedDate(new Date(0));
 			promotionExisted.setPromotionRule(promotion.getPromotionRule());
-		
+			promotionExisted.setUsedValid(promotion.isUsedValid());
+			
 			promotionRepository.save(promotionExisted);
 			return ;
 		}
