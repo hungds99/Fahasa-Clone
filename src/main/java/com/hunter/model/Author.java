@@ -22,7 +22,7 @@ public class Author {
 	
 	private String authorName;
 	
-	private int authorAge;
+	private Integer authorAge;
 	
 	private String authorInfo;
 	
@@ -56,11 +56,11 @@ public class Author {
 		this.authorName = authorName;
 	}
 
-	public int getAuthorAge() {
+	public Integer getAuthorAge() {
 		return authorAge;
 	}
 
-	public void setAuthorAge(int authorAge) {
+	public void setAuthorAge(Integer authorAge) {
 		this.authorAge = authorAge;
 	}
 

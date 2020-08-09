@@ -1,4 +1,4 @@
-CREATE SCHEMA `petdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+CREATE SCHEMA `petdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 USE `petdb`;
 
@@ -12,7 +12,7 @@ CREATE TABLE `category` (
     descriptions nvarchar(255),
     parent_id int NULL,
     primary key(id)
-) ;
+);
 
 -- Discount
 CREATE TABLE `discount` (
@@ -33,6 +33,7 @@ CREATE TABLE `promotion` (
     promotion_type nvarchar(100),
 	promotion_code varchar(10),
     promotion_rule nvarchar(255),
+    used_valid boolean,
     created_date date,
     begin_date date,
     end_date date,
@@ -42,16 +43,16 @@ CREATE TABLE `promotion` (
 -- Customer
 CREATE TABLE `customer` (
 	id int auto_increment,
-    customer_name nvarchar(100),
+    name nvarchar(100),
     address nvarchar(100),
     gender char(1),
     birthday date,
     phone int,
     email varchar(45),
     username varchar(45),
-    password varchar(45),
+    password varchar(100),
     primary key (id)
-); 
+);
 
 -- Product
 CREATE TABLE `product` (

@@ -36,16 +36,13 @@ public class AdminAuthorController {
 	
 	@GetMapping("/Author/List")
 	public String getAuthorList(Model model) {
-		
 		return ViewName.ADMIN_AUTHOR_PAGE;
 	}
 	
 	@PostMapping("/Author/List")
 	@ResponseBody
 	public List<Author> getAuthors(@RequestParam("keyword") String keyword ,@RequestParam("page") int page) {
-		System.out.println("Begin Transaction !");
 		List<Author> authors = authorService.findByAuthorName(keyword, page - 1, 10);
-		System.out.println("End Transaction !");
 		return authors;
 	}
 	
@@ -69,7 +66,6 @@ public class AdminAuthorController {
 	@PostMapping("/Author/DeleteSelected")
 	@ResponseBody
 	public String getDeleteSelected(@RequestBody List<Integer> authorIdsSelected) {
-		System.out.println(authorIdsSelected.toString());
 		authorService.deleteAllById(authorIdsSelected);
 		return "success";
 	}

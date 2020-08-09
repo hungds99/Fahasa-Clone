@@ -16,9 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "category")
 public class Category implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -527575757094157409L;
 
 	@Id

@@ -46,9 +46,7 @@ public class AdminPromotionController {
 
 	@PostMapping("/Promotion/Save")
 	public String getPromotionSave(@ModelAttribute("promotion") Promotion promotion) {
-
 		promotionService.saveOrUpdate(promotion);
-
 		return "redirect:/Admin/Promotion/List";
 	}
 

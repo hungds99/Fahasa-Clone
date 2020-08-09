@@ -23,8 +23,6 @@ public class AdminCategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	// Category List
-
 	@GetMapping("/Category/List")
 	public String getCategoryList(Model model) {
 		model.addAttribute("breadcrumb", "Danh mục");
