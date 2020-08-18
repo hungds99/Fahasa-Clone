@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 //					System.out.println("Giá trị" + object[i]);
 //					
 //				}
-				
+
 				ProductDTO product = new ProductDTO();
 
 				product.setProductId(Integer.parseInt(convertString(object[0])));
@@ -192,7 +192,6 @@ public class ProductServiceImpl implements ProductService {
 
 		List<Category> parentCategories = new ArrayList<Category>();
 
-		
 		if (currentCategory.getParentId() != 0) {
 			parentCategories = getParentCategory(currentCategory.getParentId(), new ArrayList<Category>());
 		}
@@ -219,11 +218,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductViewDTO> getProductByOrder(int category_id, String order_by, int page, int limit) {
-		
+
 		List<Object[]> results = productDAO.getProductByOrder(category_id, order_by, page, limit);
 
 		List<ProductViewDTO> productViewDTOs = convertToProductView(results);
-		
+
 		return productViewDTOs;
 	}
 
@@ -232,7 +231,7 @@ public class ProductServiceImpl implements ProductService {
 		List<Object[]> results = productDAO.getProductBySearch(terms, order_by, page, limit);
 
 		List<ProductViewDTO> productViewDTOs = convertToProductView(results);
-		
+
 		return productViewDTOs;
 	}
 

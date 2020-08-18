@@ -32,7 +32,7 @@ public class AdminCategoryController {
 	@PostMapping("/Category/List")
 	@ResponseBody
 	public List<Category> getCategories(@RequestParam(value = "keyword") String keyword, @RequestParam("page") int page) {
-		List<Category> categories = categoryService.findByCategoryName(keyword, (page - 1)*3, 3);
+		List<Category> categories = categoryService.findByCategoryName(keyword, (page - 1)*10, 10);
 		return categories;
 	}
 
@@ -40,6 +40,7 @@ public class AdminCategoryController {
 	public String getCreateCategory(Model model) {
 		model.addAttribute("breadcrumb", "Thêm danh mục");
 		model.addAttribute("category", new Category());
+		model.addAttribute("parentcategory", new Category());
 		model.addAttribute("categories", categoryService.findAll());
 		return ViewName.ADMIN_CATEGORY_FORM_PAGE;
 	}
@@ -64,7 +65,6 @@ public class AdminCategoryController {
 	
 	@PostMapping("Category/Save")
 	public String getSaveCategory(Category category) {
-		System.out.println(category);
 		categoryService.saveAndUpdate(category);
 		return "redirect:/Admin/Category/List";
 	}

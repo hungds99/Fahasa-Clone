@@ -71,4 +71,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.findByCategoryName(categoryName);
 	}
 
+	@Override
+	public Category findByParentId(int parentId) {
+		return categoryRepository.findByParentId(parentId);
+	}
+
 }

@@ -4,73 +4,78 @@ USE `petdb`;
 
 -- Category
 CREATE TABLE `category` (
-	id int auto_increment,
-    category_name nvarchar(100),
-    title nvarchar(100),
-    category_breadcrumb nvarchar(255),
-    keyword nvarchar(255),
-    descriptions nvarchar(255),
-    parent_id int NULL,
-    primary key(id)
+    id INT AUTO_INCREMENT,
+    category_name NVARCHAR(100),
+    title NVARCHAR(100),
+    category_breadcrumb NVARCHAR(255),
+    keyword NVARCHAR(255),
+    descriptions NVARCHAR(255),
+    parent_id INT NULL,
+    PRIMARY KEY (id)
 );
+
+-- Insert Category data
+INSERT INTO `category` (id, category_breadcrumb, category_name, descriptions, keyword, parent_id, title) VALUES 
+(1,'>>', 'Sách Trong Nước', 'sách hay', 'hay nhat', 0, 'Tổng hợp sách hay nhất'),
+(2,'>>', 'Văn học', 'sách hay', 'hay nhat', 1, 'Tổng hợp sách nhất');
 
 -- Discount
 CREATE TABLE `discount` (
-	id int auto_increment,
-    discount_name nvarchar(100),
-    discount_value int,
-    discount_type nvarchar(100),
-	discount_code varchar(10),
-    detail nvarchar(100),
-    primary key (id)
-); 
+    id INT AUTO_INCREMENT,
+    discount_name NVARCHAR(100),
+    discount_value INT,
+    discount_type NVARCHAR(100),
+    discount_code VARCHAR(10),
+    detail NVARCHAR(100),
+    PRIMARY KEY (id)
+);
 
 -- Promotion
 CREATE TABLE `promotion` (
-	id int auto_increment,
-    promotion_name nvarchar(100),
-    promotion_value int,
-    promotion_type nvarchar(100),
-	promotion_code varchar(10),
-    promotion_rule nvarchar(255),
-    used_valid boolean,
-    created_date date,
-    begin_date date,
-    end_date date,
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    promotion_name NVARCHAR(100),
+    promotion_value INT,
+    promotion_type NVARCHAR(100),
+    promotion_code VARCHAR(10),
+    promotion_rule NVARCHAR(255),
+    used_valid BOOLEAN,
+    created_date DATE,
+    begin_date DATE,
+    end_date DATE,
+    PRIMARY KEY (id)
 );
 
 -- Customer
 CREATE TABLE `customer` (
-	id int auto_increment,
-    name nvarchar(100),
-    address nvarchar(100),
-    gender char(1),
-    birthday date,
-    phone int,
-    email varchar(45),
-    username varchar(45),
-    password varchar(100),
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    name NVARCHAR(100),
+    address NVARCHAR(100),
+    gender CHAR(1),
+    birthday DATE,
+    phone INT,
+    email VARCHAR(45),
+    username VARCHAR(45),
+    password VARCHAR(100),
+    PRIMARY KEY (id)
 );
 
 -- Product
 CREATE TABLE `product` (
-	id int auto_increment,
-    product_name nvarchar(100),
-    product_price double,
-    product_finalprice double,
-    product_code int,
-    created_date date,
-    product_amount int,
-    product_status int,
-    product_content text,
-    highlight boolean,
-    isshowed boolean,
-    discount_id int,
-    promotion_id int,
-    category_id int,
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    product_name NVARCHAR(100),
+    product_price DOUBLE,
+    product_finalprice DOUBLE,
+    product_code INT,
+    created_date DATE,
+    product_amount INT,
+    product_status INT,
+    product_content TEXT,
+    highlight BOOLEAN,
+    isshowed BOOLEAN,
+    discount_id INT,
+    promotion_id INT,
+    category_id INT,
+    PRIMARY KEY (id)
 );
 
 -- Foreign Key 
@@ -90,13 +95,13 @@ ADD CONSTRAINT fk_product_category_id
     REFERENCES `category` (id);
     
 CREATE TABLE `image` (
-	id int auto_increment,
-    image_url varchar(255),
-    image_alt nvarchar(255),
-    display_order int,
-    product_id int,
-    promotion_id int,
-    primary key(id)
+    id INT AUTO_INCREMENT,
+    image_url VARCHAR(255),
+    image_alt NVARCHAR(255),
+    display_order INT,
+    product_id INT,
+    promotion_id INT,
+    PRIMARY KEY (id)
 );
 
 -- Foreign Key
@@ -112,47 +117,47 @@ ADD CONSTRAINT fk_image_promotion_id
 
 -- Author
 CREATE TABLE `author` (
-	id int auto_increment,
-    author_age int,
-    author_name nvarchar(100),
-    author_info text,
-    author_image nvarchar(100),
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    author_age INT,
+    author_name NVARCHAR(100),
+    author_info TEXT,
+    author_image NVARCHAR(100),
+    PRIMARY KEY (id)
 );
 
 -- Publisher 
 CREATE TABLE `publisher` (
-	id int auto_increment,
-    publisher_name nvarchar(100),
-    publisher_image nvarchar(100),
-    publisher_info nvarchar(255),
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    publisher_name NVARCHAR(100),
+    publisher_image NVARCHAR(100),
+    publisher_info NVARCHAR(255),
+    PRIMARY KEY (id)
 );
 
 -- Supplier
 CREATE TABLE `supplier` (
-	id int auto_increment,
-    supplier_name nvarchar(100),
-    supplier_image nvarchar(100),
-    primary key (id)
-); 
+    id INT AUTO_INCREMENT,
+    supplier_name NVARCHAR(100),
+    supplier_image NVARCHAR(100),
+    PRIMARY KEY (id)
+);
     
 -- Product Attribute
 CREATE TABLE `product_attribute` (
-	id int auto_increment,
-    attr_code int,
-    attr_language varchar(45),
-    attr_age int,
-    attr_layout nvarchar(100),
-    attr_page int,
-    attr_weight double,
-    attr_size varchar(100),
-    publish_year int,
-    author_id int,
-    publisher_id int,
-    supplier_id int,
-    product_id int,
-    primary key(id)
+    id INT AUTO_INCREMENT,
+    attr_code INT,
+    attr_language VARCHAR(45),
+    attr_age INT,
+    attr_layout NVARCHAR(100),
+    attr_page INT,
+    attr_weight DOUBLE,
+    attr_size VARCHAR(100),
+    publish_year INT,
+    author_id INT,
+    publisher_id INT,
+    supplier_id INT,
+    product_id INT,
+    PRIMARY KEY (id)
 );
 
 ALTER TABLE `product_attribute`
@@ -172,13 +177,13 @@ ADD CONSTRAINT fk_product_attribute_supplier_id
 
 -- Comment
 CREATE TABLE `comment` (
-	id int auto_increment,
-    content text,
-    rate int,
-    created_date date,
-    product_id int,
-    customer_id int,
-	primary key (id)
+    id INT AUTO_INCREMENT,
+    content TEXT,
+    rate INT,
+    created_date DATE,
+    product_id INT,
+    customer_id INT,
+    PRIMARY KEY (id)
 );
 
 -- Foreign Key
@@ -194,12 +199,12 @@ ADD CONSTRAINT fk_comment_customer_id
 
 -- Order
 CREATE TABLE `order` (
-	id int auto_increment,
-    order_status varchar(100),
-    created_date date,
-    paymethod varchar(100),
-    customer_id int,
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    order_status VARCHAR(100),
+    created_date DATE,
+    paymethod VARCHAR(100),
+    customer_id INT,
+    PRIMARY KEY (id)
 ); 
 
 ALTER TABLE `order`
@@ -209,12 +214,12 @@ ADD CONSTRAINT fk_order_customer_id
 
 -- Order Detail
 CREATE TABLE `order_detail` (
-	id int auto_increment,
-    order_price double,
-    order_amount int,
-    product_id int,
-    order_id int,
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    order_price DOUBLE,
+    order_amount INT,
+    product_id INT,
+    order_id INT,
+    PRIMARY KEY (id)
 );
 
 -- Foreign Key
@@ -230,18 +235,18 @@ ADD CONSTRAINT fk_order_detail_order_id
 
 -- User Admin
 CREATE TABLE `user` (
-	id int auto_increment,
-    username varchar(100),
-    email varchar(100),
-    password varchar(100),
-    primary key (id)
-); 
+    id INT AUTO_INCREMENT,
+    username VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(100),
+    PRIMARY KEY (id)
+);
 
 CREATE TABLE `role` (
-	id int auto_increment,
-    role varchar(100),
-    user_id int,
-    primary key (id)
+    id INT AUTO_INCREMENT,
+    role VARCHAR(100),
+    user_id INT,
+    PRIMARY KEY (id)
 );
 
 ALTER TABLE `role`

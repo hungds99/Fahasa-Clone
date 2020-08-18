@@ -17,5 +17,7 @@ public interface CategoryService {
 	public void saveAndUpdate(Category category);
 
 	public void deleteCategory(int id);
+	
+	public Category findByParentId(int parentId);
 
 }
